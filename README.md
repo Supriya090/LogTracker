@@ -8,6 +8,7 @@ For running the file, in terminal(bash),
 - git clone https://github.com/Supriya090/LogTracker.git
 - npm install -g express-generator(In case express was not installed)
 - npm install
-- npm start
+- npm start    
+(If you don't see error after this step, type [http://localhost:3000/](http://localhost:3000/) in the browser to see welcome page!)
 
 (Yo last step "npm start" ko saato chai I recommend nodemon. Chuttai install garnuparcha. Ani run garnalai "nodemon" matrai lekhne "npm start" ko saato)

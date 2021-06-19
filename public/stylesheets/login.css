@@ -1,0 +1,83 @@
+.container.login-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 800px;
+  padding: 0px 50px;
+  color: #fff;
+}
+
+.container.login-page .card {
+  background-color: #1a2226;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/* .container.login-page .card .card-header{
+  background-color: #1a2226;
+} */
+
+.nav-tabs .nav-item .nav-link {
+  color: #fff;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+  background-color: #04a4e4;
+  border-color: #1a2226;
+}
+
+.nav-link.disabled {
+  padding-right: 100px;
+}
+.hidden {
+  display: none;
+}
+
+.login-body-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+}
+
+.login-body-top img {
+  height: 80px;
+  width: 80px;
+}
+
+.login-form {
+  padding: 0 60px;
+  text-align: left;
+  color: #fff;
+}
+
+.login-form label {
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.login-form input {
+  margin-bottom: 30px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0px;
+  border-bottom: #04a4e4 solid 2px;
+  color: #fff;
+}
+
+.login-form input:focus {
+  color: #fff;
+  background-color: transparent;
+  outline: none;
+}
+
+.btn.login-btn {
+  margin: 20px;
+  color: #04a4e4;
+  border: #04a4e4 solid 1px;
+}
+
+.btn.login-btn:hover {
+  background-color: #37464d;
+  border: none;
+}

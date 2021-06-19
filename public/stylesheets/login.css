@@ -71,7 +71,12 @@
   outline: none;
 }
 
+.button-div {
+  text-align: center;
+}
+
 .btn.login-btn {
+  text-align: center;
   margin: 20px;
   color: #04a4e4;
   border: #04a4e4 solid 1px;

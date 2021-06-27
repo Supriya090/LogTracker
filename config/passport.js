@@ -31,11 +31,11 @@ module.exports = function (passport) {
                   password: doc.password,
                 });
               } else {
-                console.log("User not found");
-                return done(null, false, { message: "User not found" });
+                console.log("Incorrect Password");
+                return done(null, false, { message: "Incorrect password" });
               }
             } else {
-              console.log("Error Finding You !!!");
+              console.log("User not found");
               return done(null, false, { message: "User not found" });
             }
           }

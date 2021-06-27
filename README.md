@@ -1,6 +1,6 @@
 # LogTracker
 
-First install node, express, mongodb(yo chai ahile chaidaina, pachi lai)  
+First install node, express, mongodb  
 These [links](https://docs.google.com/document/d/1wFzZvV80_edrKhkhmSEIkArUP7TZeEpteUr8y3tbejI/edit?ts=5f8d5932) might be helpful!
 
 For running the file, in terminal(bash),

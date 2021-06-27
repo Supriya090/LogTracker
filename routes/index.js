@@ -17,6 +17,15 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
+//to verify login and protecting from login bypass
+var loggedin = function(req, res, next){
+  if(req.isAuthenticated()){
+    next()
+  }
+  else{
+    res.redirect("/")
+  }
+}
 /* GET home page. */
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Log Tracker | Login" });
@@ -36,6 +45,22 @@ router.post("/save", upload.array("uploadedFiles", 10), function (req, res) {
     console.log("files uploaded");
   }
   console.log(req.body);
+  res.redirect("/");
+});
+
+/* GET signup page. */
+router.get("/signup", function (req, res, next) {
+  res.render("signup", { title: "Log Tracker | Sign Up" });
+});
+
+/* GET Dashboard. */
+router.get("/dashboard", loggedin, function (req, res, next) {
+  res.send(req.session);
+});
+
+/* Logout Session. */
+router.get("/logout",function(req, res, next){
+  req.logout();
   res.redirect("/");
 });
 

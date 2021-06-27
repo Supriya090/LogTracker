@@ -4,17 +4,18 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
-var dotenv = require('dotenv');
-var connectDB = require('./config/mongo');
-var session = require('express-session');
-var passport = require('passport');
+var dotenv = require("dotenv");
+var connectDB = require("./config/mongo");
+var flash = require("connect-flash");
+var session = require("express-session");
+var passport = require("passport");
 
 //Passport configs
-require('./passport')(passport)
+require("./config/passport")(passport);
 
 //Load configs
-dotenv.config({ path: './config/config.env' });
-connectDB()
+dotenv.config({ path: "./config/config.env" });
+connectDB();
 
 //Routes
 var indexRouter = require("./routes/index");
@@ -34,15 +35,26 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 //Sessions
-app.use(session({
-  secret: process.env.Secret,
-  saveUninitialized: false,
-  resave: false
-}));
+app.use(
+  session({
+    secret: process.env.Secret,
+    saveUninitialized: false,
+    resave: false,
+  })
+);
 
 //Passport middlewares
-app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Connect flash
+app.use(flash());
+
+// Global variables
+app.use(function (req, res, next) {
+  res.locals.error = req.flash("error");
+  next();
+});
 
 // Body parser
 // parse application/x-www-form-urlencoded

@@ -49,7 +49,7 @@ router.post("/save", upload.array("uploadedFiles", 10), function (req, res) {
     console.log("files uploaded");
   }
   console.log(req.body);
-  res.redirect("/");
+  res.redirect("/student");
 });
 
 /* GET signup page. */

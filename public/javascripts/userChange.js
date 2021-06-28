@@ -9,4 +9,10 @@ $(document).ready(function (e) {
     var viewName = $(this).attr("data-launch-view");
     showView(viewName);
   });
+
+  $("[studentData-launch-view]").click(function (e) {
+    e.preventDefault();
+    var viewName = $(this).attr("studentData-launch-view");
+    showView(viewName);
+  });
 });

@@ -1,7 +1,9 @@
+/* Navbar Begins */
 .navbar.sticky-top {
   background-color: transparent;
   padding: 15px 45px;
   margin-bottom: 10px;
+  box-shadow: 0 2px 2px -2px #999;
 }
 
 .navbar.sticky-top a.navbar-brand {
@@ -19,10 +21,93 @@
   height: 60px;
 }
 
-.btn.btn-outline-primary.logout-btn {
+.btn.btn-primary.logout-btn {
   margin-right: 30px;
   background-color: #37464d;
   border: none;
   font-weight: bold;
   color: #04a4e4;
 }
+/* Navbar Begins */
+
+/* Student Dashboard Begins */
+.student-dashboard {
+  color: white;
+  text-align: center;
+}
+
+.buttons-div {
+  margin-bottom: 20px;
+}
+
+.semBtn {
+  margin: 10px 20px;
+  border: none;
+  background-color: #37464d;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.semBtn:focus {
+  border: none;
+  outline: none;
+}
+.activeBtn {
+  background-color: #f0f0ed;
+  color: #37464d;
+}
+/* Student Dashboard Begins */
+
+/* Add Minutes Page Begins */
+body.minute-body {
+  background-color: #1f3750;
+  color: white;
+}
+
+.container h3 {
+  margin: 30px 0;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.container .card {
+  padding: 30px;
+  margin-bottom: 40px;
+  background-color: #1a2226;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.minute-form div.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.minute-form div.form-group:nth-child(1) {
+  flex-direction: row;
+}
+
+.minute-form div label {
+  font-size: 18px;
+  margin: 15px 20px 15px 0px;
+}
+
+.minute-form input {
+  width: 60%;
+}
+
+.minute-form div #cke_description {
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.minute-form div.form-group:nth-child(3) input {
+  border: none;
+  max-width: fit-content;
+}
+
+.minute-form .verification-button {
+  text-align: right;
+}
+/* Add Minutes Page Ends */

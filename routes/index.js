@@ -57,7 +57,7 @@ router.post("/save", loggedin, upload.array("uploadedFiles", 10), function (req,
     console.log("files uploaded");
   }
   console.log(req.body);
-  res.redirect("/");
+  res.redirect("/student");
 });
 
 /* GET signup page. */

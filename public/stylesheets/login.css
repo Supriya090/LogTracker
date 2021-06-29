@@ -86,3 +86,19 @@
   background-color: #37464d;
   border: none;
 }
+
+.alert.alert-danger {
+  display: flex;
+  margin: auto;
+  width: 50%;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+}
+
+.close {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  float: right;
+}

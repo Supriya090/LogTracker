@@ -1,7 +1,7 @@
 /* Navbar Begins */
 .navbar.sticky-top {
   background-color: transparent;
-  padding: 15px 45px;
+  padding: 15px 60px;
   margin-bottom: 10px;
   box-shadow: 0 2px 2px -2px #999;
 }
@@ -33,7 +33,6 @@
 /* Student Dashboard Begins */
 .student-dashboard {
   color: white;
-  text-align: center;
 }
 
 .buttons-div {
@@ -58,7 +57,62 @@
   background-color: #f0f0ed;
   color: #37464d;
 }
-/* Student Dashboard Begins */
+
+.view h5 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.view div.card {
+  margin: 20px 0 40px 0;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.project-card h4 {
+  font-weight: 500;
+}
+
+.project-card p {
+  text-transform: uppercase;
+}
+.stretched-link::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: auto;
+  content: "";
+  background-color: rgba(0, 0, 0, 0);
+}
+/* Student Dashboard Ends */
+
+/* Student Each Project Begins */
+.container.each-project {
+  color: white;
+}
+.container.each-project h3 {
+  text-transform: uppercase;
+  margin: 20px 0 5px 0;
+  font-weight: 400;
+}
+
+.container.each-project h5 {
+  font-weight: 300;
+}
+
+.student-log-details {
+  margin: 30px 0 5px 0;
+}
+
+/* Student Each Project Ends */
 
 /* Add Minutes Page Begins */
 body.minute-body {

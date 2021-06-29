@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body style="background-color: #1F3750;">
+    <%- include('partials/header') %>
+        <div class="container each-project">
+            <h3>
+                PROJECT'S NAME
+            </h3>
+            <h5>
+                Detailed Logs
+            </h5>
+
+            <div class="row student-log-details">
+                <div class="col-8 minutes-list">
+                    <div class="card ">
+                        <h4 class="card-title">Log Tracker</h4>
+                    </div>
+                </div>
+                <div class="col-4 events-list">
+                    <div class="card ">
+                        <h4 class="card-title">Upcoming Events</h4>
+                        <a type="button" class="btn btn-primary" href="/student/eachProject/addMinutes"> Add Minutes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/javascripts/userChange.js"></script>
+        <script src="/javascripts/linkActive.js"></script>
+</body>
+
+</html>

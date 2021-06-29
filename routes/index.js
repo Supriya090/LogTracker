@@ -37,8 +37,13 @@ router.get("/student", function (req, res, next) {
   res.render("studentView", { title: "Student View | Log Tracker" });
 });
 
+/* GET Individual Project */
+router.get("/student/eachProject", function (req, res, next) {
+  res.render("eachProject", { title: "Project | Log Tracker" });
+});
+
 /* GET Student Minutes */
-router.get("/student/addMinutes", function (req, res, next) {
+router.get("/student/eachProject/addMinutes", function (req, res, next) {
   res.render("addMinutes", { title: "Add Minutes | Log Tracker" });
 });
 

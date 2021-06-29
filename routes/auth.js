@@ -8,6 +8,7 @@ module.exports = function (passport) {
     let errors = [];
 
     var body = req.body,
+      //fullname = body.fullname,
       username = body.username,
       password = body.password;
 
@@ -25,6 +26,7 @@ module.exports = function (passport) {
         } else {
           //Create new user
           var record = new User();
+          //record.fullname = fullname;
           record.username = username;
           record.password = record.hashPassword(password); //access method
           record.save(function (err, user) {
@@ -45,7 +47,7 @@ module.exports = function (passport) {
     "/login",
     passport.authenticate("local", {
       failureRedirect: "/",
-      successRedirect: "/dashboard",
+      successRedirect: "/student",
       failureFlash: true,
     }),
     function (req, res) {

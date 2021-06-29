@@ -18,7 +18,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-//to verify login and protecting from login bypass
+//to verify login
 var loggedin = function (req, res, next) {
   if (req.isAuthenticated()) {
     next();
@@ -26,24 +26,32 @@ var loggedin = function (req, res, next) {
     res.redirect("/");
   }
 };
+//to protecting from login bypass
+var ensureAuth = function(req, res, next){
+  if(!req.isAuthenticated()) {
+    return next();
+  }else {
+    res.redirect("/student");
+  }
+};
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
+router.get("/", ensureAuth, function (req, res, next) {
   res.render("index", { title: "Log Tracker | Login" });
 });
 
 /* GET Student Dashboard. */
-router.get("/student", function (req, res, next) {
-  res.render("studentView", { title: "Student View | Log Tracker" });
+router.get("/student", loggedin, function (req, res, next) {
+  res.render("studentView", { title: "Student View | Log Tracker", firstname: req.user.username.split(' ')[0] });
 });
 
 /* GET Student Minutes */
-router.get("/student/addMinutes", function (req, res, next) {
+router.get("/student/addMinutes", loggedin, function (req, res, next) {
   res.render("addMinutes", { title: "Add Minutes | Log Tracker" });
 });
 
 /* Displays data added in minutes in console & saves uploaded files in uploads */
-router.post("/save", upload.array("uploadedFiles", 10), function (req, res) {
+router.post("/save", loggedin, upload.array("uploadedFiles", 10), function (req, res) {
   if (req.files) {
     console.log(req.files);
     console.log("files uploaded");
@@ -53,17 +61,12 @@ router.post("/save", upload.array("uploadedFiles", 10), function (req, res) {
 });
 
 /* GET signup page. */
-router.get("/signup", function (req, res, next) {
+router.get("/signup", ensureAuth, function (req, res, next) {
   res.render("signup", { title: "Log Tracker | Sign Up" });
 });
 
-/* GET Admin Dashboard. */
-router.get("/dashboard", loggedin, function (req, res, next) {
-  res.send(req.session);
-});
-
 /* Logout Session. */
-router.get("/logout", function (req, res, next) {
+router.get("/logout", loggedin, function (req, res, next) {
   req.logout();
   res.redirect("/");
 });

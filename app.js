@@ -8,6 +8,8 @@ var dotenv = require("dotenv");
 var connectDB = require("./config/mongo");
 var flash = require("connect-flash");
 var session = require("express-session");
+var mongoose = require("mongoose");
+var MongoStore = require("connect-mongo");
 var passport = require("passport");
 
 //Passport configs
@@ -40,8 +42,10 @@ app.use(
     secret: process.env.Secret,
     saveUninitialized: false,
     resave: false,
+    store: MongoStore.create({ mongoUrl: process.env.Mongo_URI })
   })
 );
+
 
 //Passport middlewares
 app.use(passport.initialize());

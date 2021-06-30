@@ -17,7 +17,9 @@ module.exports = function (passport) {
       function (username, password, done) {
         //done is used to verify callback
         //Our Strategy goes here (find in database)
-        User.findOne({ username: username }, function (err, doc) {
+        User.findOne({
+          username: username
+        }, function (err, doc) {
           if (err) {
             done(err);
             console.log("Error Logging !!");
@@ -25,6 +27,7 @@ module.exports = function (passport) {
             if (doc) {
               //document is present
               var valid = doc.comparePassword(password, doc.password);
+              // console.log(doc)
               if (valid) {
                 done(null, {
                   username: doc.username,
@@ -33,11 +36,15 @@ module.exports = function (passport) {
                 });
               } else {
                 console.log("Incorrect Password");
-                return done(null, false, { message: "Incorrect password" });
+                return done(null, false, {
+                  message: "Incorrect password"
+                });
               }
             } else {
               console.log("User not found");
-              return done(null, false, { message: "User not found" });
+              return done(null, false, {
+                message: "User not found"
+              });
             }
           }
         });

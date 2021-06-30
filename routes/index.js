@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var multer = require("multer");
-const path = require("path");
+var User = require("../models/User")
 
 
 //to verify login
@@ -13,47 +12,76 @@ var loggedin = function (req, res, next) {
   }
 };
 //to protecting from login bypass
-var ensureAuth = function(req, res, next){
-  if(!req.isAuthenticated()) {
+var ensureAuth = function (req, res, next) {
+  if (!req.isAuthenticated()) {
     return next();
-  }else {
-    res.redirect("/student");
+  } else {
+    res.redirect("/dashboard");
   }
 };
 
+/* GET Dashboard. */
+router.get("/dashboard", loggedin, function (req, res, next) {
+  // User.getUser(req.user.username)
+  User.findOne({
+    username: req.user.username
+  }, function (err, user) {
+    console.log(user._id)
+    if (err) {
+      return next(err)
+    } else if (user) {
+      if (user.userstatus == "student") {
+        res.render("studentView", {
+          title: "Student View | Log Tracker",
+          firstname: user.username.split(' ')[0]
+        });
+      } else if (user.userstatus == "admin") {
+        // res.render('/admin')
+        res.send(user);
+      } else if (user.userstatus == "teacher") {
+        // res.redirect('/teacher')
+        res.send(user);
+      }
+
+    }
+  })
+
+});
+
+
 /* GET home page. */
 router.get("/", ensureAuth, function (req, res, next) {
-  res.render("index", { title: "Log Tracker | Login" });
+  res.render("index", {
+    title: "Log Tracker | Login"
+  });
 });
 
 /* GET Student Dashboard. */
-router.get("/student", loggedin, function (req, res, next) {
-  res.render("studentView", { title: "Student View | Log Tracker", firstname: req.user.username.split(' ')[0] });
-});
+// router.get("/student", loggedin, function (req, res, next) {
+//   res.render("studentView", { title: "Student View | Log Tracker", firstname: req.user.username.split(' ')[0] });
+// });
 
 /* GET Individual Project */
 router.get("/student/eachProject", function (req, res, next) {
-  res.render("eachProject", { title: "Project | Log Tracker", firstname: req.user.username.split(' ')[0] });
+  res.render("eachProject", {
+    title: "Project | Log Tracker",
+    firstname: req.user.username.split(' ')[0]
+  });
 });
 
 /* GET Student Minutes */
 router.get("/student/eachProject/addMinutes", function (req, res, next) {
-  res.render("addMinutes", { title: "Add Minutes | Log Tracker", firstname: req.user.username.split(' ')[0] });
+  res.render("addMinutes", {
+    title: "Add Minutes | Log Tracker",
+    firstname: req.user.username.split(' ')[0]
+  });
 });
-
-/* Displays data added in minutes in console & saves uploaded files in uploads */
-// router.post("/save", upload.array("uploadedFiles", 10), function (req, res) {
-//   if (req.files) {
-//     console.log(req.files);
-//     console.log("files uploaded");
-//   }
-//   console.log(req.body);
-//   res.redirect("/student");
-// });
 
 /* GET signup page. */
 router.get("/signup", ensureAuth, function (req, res, next) {
-  res.render("signup", { title: "Log Tracker | Sign Up" });
+  res.render("signup", {
+    title: "Log Tracker | Sign Up"
+  });
 });
 
 /* Logout Session. */

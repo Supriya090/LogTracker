@@ -35,20 +35,12 @@ module.exports = function (passport) {
             if (err) {
               res.status(500).send("Database error occured")
             } 
-            else if(status=="admin")
+            else
             {
-              res.render('/admin')
-              res.send(user);
+              // res.render('/admin')
+              res.redirect('/');
             }
-            else if(status=="teacher")
-            {
-              res.redirect('/teacher')
-              res.send(user);
-            }
-            else if(status=="student")
-            {
-              res.redirect('/student',{username: username})
-            }
+        
           });
         }
       }
@@ -60,7 +52,7 @@ module.exports = function (passport) {
     "/login",
     passport.authenticate("local", {
       failureRedirect: "/",
-      successRedirect: "/student",
+      successRedirect: "/dashboard",
       failureFlash: true,
     }),
     function (req, res) {

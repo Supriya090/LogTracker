@@ -9,6 +9,7 @@ var connectDB = require("./config/mongo");
 var flash = require("connect-flash");
 var session = require("express-session");
 var passport = require("passport");
+const multer = require("multer");
 
 //Passport configs
 require("./config/passport")(passport);
@@ -21,6 +22,7 @@ connectDB();
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth")(passport);
+var minuteRouter = require("./routes/minute")
 
 var app = express();
 
@@ -56,17 +58,21 @@ app.use(function (req, res, next) {
   next();
 });
 
+// parse application/json
+app.use(bodyParser.json());
+
 // Body parser
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// parse application/json
-app.use(bodyParser.json());
+// app.use(form.array())
 
 //@Routers
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
+app.use("/auth", authRouter);
+app.use("/minute", minuteRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

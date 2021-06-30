@@ -11,9 +11,9 @@ module.exports = function (passport) {
       username = body.username,
       password = body.password;
 
-    if (!username || !password) {
-      errors.push({ msg: "Please fill in all fields" });
-    }
+      if (!username || !password) {
+        errors.push({ msg: "Please fill in all fields" });
+      }
 
     User.findOne({ username: username }, function (err, doc) {
       if (err) {

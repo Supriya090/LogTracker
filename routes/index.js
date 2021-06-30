@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var multer = require("multer");
 const path = require("path");
+var Minute = require("../models/Minute");
 
 // For storing the chosen attachments in uploads
 var storage = multer.diskStorage({
@@ -48,14 +49,14 @@ router.get("/student/eachProject/addMinutes", function (req, res, next) {
 });
 
 /* Displays data added in minutes in console & saves uploaded files in uploads */
-router.post("/save", upload.array("uploadedFiles", 10), function (req, res) {
-  if (req.files) {
-    console.log(req.files);
-    console.log("files uploaded");
-  }
-  console.log(req.body);
-  res.redirect("/student");
-});
+// router.post("/save", upload.array("uploadedFiles", 10), function (req, res) {
+//   if (req.files) {
+//     console.log(req.files);
+//     console.log("files uploaded");
+//   }
+//   console.log(req.body);
+//   res.redirect("/student");
+// });
 
 /* GET signup page. */
 router.get("/signup", function (req, res, next) {
@@ -72,5 +73,6 @@ router.get("/logout", function (req, res, next) {
   req.logout();
   res.redirect("/");
 });
+
 
 module.exports = router;

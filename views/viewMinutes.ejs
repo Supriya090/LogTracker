@@ -1,0 +1,26 @@
+
+<% if( Array.isArray(minutes) ) { %>
+    <ul>
+    <%minutes.forEach( function( minutes ){ %>
+    <div>
+        <h1><%= minutes.title%></h1>
+        <h3><%= minutes.createdDate%></h3>
+        <h3><%= minutes.createdBy%></h3>
+        <div><%= minutes.description%></div>
+
+    </div>
+    <h5>Uploaded Images</h5>
+    <div>
+        <% minutes.attachment.forEach(function(file) { %>
+        <div>
+            <div>
+                <img src="data:file/<%=file.docs.contentType%>;base64,
+                     <%=file.docs.data.toString('base64')%>">
+                <div>
+                    <h5>File name: <%= file.name %></h5>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+    <% })} %>

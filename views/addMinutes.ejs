@@ -20,11 +20,12 @@
                 <form method="POST" action="/minute/save" class="login-form minute-form" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">Title : </label>
-                        <input type="" class="form-control" id="title" name="title">
+                        <input type="" class="form-control" id="title" name="title" required>
                     </div>
                     <div class="form-group">
                         <label for="college">Description:</label>
-                        <textarea type="string" class="form-control" id="description" name="description"> </textarea>
+                        <textarea type="string" class="form-control" id="description" name="description"
+                            required> </textarea>
                     </div>
                     <div class="form-group">
                         <label for="college">Add Attachments</label>
@@ -34,6 +35,7 @@
                     <div class="verification-button">
                         <button class="btn btn-primary logout-btn" name="action" type="submit">Ask Verification</button>
                     </div>
+                    <%- include('partials/messages') %>
                 </form>
             </div>
         </div>
@@ -42,8 +44,14 @@
             CKEDITOR.replace('description', {
                 plugins: "wysiwygarea, toolbar, basicstyles, link, list"
             })
-            var data = CKEDITOR.instances["description"].getData();
-            console.log("Data Test" + data)
+            $("form").submit(function (e) {
+                var messageLength = CKEDITOR.instances['description'].getData().replace(/<[^>]*>/gi, '').length;
+                console.log(messageLength)
+                if (!messageLength) {
+                    alert('Do not leave description blank');
+                    e.preventDefault();
+                }
+            });
         </script>
 </body>
 

@@ -1,8 +1,5 @@
 var express = require("express");
 var router = express.Router();
-var multer = require("multer");
-const path = require("path");
-
 
 //to verify login
 var loggedin = function (req, res, next) {
@@ -40,16 +37,6 @@ router.get("/student/eachProject", function (req, res, next) {
 router.get("/student/eachProject/addMinutes", function (req, res, next) {
   res.render("addMinutes", { title: "Add Minutes | Log Tracker", firstname: req.user.username.split(' ')[0] });
 });
-
-/* Displays data added in minutes in console & saves uploaded files in uploads */
-// router.post("/save", upload.array("uploadedFiles", 10), function (req, res) {
-//   if (req.files) {
-//     console.log(req.files);
-//     console.log("files uploaded");
-//   }
-//   console.log(req.body);
-//   res.redirect("/student");
-// });
 
 /* GET signup page. */
 router.get("/signup", ensureAuth, function (req, res, next) {

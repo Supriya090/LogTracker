@@ -67,7 +67,7 @@ app.use(bodyParser.json());
 
 // Body parser
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(form.array())
 

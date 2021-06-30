@@ -1,6 +1,9 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/User")
+const download = require('download');
+var path = require("path");
+
 
 
 //to verify login
@@ -22,6 +25,7 @@ var ensureAuth = function (req, res, next) {
 
 /* GET Dashboard. */
 router.get("/dashboard", loggedin, function (req, res, next) {
+  console.log(req.body);
   // User.getUser(req.user.username)
   User.findOne({
     username: req.user.username
@@ -48,24 +52,31 @@ router.get("/dashboard", loggedin, function (req, res, next) {
 
 });
 
-router.get('/download', function(req, res){
-  const fileData = req.body.data
-  const fileName = 'download'
-  const fileType = req.body.content
+router.get('/download', function(req, res, next){
+  console.log(req.body)
+  file = 'https://ipfs.io/ipfs/'+String(req.body.data)
+  const filePath = path.join(__dirname, '..' + '/public/uploads');
+  
+res.send(file)
 
-  res.writeHead(200, {
-    'Content-Disposition': `attachment; filename="${fileName}"`,
-    'Content-Type': fileType,
-  })
-
-  const download = Buffer.from(fileData, 'base64')
-  res.end(download)
-  // res.download(req.body.file);
 });
+
+
+
+// var download = function(url, dest, cb) {
+//   var file = fs.createWriteStream(dest);
+//   http.get(url, function(response) {
+//     response.pipe(file);
+//     file.on('finish', function() {
+//       file.close(cb);
+//     });
+//   });
+// }
 
 
 /* GET home page. */
 router.get("/", ensureAuth, function (req, res, next) {
+  
   res.render("index", {
     title: "Log Tracker | Login"
   });

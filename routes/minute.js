@@ -22,29 +22,32 @@ router.post('/save', upload.array('uploadedFiles', 10), (req, res, next) => {
     var description = req.body.description
     var img = new Array()
 
-    for (let i = 0; i < req.files.length; i++) {
-      var file = {
-        name: req.files[i].filename,
-        docs: {
-          data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.files[i].filename)),
-          contentType: req.files[i].mimetype
+        for (let i = 0; i < req.files.length; i++) {
+          var file = {
+            name:req.files[i].filename,
+            docs:{
+                  data: fs.readFileSync(path.join(__dirname, '..' + '/public/uploads/' + req.files[i].filename)),
+                  contentType: req.files[i].mimetype
+            }
+          }
+          img.push(file)  
         }
       }
       img.push(file)
 
-    }
+
+        if (!title || !description) {
+            errors.push({ msg: "Please fill in all fields" });
+        }
+
+        const minute = new Minute()
+        //minute.projectId = "project id"
+        minute.title = title
+        minute.description = description
+        minute.attachment = img
+        minute.createdBy = req.user.username
+  
     console.log(title)
-
-    if (!title || !description) {
-      errors.push({ msg: "Please fill in all fields" });
-    }
-
-    const minute = new Minute()
-    // minute.projectId = "project id"
-    minute.title = title
-    minute.description = description
-    minute.attachment = img
-    // minute.createdBy = "user"
 
     Minute.createMinute(minute, function (err, minutes) {
       //Save to database

@@ -8,6 +8,7 @@ module.exports = function (passport) {
     let errors = []
 
     var body = req.body,
+      //fullname = body.fullname,
       username = body.username,
       password = body.password,
       status = body.userstatus
@@ -59,7 +60,7 @@ module.exports = function (passport) {
     "/login",
     passport.authenticate("local", {
       failureRedirect: "/",
-      successRedirect: "/dashboard",
+      successRedirect: "/student",
       failureFlash: true,
     }),
     function (req, res) {

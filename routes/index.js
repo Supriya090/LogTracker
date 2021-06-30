@@ -4,7 +4,7 @@ var multer = require("multer");
 const path = require("path");
 
 
-//to verify login and protecting from login bypass
+//to verify login
 var loggedin = function (req, res, next) {
   if (req.isAuthenticated()) {
     next();
@@ -12,25 +12,33 @@ var loggedin = function (req, res, next) {
     res.redirect("/");
   }
 };
+//to protecting from login bypass
+var ensureAuth = function(req, res, next){
+  if(!req.isAuthenticated()) {
+    return next();
+  }else {
+    res.redirect("/student");
+  }
+};
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
+router.get("/", ensureAuth, function (req, res, next) {
   res.render("index", { title: "Log Tracker | Login" });
 });
 
 /* GET Student Dashboard. */
-router.get("/student", function (req, res, next) {
-  res.render("studentView", { title: "Student View | Log Tracker" });
+router.get("/student", loggedin, function (req, res, next) {
+  res.render("studentView", { title: "Student View | Log Tracker", firstname: req.user.username.split(' ')[0] });
 });
 
 /* GET Individual Project */
 router.get("/student/eachProject", function (req, res, next) {
-  res.render("eachProject", { title: "Project | Log Tracker" });
+  res.render("eachProject", { title: "Project | Log Tracker", firstname: req.user.username.split(' ')[0] });
 });
 
 /* GET Student Minutes */
 router.get("/student/eachProject/addMinutes", function (req, res, next) {
-  res.render("addMinutes", { title: "Add Minutes | Log Tracker" });
+  res.render("addMinutes", { title: "Add Minutes | Log Tracker", firstname: req.user.username.split(' ')[0] });
 });
 
 /* Displays data added in minutes in console & saves uploaded files in uploads */
@@ -44,17 +52,12 @@ router.get("/student/eachProject/addMinutes", function (req, res, next) {
 // });
 
 /* GET signup page. */
-router.get("/signup", function (req, res, next) {
+router.get("/signup", ensureAuth, function (req, res, next) {
   res.render("signup", { title: "Log Tracker | Sign Up" });
 });
 
-/* GET Admin Dashboard. */
-router.get("/dashboard", loggedin, function (req, res, next) {
-  res.send(req.session);
-});
-
 /* Logout Session. */
-router.get("/logout", function (req, res, next) {
+router.get("/logout", loggedin, function (req, res, next) {
   req.logout();
   res.redirect("/");
 });

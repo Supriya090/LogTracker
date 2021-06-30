@@ -8,6 +8,8 @@ var dotenv = require("dotenv");
 var connectDB = require("./config/mongo");
 var flash = require("connect-flash");
 var session = require("express-session");
+var mongoose = require("mongoose");
+var MongoStore = require("connect-mongo");
 var passport = require("passport");
 const multer = require("multer");
 
@@ -43,6 +45,7 @@ app.use(
     secret: process.env.Secret,
     saveUninitialized: false,
     resave: false,
+    store: MongoStore.create({ mongoUrl: process.env.Mongo_URI })
   })
 );
 

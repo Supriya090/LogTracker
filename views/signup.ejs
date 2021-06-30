@@ -13,6 +13,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 
+
 <body style="background-color: #1F3750;">
   <div class="container login-page">
     <div class="card text-center">
@@ -20,13 +21,24 @@
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Sign Up</a>
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">SignUp As</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="true" href="/" data-launch-view="admin">Admin</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="true" href="#" data-launch-view="teacher">Teacher</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="true" href="#" data-launch-view="student">Student</a>
           </li>
         </ul>
       </div>
-
       <!-- User Views -->
       <%- include('partials/adminSignup') %>
+      <%- include('partials/studentSignup') %>
+      <%- include('partials/teacherSignup') %>
+
 
     </div>
   </div>

@@ -2,22 +2,7 @@ var express = require("express");
 var router = express.Router();
 var multer = require("multer");
 const path = require("path");
-var Minute = require("../models/Minute");
 
-// For storing the chosen attachments in uploads
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
-
-var upload = multer({ storage: storage });
 
 //to verify login and protecting from login bypass
 var loggedin = function (req, res, next) {

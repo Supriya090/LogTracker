@@ -6,10 +6,17 @@ var path = require("path");
 var fs = require('fs');
 var upload = require("../middleware/multer")
 
+const IPFS = require('ipfs-api');
+const ipfs = new IPFS({ 
+    host: 'ipfs.infura.io', 
+    port: 5001, 
+    protocol: 'https' 
+});
+
 //process minute form
 // POST /minutes/add
 
-router.post('/save', upload.array('uploadedFiles',10),(req, res, next) =>{
+router.post('/save', upload.array('uploadedFiles',10), async(req, res, next) =>{
     console.log("save")
     try
     {
@@ -24,17 +31,23 @@ router.post('/save', upload.array('uploadedFiles',10),(req, res, next) =>{
         var img = new Array()
 
         for (let i = 0; i < req.files.length; i++) {
+          var data = fs.readFileSync(path.join(__dirname, '..' + '/public/uploads/' + req.files[i].filename))
+          // let reader = new fs.FileReader();
+          // reader.readAsArrayBuffer(data);
+          const filehash = await addFile(data);
+          let url="https://ipfs.io/ipfs/"+filehash;
+          // return res.send(url.toString())
           var file = {
             name:req.files[i].filename,
             docs:{
-                  data: fs.readFileSync(path.join(__dirname, '..' + '/public/uploads/' + req.files[i].filename)),
+                  url: filehash,
                   contentType: req.files[i].mimetype
             }
           }
           img.push(file)  
           
         }
-        console.log(title)
+        // console.log(title)
 
         if (!title || !description) {
             errors.push({ msg: "Please fill in all fields" });
@@ -66,6 +79,13 @@ router.post('/save', upload.array('uploadedFiles',10),(req, res, next) =>{
     }
     
 })
+
+const addFile = async(content) =>{
+  const fileAdded = await ipfs.files.add(Buffer.from(content))
+  console.log(fileAdded[0])
+  return fileAdded[0].hash
+
+}
 
 router.use('/getall', (req, res, next) => {
     Minute.getMinutesbyPid('todo',function(err, minutes){

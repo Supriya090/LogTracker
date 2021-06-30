@@ -48,6 +48,21 @@ router.get("/dashboard", loggedin, function (req, res, next) {
 
 });
 
+router.get('/download', function(req, res){
+  const fileData = req.body.data
+  const fileName = 'download'
+  const fileType = req.body.content
+
+  res.writeHead(200, {
+    'Content-Disposition': `attachment; filename="${fileName}"`,
+    'Content-Type': fileType,
+  })
+
+  const download = Buffer.from(fileData, 'base64')
+  res.end(download)
+  // res.download(req.body.file);
+});
+
 
 /* GET home page. */
 router.get("/", ensureAuth, function (req, res, next) {

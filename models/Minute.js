@@ -30,7 +30,7 @@ var MinuteSchema = new mongoose.Schema({
       {
           name:String,
          docs:{
-            data: Buffer,
+            url: String,
             contentType: String
       }
 }],

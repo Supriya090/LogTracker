@@ -50,14 +50,14 @@ router.post('/save', upload.array('uploadedFiles', 10), (req, res, next) => {
       if (err) {
         res.status(500).send("Database error occured");
       } else {
-        res.send(minutes);
+        res.redirect("/student/eachProject");
       }
     }
     )
   }
   catch (err) {
     console.error(err)
-    res.redirect("/student");
+    res.redirect("/student/eachProject");
     // res.render
 
   }

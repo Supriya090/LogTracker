@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/User")
-
+var Minute = require("../models/Minute");
 
 //to verify login
 var loggedin = function (req, res, next) {
@@ -55,6 +55,33 @@ router.get("/", ensureAuth, function (req, res, next) {
     title: "Log Tracker | Login"
   });
 });
+
+/* GET Student Dashboard. */
+// router.get("/student", loggedin, function (req, res, next) {
+//   res.render("studentView", { title: "Student View | Log Tracker", firstname: req.user.username.split(' ')[0] });
+// });
+
+/* GET Individual Project */
+router.get("/student/eachProject", function (req, res, next) {
+  Minute.getMinutesbyPid('todo', function (err, minutes) {
+    if (err) {
+      return next(err)
+    }
+    else {
+      res.render('eachProject', { minutes: minutes, title: "Project | Log Tracker", firstname: req.user.username.split(' ')[0] });
+    }
+  })
+});
+
+/* GET Student Minutes */
+router.get("/student/eachProject/addMinutes", function (req, res, next) {
+  res.render("addMinutes", {
+    title: "Add Minutes | Log Tracker",
+    firstname: req.user.username.split(' ')[0]
+  });
+});
+
+
 
 /* GET signup page. */
 router.get("/signup", ensureAuth, function (req, res, next) {

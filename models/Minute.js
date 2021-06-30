@@ -2,13 +2,10 @@ var mongoose = require('mongoose')
 
 
 //Models
-var minuteSchema = new mongoose.Schema({
-  users: [{
+var MinuteSchema = new mongoose.Schema({
+  projectId: {
     type: String,
-    required: true,
-  }],
-  projectname: {
-    type: String,
+    default: 'todo',
     required: true,
   },
   createdDate: {
@@ -29,49 +26,56 @@ var minuteSchema = new mongoose.Schema({
       type: String,
       required: true
   },
+  attachment: [
+      {
+          name:String,
+         docs:{
+            data: Buffer,
+            contentType: String
+      }
+}],
   createdBy: {
       type: String,
-      required: true
+      default: 'username'
+    //   required: true
   },
   updatedBy: {
       type:String,
+      default: 'updater',
       required: true
   }
 })
 
 
-var Minutes = module.exports = mongoose.model('Minute', minuteSchema)
+var Minute = module.exports = mongoose.model('Minute', MinuteSchema, 'minutes')
 
-module.exports.getMinutesbyId = function (uid,pid,callback) {
+module.exports.getMinutesbyPid = function (pid,callback) {
     let query = { 
-        users: {$all : [uid]},
-        projectname:pid
+        projectId:pid
         }
-    Minutes.find(query, callback)
+    Minute.find(query, callback)
   }
-
-module.exports.updateMinutebyId = function (uid, pid, createdDate, newMinute, callback){
+  module.exports.createMinute = function (newMinute, callback){
+    newMinute.save(callback)
+}
+module.exports.updateMinutebyId = function ( pid, minuteId, newMinute, callback){
     let query = { 
-        userId: uid,
         projectname:pid 
     }
     
-        Minutes.find(query, function (err, m){
+        Minute.find(query, function (err, m){
             if (err) throw err
 
             //minutes exist in database
 
             if(m.length > 0){
-                Minutes.findOneAndUpdate(
+                Minute.findOneAndUpdate(
                     {
-                    userId: uid,
                     projectname: pid,
-                    createdDate:createdDate},
+                    },
                     {
                         $set: {
-                            userId:uid,
-                            projectname: pid,
-                            createdDate: createdDate,
+                            projectId: pid,
                             title: newMinute.title,
                             description: newMinute.description,
                             updatedBy: todo
@@ -90,6 +94,3 @@ module.exports.updateMinutebyId = function (uid, pid, createdDate, newMinute, ca
         })
 }
 
-module.exports.createMinute = function (newMinute, callback){
-    newMinute.save(callback)
-}

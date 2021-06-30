@@ -33,29 +33,15 @@ router.get("/student", loggedin, function (req, res, next) {
 
 /* GET Individual Project */
 router.get("/student/eachProject", function (req, res, next) {
-  res.render("eachProject", { title: "Project | Log Tracker" });
+  res.render("eachProject", { title: "Project | Log Tracker", firstname: req.user.username.split(' ')[0] });
 });
 
 /* GET Student Minutes */
-<<<<<<< HEAD
-router.get("/student/addMinutes", loggedin, function (req, res, next) {
-=======
 router.get("/student/eachProject/addMinutes", function (req, res, next) {
->>>>>>> Branch1
-  res.render("addMinutes", { title: "Add Minutes | Log Tracker" });
+  res.render("addMinutes", { title: "Add Minutes | Log Tracker", firstname: req.user.username.split(' ')[0] });
 });
 
 /* Displays data added in minutes in console & saves uploaded files in uploads */
-<<<<<<< HEAD
-router.post("/save", loggedin, upload.array("uploadedFiles", 10), function (req, res) {
-  if (req.files) {
-    console.log(req.files);
-    console.log("files uploaded");
-  }
-  console.log(req.body);
-  res.redirect("/student");
-});
-=======
 // router.post("/save", upload.array("uploadedFiles", 10), function (req, res) {
 //   if (req.files) {
 //     console.log(req.files);
@@ -64,7 +50,6 @@ router.post("/save", loggedin, upload.array("uploadedFiles", 10), function (req,
 //   console.log(req.body);
 //   res.redirect("/student");
 // });
->>>>>>> Branch1
 
 /* GET signup page. */
 router.get("/signup", ensureAuth, function (req, res, next) {

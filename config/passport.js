@@ -29,6 +29,7 @@ module.exports = function (passport) {
                 done(null, {
                   username: doc.username,
                   password: doc.password,
+                  status: doc.userstatus,
                 });
               } else {
                 console.log("Incorrect Password");

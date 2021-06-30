@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var Minute = require("../models/Minute");
-var multer = require('multer')
 var path = require("path");
 var fs = require('fs');
 var upload = require("../middleware/multer")
@@ -51,14 +50,14 @@ router.post('/save', upload.array('uploadedFiles', 10), (req, res, next) => {
       if (err) {
         res.status(500).send("Database error occured");
       } else {
-        res.redirect("/student");
+        res.redirect("/minute/getall");
       }
     }
     )
   }
   catch (err) {
     console.error(err)
-    res.redirect("/student");
+    res.redirect("/student/eachProject");
     // res.render
 
   }

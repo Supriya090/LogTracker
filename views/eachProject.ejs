@@ -20,13 +20,43 @@
             <div class="row student-log-details">
                 <div class="col-8 minutes-list">
                     <div class="card ">
-                        <h4 class="card-title">Log Tracker</h4>
+                        <h4 class="card-title">Proposal Submitted</h4>
+                        <div>
+                            <h1>
+                                <%= minutes.title%>
+                            </h1>
+                            <h3>
+                                <%= minutes.createdDate%>
+                            </h3>
+                            <h3>
+                                <%= minutes.createdBy%>
+                            </h3>
+                            <div>
+                                <%= minutes.description%>
+                            </div>
+
+                        </div>
+                        <h5>Uploaded Images</h5>
+                        <div>
+
+                            <div>
+                                <div>
+
+                                    <div>
+                                        <h5>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-4 events-list">
                     <div class="card ">
                         <h4 class="card-title">Upcoming Events</h4>
-                        <a type="button" class="btn btn-primary" href="/student/eachProject/addMinutes"> Add Minutes
+                        <a type="button" class="btn btn-primary" href="/student/eachProject/addMinute"> Add Minutes
                         </a>
                     </div>
                 </div>

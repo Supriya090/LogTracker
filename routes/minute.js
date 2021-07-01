@@ -1,11 +1,9 @@
 var express = require("express");
 var router = express.Router();
 var Minute = require("../models/Minute");
-var multer = require('multer')
 var path = require("path");
 var fs = require('fs');
 var upload = require("../middleware/multer")
-const download = require('download');
 
 const IPFS = require('ipfs-api');
 const ipfs = new IPFS({

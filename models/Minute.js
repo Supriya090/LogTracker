@@ -40,6 +40,11 @@ var MinuteSchema = new mongoose.Schema({
       default: 'username'
     //   required: true
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+    required: true
+},
   updatedBy: {
       type:String,
       default: 'updater',
@@ -102,4 +107,6 @@ module.exports.updateMinutebyId = function ( pid, minuteId, newMinute, callback)
             }
         })
 }
+
+
 

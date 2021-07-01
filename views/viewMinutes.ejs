@@ -1,25 +1,37 @@
-
 <% if( Array.isArray(minutes) ) { %>
     <ul>
-    <%minutes.forEach( function( minutes ){ %>
-    <div>
-        <h1><%= minutes.title%></h1>
-        <h3><%= minutes.createdDate%></h3>
-        <h3><%= minutes.createdBy%></h3>
-        <div><%= minutes.description%></div>
-
-    </div>
-    <h5>Uploaded Images</h5>
-    <div>
-        <% minutes.attachment.forEach(function(file) { %>
-        <div>
+        <%minutes.forEach( function( minutes ){ %>
             <div>
-                <img src="https://ipfs.io/ipfs/<%=file.docs.url%>">
+                <h1>
+                    <%= minutes.title%>
+                </h1>
+                <h3>
+                    <%= minutes.createdDate%>
+                </h3>
+                <h3>
+                    <%= minutes.createdBy%>
+                </h3>
                 <div>
-                    <h5>File name: <%= file.name %></h5>
+                    <%= minutes.description%>
                 </div>
             </div>
-        </div>
-        <% }) %>
-    </div>
-    <% })} %>
+            <h5>Uploaded Images</h5>
+            <div>
+                <% minutes.attachment.forEach(function(file) { %>
+                    <div>
+                        <div>
+                            <!-- <%=file.docs.data%> -->
+                            <form action="/minute/download" method="GET">
+                                <input type="hidden" name="data" value="<%=file.fileId%>">
+                                <button class="btn btn-primary logout-btn" name="action" type="submit">Ask Verification</button>
+                            </form>
+                            <div>
+                            
+                                <h5>File name: <%= file.name %>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+            <% })} %>

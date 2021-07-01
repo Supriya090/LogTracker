@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/User")
-const download = require('download');
 var path = require("path");
 
 
@@ -52,14 +51,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
 
 });
 
-router.get('/download', function(req, res, next){
-  console.log(req.body)
-  file = 'https://ipfs.io/ipfs/'+String(req.body.data)
-  const filePath = path.join(__dirname, '..' + '/public/uploads');
-  
-res.send(file)
 
-});
 
 
 

@@ -29,8 +29,9 @@ var MinuteSchema = new mongoose.Schema({
   attachment: [
       {
           name:String,
+          fileId: String,
          docs:{
-            url: String,
+            data: Buffer,
             contentType: String
       }
 }],
@@ -55,7 +56,15 @@ module.exports.getMinutesbyPid = function (pid,callback) {
         }
     Minute.find(query, callback)
   }
-  module.exports.createMinute = function (newMinute, callback){
+
+module.exports.getMinutesbyFileid = function (fileID,callback) {
+    let query = { 
+        "attachment.fileID" :"_kuoykipjo" 
+        }
+   
+}
+
+module.exports.createMinute = function (newMinute, callback){
     newMinute.save(callback)
 }
 module.exports.updateMinutebyId = function ( pid, minuteId, newMinute, callback){

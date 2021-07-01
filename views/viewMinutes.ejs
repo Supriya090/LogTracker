@@ -30,9 +30,9 @@
                             <div>
                                 <h5>File name: <%= file.name %>
                                 </h5>
-                                <form action="/minute/comment/save" method="GET">
-                                    <input type="hidden" name="data" value="<%=file.fileId%>">
-                                    <button class="btn btn-primary logout-btn" name="action" type="submit">Download</button>
+                                <form action="/minute/comment/save" method="POST">
+                                    <input type="text" name="cmt" id="cmt">
+                                    <button class="btn btn-primary logout-btn" name="action" type="submit">comment</button>
                                 </form>
                             </div>
                         </div>

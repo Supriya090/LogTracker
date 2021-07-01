@@ -1,11 +1,12 @@
 var express = require("express");
 var router = express.Router();
 var Minute = require("../models/Minute");
+var Comment = require("../models/Comment");
 var path = require("path");
 var fs = require('fs');
 var upload = require("../middleware/multer")
 
-var commentRouter = require("./routes/comment")
+var commentRouter = require("./comment")
 
 router.use("/comment", commentRouter)
 
@@ -78,6 +79,15 @@ var ID = function () {
 };
 
 router.use('/getall', (req, res, next) => {
+  // var comments = Comment.find({}, function(err, result) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     res.json(result);
+  //   }
+  // })
+
+  // console.log(comments())
   Minute.getMinutesbyPid('todo', function (err, minutes) {
     if (err) {
       return next(err)

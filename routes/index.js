@@ -1,8 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/User")
-
-
 var Minute = require("../models/Minute");
 
 //to verify login
@@ -71,6 +69,7 @@ router.get("/student/eachProject", function (req, res, next) {
     }
   })
 });
+
 
 /* GET Student Minutes */
 router.get("/student/eachProject/addMinutes", function (req, res, next) {

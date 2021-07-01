@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 var Comment = require("../models/Comment");
 var path = require("path");
+var mongoose = require('mongoose');
+
 
 //process comment form
 // POST /comment/save
@@ -19,10 +21,14 @@ router.post('/save',(req, res, next) => {
       });
     }
 
+    var mId = mongoose.Types.ObjectId(req.body.Mid);
+
     const comment = new Comment()
-    //minute.projectId = "project id"
+    comment.minuteId = mId
     comment.comment = cmt
-    minute.createdBy = req.user.username
+    comment.commentedBy = req.user.username
+
+    // console.log(req.user.username)
 
     Comment.createComment(comment, function (err, comments) {
       //Save to database
@@ -34,6 +40,7 @@ router.post('/save',(req, res, next) => {
     }
     )
   }
+  
   catch (err) {
     console.error(err)
     res.send(comments);
@@ -42,7 +49,6 @@ router.post('/save',(req, res, next) => {
   }
 
 })
-
 
 router.use('/getall', (req, res, next) => {
   Comment.getCommentsbyId('minuteid', function (err, comments) {
@@ -64,3 +70,4 @@ router.use('/delete', (req, res, next) => {
     })
   })
   
+  module.exports = router;

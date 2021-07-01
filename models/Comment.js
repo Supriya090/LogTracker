@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 //Models
 var CommentSchema = new mongoose.Schema({
   minuteId: {
-    type: String,
+    type: mongoose.ObjectId,
     default: 'todo',
     required: true,
   },
@@ -19,8 +19,8 @@ var CommentSchema = new mongoose.Schema({
   },
   commentedBy: {
       type: String,
-      default: 'username'
-    //   required: true
+      default: 'username',
+      required: true
   }
 })
 

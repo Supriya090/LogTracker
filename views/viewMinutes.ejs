@@ -30,13 +30,15 @@
                             <div>
                                 <h5>File name: <%= file.name %>
                                 </h5>
-                                <form action="/minute/comment/save" method="POST">
-                                    <input type="text" name="cmt" id="cmt">
-                                    <button class="btn btn-primary logout-btn" name="action" type="submit">comment</button>
-                                </form>
                             </div>
                         </div>
                     </div>
                     <% }) %>
+                    <%= (minutes._id).toString() %>
+                    <form action="/minute/comment/save" method="POST">
+                        <input type="text" name="cmt" id="cmt">
+                        <input type="hidden" name="Mid" value="<%= minutes._id.toString() %>">
+                        <button class="btn btn-primary logout-btn" name="action" type="submit">comment</button>
+                    </form>
             </div>
             <% })} %>

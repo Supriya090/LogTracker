@@ -52,20 +52,6 @@ router.get("/dashboard", loggedin, function (req, res, next) {
 });
 
 
-
-
-
-// var download = function(url, dest, cb) {
-//   var file = fs.createWriteStream(dest);
-//   http.get(url, function(response) {
-//     response.pipe(file);
-//     file.on('finish', function() {
-//       file.close(cb);
-//     });
-//   });
-// }
-
-
 /* GET home page. */
 router.get("/", ensureAuth, function (req, res, next) {
   
@@ -73,11 +59,6 @@ router.get("/", ensureAuth, function (req, res, next) {
     title: "Log Tracker | Login"
   });
 });
-
-/* GET Student Dashboard. */
-// router.get("/student", loggedin, function (req, res, next) {
-//   res.render("studentView", { title: "Student View | Log Tracker", firstname: req.user.username.split(' ')[0] });
-// });
 
 /* GET Individual Project */
 router.get("/student/eachProject", function (req, res, next) {

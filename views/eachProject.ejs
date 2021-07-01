@@ -19,10 +19,85 @@
 
             <div class="row student-log-details">
                 <div class="col-8 minutes-list">
-                    <div class="card ">
-                        <h4 class="card-title">Log Tracker</h4>
-                    </div>
+                    <% if( Array.isArray(minutes) ) { %>
+                        <%minutes.forEach( function( minutes ){ %>
+                            <div class="card ">
+                                <div class="minute-header">
+                                    <div>
+                                        <h5 class="card-title">
+                                            <%= minutes.title%>
+                                        </h5>
+                                        <span class="badge badge-secondary">Verified</span>
+                                    </div>
+                                    <div>
+                                        <h6>
+                                            <%console.log(minutes.createdDate.toDateString())%>
+                                                <%=minutes.createdDate.toLocaleTimeString()%>, <%=
+                                                        minutes.createdDate.toDateString()%>
+                                        </h6>
+                                        <h6>
+                                            By <%= minutes.createdBy%>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <hr style="border-top: 1px solid white; margin-top: 0px;">
+                                <div>
+                                    <p>
+                                        <%= minutes.description.replace(/<(?:.|\n)*?>/gm, '')%>
+                                    </p>
+                                </div>
+                                <hr style="border-top: 1px solid white; margin-top: 0px;">
+                                <h6>Uploaded Images</h6>
+                                <div class="uploaded-images-div">
+                                    <% minutes.attachment.forEach(function(file) { %>
+                                        <div>
+                                            <div class="each-image">
+                                                <img id="<%= file._id%>" alt="<%= file.name%>" src="data:file/<%=file.docs.contentType%>;base64,
+                     <%=file.docs.data.toString('base64')%>" class="uploaded-images">
+                                                <p>
+                                                    <%= file.name %>
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <div id="myModal" class="modal">
+                                                    <span class="closeBtn">&times;</span>
+                                                    <img class="modal-content" id="img01">
+                                                    <div id="caption"></div>
+                                                </div>
+                                            </div>
+
+                                            <script>
+                                                // Get the modal
+                                                var modal = document.getElementById("myModal");
+
+                                                // Get the image and insert it inside the modal - use its "alt" text as a caption
+                                                var id = "<%=file._id%>";
+                                                console.log(id)
+                                                var img = document.getElementById(id);
+                                                var modalImg = document.getElementById("img01");
+                                                var captionText = document.getElementById("caption");
+                                                img.onclick = function () {
+                                                    modal.style.display = "block";
+                                                    modalImg.src = this.src;
+                                                    captionText.innerHTML = this.alt;
+                                                }
+
+                                                // Get the <span> element that closes the modal
+                                                var span = document.getElementsByClassName("closeBtn")[0];
+
+                                                // When the user clicks on <span> (x), close the modal
+                                                span.onclick = function () {
+                                                    modal.style.display = "none";
+                                                }
+                                            </script>
+                                        </div>
+                                        <% }) %>
+                                </div>
+                            </div>
+                            <%})}%>
                 </div>
+
+
                 <div class="col-4 events-list">
                     <div class="card ">
                         <h4 class="card-title">Upcoming Events</h4>
@@ -34,6 +109,7 @@
         </div>
         <script src="/javascripts/userChange.js"></script>
         <script src="/javascripts/linkActive.js"></script>
+
 </body>
 
 </html>

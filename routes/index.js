@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/User")
-
+var Minute = require("../models/Minute");
 
 //to verify login
 var loggedin = function (req, res, next) {
@@ -63,10 +63,14 @@ router.get("/", ensureAuth, function (req, res, next) {
 
 /* GET Individual Project */
 router.get("/student/eachProject", function (req, res, next) {
-  res.render("eachProject", {
-    title: "Project | Log Tracker",
-    firstname: req.user.username.split(' ')[0]
-  });
+  Minute.getMinutesbyPid('todo', function (err, minutes) {
+    if (err) {
+      return next(err)
+    }
+    else {
+      res.render('eachProject', { minutes: minutes.reverse(), title: "Project | Log Tracker", firstname: req.user.username.split(' ')[0] });
+    }
+  })
 });
 
 /* GET Student Minutes */
@@ -76,6 +80,8 @@ router.get("/student/eachProject/addMinutes", function (req, res, next) {
     firstname: req.user.username.split(' ')[0]
   });
 });
+
+
 
 /* GET signup page. */
 router.get("/signup", ensureAuth, function (req, res, next) {
@@ -89,6 +95,5 @@ router.get("/logout", loggedin, function (req, res, next) {
   req.logout();
   res.redirect("/");
 });
-
 
 module.exports = router;

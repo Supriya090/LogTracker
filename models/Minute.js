@@ -108,5 +108,39 @@ module.exports.updateMinutebyId = function ( pid, minuteId, newMinute, callback)
         })
 }
 
+module.exports.verifyMinute = function ( pid, minuteId, newMinute, callback){
+    let query = { 
+        projectname:pid 
+    }
+    
+        Minute.find(query, function (err, m){
+            if (err) throw err
 
+            //minutes exist in database
+
+            if(m.length > 0){
+                Minute.findOneAndUpdate(
+                    {
+                    projectname: pid,
+                    },
+                    {
+                        $set: {
+                            projectId: pid,
+                            title: newMinute.title,
+                            description: newMinute.description,
+                            updatedBy: todo
+                        }
+                    },
+                    {
+                        new: true
+                    },
+                    callback
+                )    
+            }
+            else
+            {
+                newMinute.save(callback)
+            }
+        })
+}
 

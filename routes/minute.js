@@ -5,13 +5,6 @@ var path = require("path");
 var fs = require('fs');
 var upload = require("../middleware/multer")
 
-const IPFS = require('ipfs-api');
-const ipfs = new IPFS({
-  host: 'ipfs.infura.io',
-  port: 5001,
-  protocol: 'https'
-});
-
 //process minute form
 // POST /minutes/add
 
@@ -59,12 +52,14 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
       if (err) {
         res.status(500).send("Database error occured");
       } else {
-        res.send(minutes);
+        res.redirect("/student/eachProject");
       }
-    })
-  } catch (err) {
+    }
+    )
+  }
+  catch (err) {
     console.error(err)
-    res.redirect("/student");
+    res.redirect("/student/eachProject");
     // res.render
 
   }

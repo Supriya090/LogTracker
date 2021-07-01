@@ -11,7 +11,6 @@ var session = require("express-session");
 var mongoose = require("mongoose");
 var MongoStore = require("connect-mongo");
 var passport = require("passport");
-const multer = require("multer");
 
 //Passport configs
 require("./config/passport")(passport);
@@ -74,7 +73,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //@Routers
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/auth", authRouter);
 app.use("/auth", authRouter);
 app.use("/minute", minuteRouter);
 

@@ -68,7 +68,7 @@ router.get("/student/eachProject", function (req, res, next) {
       return next(err)
     }
     else {
-      res.render('eachProject', { minutes: minutes, title: "Project | Log Tracker", firstname: req.user.username.split(' ')[0] });
+      res.render('eachProject', { minutes: minutes.reverse(), title: "Project | Log Tracker", firstname: req.user.username.split(' ')[0] });
     }
   })
 });

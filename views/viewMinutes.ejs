@@ -19,10 +19,11 @@
             <h5>Uploaded Images</h5>
             <div>
                 <% minutes.attachment.forEach(function(file) { %>
+
                     <div>
                         <div>
-                            <a href="data:file/<%=file.docs.contentType%>;base64,
-                                <%=file.docs.data.toString('base64')%>" download="">Download</a>
+                            <img src="data:file/<%=file.docs.contentType%>;base64,
+                     <%=file.docs.data.toString('base64')%>">
                             <div>
                                 <h5>File name: <%= file.name %>
                                 </h5>

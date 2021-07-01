@@ -62,13 +62,6 @@ module.exports.getMinutesbyPid = function (pid,callback) {
     Minute.find(query, callback)
   }
 
-module.exports.getMinutesbyFileid = function (fileID,callback) {
-    let query = { 
-        "attachment.fileID" :"_kuoykipjo" 
-        }
-   
-}
-
 module.exports.createMinute = function (newMinute, callback){
     newMinute.save(callback)
 }

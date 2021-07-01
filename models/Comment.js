@@ -32,8 +32,12 @@ module.exports.createComment = function (newComment, callback){
 }
 
 module.exports.deleteComment = function (commentid, callback){
-    Comment.deleteOne({ _id: commentid }, function (err) {
-        if(err) console.log(err);
-        console.log("Successful deletion");
-      });
+    Comment.deleteOne({ _id: commentid }, callback)
 }
+
+module.exports.getCommentsbyMid = function (mid,callback) {
+    let query = { 
+        minuteId:mid
+        }
+    Comment.find(query, callback)
+  }

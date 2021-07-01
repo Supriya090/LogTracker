@@ -5,6 +5,10 @@ var path = require("path");
 var fs = require('fs');
 var upload = require("../middleware/multer")
 
+var commentRouter = require("./routes/comment")
+
+router.use("/comment", commentRouter)
+
 //process minute form
 // POST /minutes/add
 

@@ -18,7 +18,13 @@
             <div class="minute-header">
               <div>
                 <h5 class="card-title"><%= minutes.title%></h5>
-                <span class="badge badge-secondary">Verified</span>
+                <span class="badge badge-secondary">
+                  <% if (minutes.isVerified) { %>
+                    Verified
+                    <% } else { %>
+                      Not Verified
+                    <% }%>
+                  </span>
               </div>
               <div>
                 <h6>

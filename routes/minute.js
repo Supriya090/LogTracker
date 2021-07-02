@@ -79,23 +79,26 @@ var ID = function () {
 };
 
 router.use('/getall', (req, res, next) => {
-  // var comments = Comment.find({}, function(err, result) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     res.json(result);
-  //   }
-  // })
+
 
   // console.log(comments())
   Minute.getMinutesbyPid('todo', function (err, minutes) {
     if (err) {
       return next(err)
     } else {
+      Comment.find({}, function(err, cmt) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(cmt)
       res.render('viewMinutes.ejs', {
         minutes: minutes,
+        comments: cmt,
         msg: "Get All Minutes"
       });
+    }
+  })
+      
     }
   })
 })

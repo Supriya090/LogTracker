@@ -40,5 +40,13 @@
                         <input type="hidden" name="Mid" value="<%= minutes._id.toString() %>">
                         <button class="btn btn-primary logout-btn" name="action" type="submit">comment</button>
                     </form>
+                    <ul>
+                    <% comments.forEach(function(cmt) { %>
+                        <% if (cmt.minuteId.toString()==minutes._id.toString()) { %>
+                                <li><%= cmt.comment%>----<%= cmt.commentedBy%>----<%= cmt.createdDate%></li>
+                        <% } %>
+                        <% }) %>
+                    </ul>
+                    
             </div>
             <% })} %>

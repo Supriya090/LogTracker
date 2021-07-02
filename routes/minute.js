@@ -32,7 +32,7 @@ router.post('/save', upload.array('uploadedFiles', 10), (req, res, next) => {
           }
           img.push(file)  
         }
-      }
+      
       img.push(file)
 
 

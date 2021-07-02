@@ -1,14 +1,14 @@
 <div class="view" id="admin">
     <div class="card-body">
         <div class="login-body-top">
-            <h5 class="card-title">ADMIN SIGNUP</h5>
+            <h5 class="card-title">ADMIN LOGIN</h5>
             <span>
                 <!-- <i class="fa fa-angle-left"></i> -->
                 <img src="/assets/admin-logo.png" />
                 <!-- <i class="fa fa-angle-right"></i> -->
             </span>
         </div>
-        <form action="/auth/signup" class="login-form" method="post">
+        <form action="/auth/login" class="login-form" method="post">
             <div class="form-group">
                 <label for="username">USERNAME </label>
                 <input type="text" class="form-control" id="username" name="username" required>
@@ -21,8 +21,9 @@
                 <input type="hidden" id="admin" value="admin" name ="userstatus">
             </div>
             <div class="button-div">
-                <input class="btn btn-outline-primary login-btn" type="submit" value="Signup">
+                <input class="btn btn-outline-primary login-btn" type="submit" value="Login">
             </div>
+            <%- include('../messages') %>
         </form>
     </div>
 </div>

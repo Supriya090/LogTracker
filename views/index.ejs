@@ -35,11 +35,15 @@
       </div>
 
       <!-- User Views -->
-      <%- include('partials/adminLogin') %>
+      <%- include('partials/loginPages/adminLogin') %>
 
-        <%- include('partials/teacherLogin') %>
+        <%- include('partials/loginPages/teacherLogin') %>
 
-          <%- include('partials/studentLogin') %>
+          <%- include('partials/loginPages/studentLogin') %>
+
+            <p class="acc-check">Don't have an account?
+              <a href="/signup" style="color: #04a4e4;">Signup</a>
+            </p>
 
     </div>
   </div>

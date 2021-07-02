@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 //process comment form
 // POST /comment/save
 
-router.post('/save',(req, res, next) => {
+router.post('/save/:mId',(req, res, next) => {
   try {
     console.log(JSON.stringify(req.body))
     let errors = [];
@@ -21,7 +21,7 @@ router.post('/save',(req, res, next) => {
       });
     }
 
-    var mId = mongoose.Types.ObjectId(req.body.Mid);
+    var mId = mongoose.Types.ObjectId(req.params.mId);
 
     const comment = new Comment()
     comment.minuteId = mId
@@ -43,6 +43,7 @@ router.post('/save',(req, res, next) => {
   
   catch (err) {
     console.error(err)
+
   }
 
 })

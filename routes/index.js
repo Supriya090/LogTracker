@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var User = require("../models/User")
 var Minute = require("../models/Minute");
+var Comment = require("../models/Comment");
 
 //to verify login
 var loggedin = function (req, res, next) {
@@ -65,8 +66,14 @@ router.get("/student/eachProject", function (req, res, next) {
       return next(err)
     }
     else {
-      res.render('eachProject', { minutes: minutes.reverse(), title: "Project | Log Tracker", firstname: req.user.username.split(' ')[0] });
-    }
+      Comment.find({}, function(err, cmt) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render('eachProject', { minutes: minutes.reverse(),comments: cmt.reverse(), title: "Project | Log Tracker",username: req.user.username, firstname: req.user.username.split(' ')[0] });
+        }
+      }) 
+        }
   })
 });
 

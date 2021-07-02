@@ -90,12 +90,12 @@ router.use('/getall', (req, res, next) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(cmt)
-      res.render('viewMinutes.ejs', {
-        minutes: minutes,
-        comments: cmt,
-        msg: "Get All Minutes"
-      });
+      // res.redirect('viewMinutes.ejs', {
+      //   minutes: minutes,
+      //   comments: cmt,
+      //   msg: "Get All Minutes"
+      // });
+      res.redirect("/student/eachProject");
     }
   })
       

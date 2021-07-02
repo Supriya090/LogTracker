@@ -35,7 +35,7 @@ router.post('/save',(req, res, next) => {
       if (err) {
         res.status(500).send("Database error occured");
       } else {
-        res.send(comments);
+        res.redirect('/minute/getall')
       }
     }
     )
@@ -60,14 +60,20 @@ router.use('/getall', (req, res, next) => {
   })
 })
 
-router.use('/delete', (req, res, next) => {
-    Comment.deleteComment('commentid', function (err, comments) {
-      if (err) {
-        return next(err)
-      } else {
-        res.send(comments)
-      }
-    })
+router.use('/delete/:id', (req, res, next) => {
+  console.log(req.params.id)
+  Comment.findById({_id:req.params.id}, function (err, cmt) {
+    if (cmt.commentedBy==req.user.username) {
+      Comment.deleteComment(req.params.id, function (err) {
+        if (err) {
+          return next(err)
+        } else {
+          res.redirect('/minute/getall')
+        }
+      })
+    } 
+  })
+    
   })
   
   module.exports = router;

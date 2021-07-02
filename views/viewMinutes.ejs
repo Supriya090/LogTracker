@@ -44,9 +44,9 @@
                     <% comments.forEach(function(cmt) { %>
                         <% if (cmt.minuteId.toString()==minutes._id.toString()) { %>
                                 <li><%= cmt.comment%>----<%= cmt.commentedBy%>----<%= cmt.createdDate%></li>
+                                <a href="/minute/comment/delete/<%= cmt._id.toString()%>">Delete</a>
                         <% } %>
                         <% }) %>
-                    </ul>
-                    
+                    </ul>         
             </div>
             <% })} %>

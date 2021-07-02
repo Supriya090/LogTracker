@@ -5,6 +5,7 @@ var multer  = require('multer')
 var path = require("path");
 var fs = require('fs');
 var upload = require("../middleware/multer")
+var { loggedin } = require("../middleware/ensureLogin")
 
 //process minute form
 // POST /minutes/add
@@ -67,7 +68,7 @@ router.post('/save', upload.array('uploadedFiles',10),(req, res, next) =>{
     
 })
 
-router.use('/getall', (req, res, next) => {
+router.use('/getall', loggedin, (req, res, next) => {
     Minute.getMinutesbyPid('todo',function(err, minutes){
 if (err) 
 {

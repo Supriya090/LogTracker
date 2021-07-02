@@ -3,7 +3,7 @@ var router = express.Router();
 var User = require("../models/User");
 
 module.exports = function (passport) {
-  //RN for Admin Signup but can be later used to create account for students and teacher
+  //RN for Admin Signup but can be later used to create account for students and teacher might use 'isAdmin' later
   router.post("/signup", function (req, res) {
     let errors = [];
 

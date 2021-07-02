@@ -12,15 +12,19 @@
                     <%= minutes.createdBy%>
                 </h3>
                 <div>
-                    <%= minutes.description%>
+                    <%- minutes.description%>
                 </div>
-
             </div>
             <h5>Uploaded Images</h5>
             <div>
                 <% minutes.attachment.forEach(function(file) { %>
                     <div>
                         <div>
+                            <!-- <%=file.docs.data%> -->
+                            <form action="/minute/download" method="GET">
+                                <input type="hidden" name="data" value="<%=file.fileId%>">
+                                <button class="btn btn-primary logout-btn" name="action" type="submit">Download</button>
+                            </form>
                             <img src="data:file/<%=file.docs.contentType%>;base64,
                      <%=file.docs.data.toString('base64')%>">
                             <div>

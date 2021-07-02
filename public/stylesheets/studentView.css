@@ -265,6 +265,7 @@ img.uploaded-images:hover {
 .comment-form div.form-group {
   display: flex;
   flex-direction: row;
+  margin-top: 10px;
 }
 
 .comment-form div.form-group input {
@@ -298,6 +299,60 @@ img.uploaded-images:hover {
   border-radius: 15px;
 }
 /* Student Each Project Ends */
+
+/* Upcoming Event Section Begins */
+h4.card-subtitle {
+  font-size: 18px;
+}
+
+.card .upcoming-events-div {
+  min-height: 100px;
+  margin-bottom: 20px;
+}
+
+.login-form.add-events-form {
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 40px;
+}
+
+.login-form.add-events-form input {
+  margin: 0px;
+}
+
+.login-form.add-events-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form.add-events-form .form-group:first-child {
+  flex-direction: row;
+}
+
+.login-form.add-events-form .form-group label {
+  font-size: 17px;
+}
+
+.login-form.add-events-form .form-group textarea {
+  font-size: 12px;
+  padding: 5px 10px;
+  height: 100px;
+}
+
+.login-form.add-events-form .form-group:first-child label {
+  margin-top: 15px;
+}
+
+.login-form.add-events-form .form-group:first-child input {
+  margin-left: 10px;
+  width: 80%;
+}
+
+.btn.btn-primary.logout-btn.events-btn {
+  width: 50%;
+  margin-bottom: 20px;
+}
+/* Upcoming Event Section Ends */
 
 /* Add Minutes Page Begins */
 body.minute-body {

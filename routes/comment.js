@@ -43,9 +43,6 @@ router.post('/save',(req, res, next) => {
   
   catch (err) {
     console.error(err)
-    res.send(comments);
-    // res.render
-
   }
 
 })

@@ -5,6 +5,7 @@ var Comment = require("../models/Comment");
 var path = require("path");
 var fs = require('fs');
 var upload = require("../middleware/multer")
+var { loggedin } = require("../middleware/ensureLogin")
 
 var commentRouter = require("./comment")
 
@@ -14,7 +15,7 @@ router.use("/comment", commentRouter)
 // POST /minutes/add
 
 router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) => {
-  console.log("save")
+  //console.log("save")
   try {
     console.log(JSON.stringify(req.body))
     let errors = [];
@@ -35,12 +36,9 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
           contentType: req.files[i].mimetype
         }
       }
-
       img.push(file)
-
+      console.log(title)
     }
-    console.log(title)
-
     if (!title || !description) {
       errors.push({
         msg: "Please fill in all fields"
@@ -69,7 +67,6 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
     // res.render
 
   }
-
 })
 
 var ID = function () {
@@ -79,10 +76,7 @@ var ID = function () {
   return '_' + Math.random().toString(36).substr(2, 9);
 };
 
-router.use('/getall', (req, res, next) => {
-
-
-  // console.log(comments())
+router.use('/getall', loggedin, (req, res, next) => {
   Minute.getMinutesbyPid('todo', function (err, minutes) {
     if (err) {
       return next(err)

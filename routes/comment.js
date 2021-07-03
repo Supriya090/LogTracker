@@ -1,8 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var Comment = require("../models/Comment");
-var path = require("path");
 var mongoose = require('mongoose');
+var { loggedin } = require("../middleware/ensureLogin");
 
 
 //process comment form
@@ -48,7 +48,7 @@ router.post('/save/:mId',(req, res, next) => {
 
 })
 
-router.use('/getall', (req, res, next) => {
+router.use('/getall', loggedin, (req, res, next) => {
   Comment.getCommentsbyId('minuteid', function (err, comments) {
     if (err) {
       return next(err)
@@ -58,7 +58,7 @@ router.use('/getall', (req, res, next) => {
   })
 })
 
-router.use('/delete/:id', (req, res, next) => {
+router.use('/delete/:id', loggedin, (req, res, next) => {
   console.log(req.params.id)
   Comment.findById({_id:req.params.id}, function (err, cmt) {
     if (cmt.commentedBy==req.user.username) {

@@ -66,7 +66,7 @@ router.get("/student/eachProject/addMinutes", loggedin, function (req, res, next
 
 
 /* GET signup page. */
-router.get("/signup", loggedin, function (req, res, next) {
+router.get("/signup", function (req, res, next) {
   res.render("signup", {
     title: "Log Tracker | Sign Up"
   });

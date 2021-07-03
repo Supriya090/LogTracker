@@ -17,7 +17,6 @@
                 Detailed Logs
             </h5>
 
-<<<<<<< HEAD
             <div class="row student-log-details">
                 <div class="col-8 minutes-list">
                     <% if( Array.isArray(minutes) ) { %>
@@ -32,88 +31,32 @@
                                     </div>
                                     <div>
                                         <h6>
-                                            <%=minutes.createdDate.toLocaleTimeString()%>, <%=
-                                                    minutes.createdDate.toDateString()%>
+                                            <%console.log(minutes.createdDate.toDateString())%>
+                                                <%=minutes.createdDate.toLocaleTimeString()%>, <%=
+                                                        minutes.createdDate.toDateString()%>
                                         </h6>
                                         <h6>
                                             By <%= minutes.createdBy%>
                                         </h6>
                                     </div>
-=======
-        <div class="row student-log-details">
-            <div class="col-8 minutes-list">
-                <% if( Array.isArray(minutes) ) { %>
-                <%minutes.forEach( function( minutes ){ %>
-                <div class="card ">
-                    <div class="minute-header">
-                        <div>
-                            <h5 class="card-title">
-                                <%= minutes.title%>
-                            </h5>
-                            <span class="badge badge-secondary">Verified</span>
-                        </div>
-                        <div>
-                            <h6>
-                                <%console.log(minutes.createdDate.toDateString())%>
-                                <%=minutes.createdDate.toLocaleTimeString()%>, <%=
-                                                        minutes.createdDate.toDateString()%>
-                            </h6>
-                            <h6>
-                                By <%= minutes.createdBy%>
-                            </h6>
-                        </div>
-                    </div>
-                    <hr style="border-top: 1px solid white; margin-top: 0px;">
-                    <div>
-                    
-                            <%- minutes.description%>
-                    
-                    </div>
-                    <hr style="border-top: 1px solid white; margin-top: 0px;">
-                    <h6>Uploaded Images</h6>
-                    <div class="uploaded-images-div">
-                        <% minutes.attachment.forEach(function(file) { %>
-                        <div>
-                            <div class="each-image">
-                                <form action="/minute/download" method="GET">
-                                    <input type="hidden" name="data" value="<%=file.fileId%>">
-                                    <button class="btn btn-primary logout-btn" name="action"
-                                        type="submit">Download</button>
-                                </form>
-                                <img id="<%= file._id%>" alt="<%= file.name%>" src="data:file/<%=file.docs.contentType%>;base64,
-                     <%=file.docs.data.toString('base64')%>" class="uploaded-images">
-                                <p>
-                                    <%= file.name %>
-                                </p>
-                            </div>
-                            <div>
-                                <div id="myModal" class="modal">
-                                    <span class="closeBtn">&times;</span>
-                                    <img class="modal-content" id="img01">
-                                    <div id="caption"></div>
->>>>>>> a68425c9766027105a5c9301e017b831473f80f8
                                 </div>
                                 <hr style="border-top: 1px solid white; margin-top: 0px;">
                                 <div>
-                                    <%- minutes.description%>
+                                    <p>
+                                        <%= minutes.description.replace(/<(?:.|\n)*?>/gm, '')%>
+                                    </p>
                                 </div>
                                 <hr style="border-top: 1px solid white; margin-top: 0px;">
-                                <h6>Uploaded Files</h6>
+                                <h6>Uploaded Images</h6>
                                 <div class="uploaded-images-div">
                                     <% minutes.attachment.forEach(function(file) { %>
                                         <div>
                                             <div class="each-image">
                                                 <img id="<%= file._id%>" alt="<%= file.name%>" src="data:file/<%=file.docs.contentType%>;base64,
-                     <%=file.docs.data.toString('base64')%>" class="uploaded-images"
-                                                    onerror="this.src='/assets/alternative.png';">
+                     <%=file.docs.data.toString('base64')%>" class="uploaded-images">
                                                 <p>
                                                     <%= file.name %>
                                                 </p>
-                                                <form action="/minute/download" method="GET">
-                                                    <input type="hidden" name="data" value="<%=file.fileId%>">
-                                                    <button class="btn btn-primary logout-btn" name="action"
-                                                        type="submit">Download</button>
-                                                </form>
                                             </div>
                                             <div>
                                                 <div id="myModal" class="modal">
@@ -150,10 +93,6 @@
                                         </div>
                                         <% }) %>
                                 </div>
-                                <hr style="border-top: 1px solid white; ">
-                                <form>
-
-                                </form>
                             </div>
                             <%})}%>
                 </div>

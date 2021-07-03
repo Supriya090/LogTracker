@@ -34,7 +34,8 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
           data: fs.readFileSync(path.join(__dirname, '..' + '/public/uploads/' + req.files[i].filename)),
           contentType: req.files[i].mimetype
         }
-      
+      }
+
       img.push(file)
 
     }
@@ -86,19 +87,19 @@ router.use('/getall', (req, res, next) => {
     if (err) {
       return next(err)
     } else {
-      Comment.find({}, function(err, cmt) {
-    if (err) {
-      console.log(err);
-    } else {
-      // res.redirect('viewMinutes.ejs', {
-      //   minutes: minutes,
-      //   comments: cmt,
-      //   msg: "Get All Minutes"
-      // });
-      res.redirect("/student/eachProject");
-    }
-  })
-      
+      Comment.find({}, function (err, cmt) {
+        if (err) {
+          console.log(err);
+        } else {
+          // res.redirect('viewMinutes.ejs', {
+          //   minutes: minutes,
+          //   comments: cmt,
+          //   msg: "Get All Minutes"
+          // });
+          res.redirect("/student/eachProject");
+        }
+      })
+
     }
   })
 })
@@ -114,11 +115,11 @@ router.get('/download', function (req, res) {
     } else {
       minute.attachment.forEach(element => {
         if (element.fileId == req.query.data) {
-    
+
           let fileType = element.docs.contentType
           let fileName = (element.name).substring((element.name).indexOf('-') + 1);
           let fileData = element.docs.data
-    
+
           var fileContents = Buffer.from(fileData, "base64");
           DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE, 'Downloads/');
           var savedFilePath = path.join(DOWNLOAD_DIR + fileName)
@@ -126,9 +127,9 @@ router.get('/download', function (req, res) {
             res.status(200).download(savedFilePath, fileName);
           });
         }
-  })
-  }
-});
+      })
+    }
+  });
 });
 
 module.exports = router;

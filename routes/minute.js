@@ -29,7 +29,7 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
           data: fs.readFileSync(path.join(__dirname, '..' + '/public/uploads/' + req.files[i].filename)),
           contentType: req.files[i].mimetype
         }
-      
+      }
       img.push(file)
 
     }

@@ -1,16 +1,21 @@
 var express = require("express");
 var router = express.Router();
 var Minute = require("../models/Minute");
+var Comment = require("../models/Comment");
 var path = require("path");
 var fs = require('fs');
 var upload = require("../middleware/multer")
 var { loggedin } = require("../middleware/ensureLogin")
 
+var commentRouter = require("./comment")
+
+router.use("/comment", commentRouter)
+
 //process minute form
 // POST /minutes/add
 
 router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) => {
-  console.log("save")
+  //console.log("save")
   try {
     console.log(JSON.stringify(req.body))
     let errors = [];
@@ -32,10 +37,8 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
         }
       }
       img.push(file)
-
+      console.log(title)
     }
-    console.log(title)
-
     if (!title || !description) {
       errors.push({
         msg: "Please fill in all fields"
@@ -64,7 +67,6 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
     // res.render
 
   }
-
 })
 
 var ID = function () {
@@ -79,10 +81,19 @@ router.use('/getall', loggedin, (req, res, next) => {
     if (err) {
       return next(err)
     } else {
-      res.render('viewMinutes.ejs', {
-        minutes: minutes,
-        msg: "Get All Minutes"
-      });
+      Comment.find({}, function(err, cmt) {
+    if (err) {
+      console.log(err);
+    } else {
+      // res.redirect('viewMinutes.ejs', {
+      //   minutes: minutes,
+      //   comments: cmt,
+      //   msg: "Get All Minutes"
+      // });
+      res.redirect("/student/eachProject");
+    }
+  })
+      
     }
   })
 })

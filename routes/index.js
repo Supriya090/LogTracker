@@ -86,7 +86,15 @@ router.get("/student/eachProject/addMinutes", function (req, res, next) {
   });
 });
 
+/* GET Teacher Dashboard. */
+router.get("/teacher", loggedin, function (req, res, next) {
+  res.render("teacherView", { title: "Teacher View | Log Tracker", firstname: req.user.username.split(' ')[0] });
+});
 
+/* GET Teacher's Individual Project*/
+router.get("/teacher/eachProject", function (req, res, next) {
+  res.render("eachProjectTeacher", { title: "Project | Log Tracker", firstname: req.user.username.split(' ')[0] });
+});
 
 /* GET signup page. */
 router.get("/signup", ensureAuth, function (req, res, next) {

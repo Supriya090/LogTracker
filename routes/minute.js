@@ -85,7 +85,7 @@ router.use('/getall', loggedin, (req, res, next) => {
         if (err) {
           console.log(err);
         } else {
-          // res.redirect('viewMinutes.ejs', {
+          // res.render('viewMinutes.ejs', {
           //   minutes: minutes,
           //   comments: cmt,
           //   msg: "Get All Minutes"
@@ -97,6 +97,7 @@ router.use('/getall', loggedin, (req, res, next) => {
     }
   })
 })
+
 
 
 router.get('/download', function (req, res) {
@@ -125,5 +126,16 @@ router.get('/download', function (req, res) {
     }
   });
 });
+
+router.use('/verify/:id', loggedin, (req, res, next) => {
+  Minute.verifyMinute(req.params.id, function (err, minutes) {
+    if (err) {
+      return next(err)
+    } else {
+          res.send(minutes)
+        }
+      })
+})
+
 
 module.exports = router;

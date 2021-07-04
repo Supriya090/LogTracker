@@ -8,7 +8,7 @@ var ProjectSchema = new mongoose.Schema({
         default: Date.now(),
         required: true,
     },
-    title: {
+    projectname: {
         type: String,
         required: true
     },

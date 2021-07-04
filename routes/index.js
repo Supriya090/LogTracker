@@ -41,6 +41,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
             } else {
               res.render("teacherView", {
                 title: "Teacher View | Log Tracker",
+                projects:projects,
                 firstname: user.username.split(" ")[0],
               });
             }

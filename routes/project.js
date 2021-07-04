@@ -166,17 +166,15 @@ router.post("/createteams", function (req, res, next) {
                 msg: "Please sfill in all fields"
               });
             }
+
+            var member = {
+              supervisor: req.body.supervisor,
+              team: req.body.std,
+            }
         
             const project = new Project()
-            //minute.projectId = "project id"
             project.projectname = projectname
             project.description = description
-            //project.member.team = "Ranju"
-            // project.member.supervisor = "supervisor"
-            var member = {
-                supervisor: req.body.supervisor,
-                team: req.body.std,
-              }
             project.member = member
             project.createdBy = username
             project.semester = semester

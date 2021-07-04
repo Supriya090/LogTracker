@@ -3,7 +3,7 @@ var router = express.Router();
 var User = require("../models/User");
 var Minute = require("../models/Minute");
 var Comment = require("../models/Comment");
-var { loggedin, ensureAuth} = require("../middleware/ensureLogin");
+var { loggedin, ensureAuth } = require("../middleware/ensureLogin");
 
 /* GET Dashboard. */
 router.get("/dashboard", loggedin, function (req, res, next) {
@@ -27,10 +27,14 @@ router.get("/dashboard", loggedin, function (req, res, next) {
           title: "Teacher View | Log Tracker",
           firstname: user.username.split(' ')[0]
         });
-       // res.send(user);
+        // res.send(user);
       } else if (user.userstatus == "admin") {
         // res.redirect('/admin')
-        res.send(user);
+        res.render("adminView", {
+          title: "Admin View | Log Tracker",
+          firstname: user.username.split(' ')[0]
+        });
+        // res.send(user);
       }
     }
   })
@@ -39,7 +43,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
 
 /* GET home page. */
 router.get("/", ensureAuth, function (req, res, next) {
-  
+
   res.render("index", {
     title: "Log Tracker | Login"
   });
@@ -52,14 +56,14 @@ router.get("/student/eachProject", loggedin, function (req, res, next) {
       return next(err)
     }
     else {
-      Comment.find({}, function(err, cmt) {
+      Comment.find({}, function (err, cmt) {
         if (err) {
           console.log(err);
         } else {
-          res.render('eachProject', { minutes: minutes.reverse(),comments: cmt.reverse(), title: "Project | Log Tracker",username: req.user.username, firstname: req.user.username.split(' ')[0] });
+          res.render('eachProject', { minutes: minutes.reverse(), comments: cmt.reverse(), title: "Project | Log Tracker", username: req.user.username, firstname: req.user.username.split(' ')[0] });
         }
-      }) 
-        }
+      })
+    }
   })
 });
 
@@ -80,16 +84,25 @@ router.get("/teacher/eachProject", loggedin, function (req, res, next) {
       return next(err)
     }
     else {
-      Comment.find({}, function(err, cmt) {
+      Comment.find({}, function (err, cmt) {
         if (err) {
           console.log(err);
         } else {
-          res.render('eachProjectTeacher', { minutes: minutes.reverse(),comments: cmt.reverse(), title: "Project | Log Tracker",username: req.user.username, firstname: req.user.username.split(' ')[0] });
+          res.render('eachProjectTeacher', { minutes: minutes.reverse(), comments: cmt.reverse(), title: "Project | Log Tracker", username: req.user.username, firstname: req.user.username.split(' ')[0] });
         }
-      }) 
-        }
+      })
+    }
   })
 });
+
+/* GET Admin Create Team */
+router.get("/admin/createTeam", loggedin, function (req, res, next) {
+  res.render("createTeam", {
+    title: "Create Team | Log Tracker",
+    firstname: req.user.username.split(' ')[0]
+  });
+});
+
 
 /* GET signup page. */
 router.get("/signup", loggedin, function (req, res, next) {
@@ -99,7 +112,7 @@ router.get("/signup", loggedin, function (req, res, next) {
     console.log(user._id)
     if (err) {
       return next(err)
-    } 
+    }
     else if (user) {
       if (user.userstatus == "admin") {
         res.render("signup", {

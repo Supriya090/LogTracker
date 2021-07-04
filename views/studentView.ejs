@@ -37,10 +37,13 @@
                 </button>
             </div>
 
+            <div class="view" id="sem<%= projects.semester%>">
+                <h5>Ongoing Projects</h5>
             <% if( Array.isArray(projects) ) { %> 
                 <%projects.forEach( function(projects ){ %>
-                    <div class="view" id="sem<%= projects.semester%>">
-                        <h5>Ongoing Projects</h5>
+                    <% p =(projects.semester=="8" ) %>
+                    <%= p%>
+                        <% if(projects.semester=="8" ) { %>
                         <div class="card ">
                             <div class="project-card">
                                 <h4 class="card-title"><%= projects.projectname%></h4>
@@ -55,7 +58,8 @@
                             </div>
                             <a href="/student/eachProject" class="stretched-link"></a>
                         </div>
-                            <%})}%>
+                   
+                            <%}})}%>
 
 
             
@@ -74,6 +78,7 @@
                     <a href="/student/eachProject" class="stretched-link"></a>
                 </div>
             </div>
+            
             <!-- Load content from database -->
             <!-- Also fix hyperlink after creating each page -->
             <!-- <%- include('partials/studentSems/eighth') %>

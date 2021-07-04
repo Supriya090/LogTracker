@@ -168,6 +168,16 @@ margin-top: 0;
 min-height: 100px;
 }
 
+.input-title {
+  margin-left: 10px;
+  width: 80%;
+  margin: 0px;
+}
+
+#project-detail-form {
+  padding: 0;
+}
+
 
 
 

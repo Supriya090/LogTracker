@@ -1,15 +1,21 @@
 var express = require("express");
 var router = express.Router();
 var Minute = require("../models/Minute");
+var Comment = require("../models/Comment");
 var path = require("path");
 var fs = require('fs');
 var upload = require("../middleware/multer")
+var { loggedin } = require("../middleware/ensureLogin")
+
+var commentRouter = require("./comment")
+
+router.use("/comment", commentRouter)
 
 //process minute form
 // POST /minutes/add
 
 router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) => {
-  console.log("save")
+  //console.log("save")
   try {
     console.log(JSON.stringify(req.body))
     let errors = [];
@@ -21,20 +27,25 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
     var description = req.body.description
     var img = new Array()
 
+    const dir = './database/temp';
+if (!fs.existsSync(dir)) {
+	fs.mkdirSync(dir, {
+		recursive: true
+	});
+}
+
     for (let i = 0; i < req.files.length; i++) {
       var file = {
         name: req.files[i].filename,
         fileId: ID(),
         docs: {
-          data: fs.readFileSync(path.join(__dirname, '..' + '/public/uploads/' + req.files[i].filename)),
+          data: fs.readFileSync(path.join('..' + '/public/uploads' + req.files[i].filename)),
           contentType: req.files[i].mimetype
         }
       }
       img.push(file)
-
+      console.log(title)
     }
-    console.log(title)
-
     if (!title || !description) {
       errors.push({
         msg: "Please fill in all fields"
@@ -63,7 +74,6 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
     // res.render
 
   }
-
 })
 
 var ID = function () {
@@ -73,18 +83,28 @@ var ID = function () {
   return '_' + Math.random().toString(36).substr(2, 9);
 };
 
-router.use('/getall', (req, res, next) => {
+router.use('/getall', loggedin, (req, res, next) => {
   Minute.getMinutesbyPid('todo', function (err, minutes) {
     if (err) {
       return next(err)
     } else {
-      res.render('viewMinutes.ejs', {
-        minutes: minutes,
-        msg: "Get All Minutes"
-      });
+      Comment.find({}, function (err, cmt) {
+        if (err) {
+          console.log(err);
+        } else {
+          // res.render('viewMinutes.ejs', {
+          //   minutes: minutes,
+          //   comments: cmt,
+          //   msg: "Get All Minutes"
+          // });
+          res.redirect("/student/eachProject");
+        }
+      })
+
     }
   })
 })
+
 
 
 router.get('/download', function (req, res) {
@@ -97,21 +117,36 @@ router.get('/download', function (req, res) {
     } else {
       minute.attachment.forEach(element => {
         if (element.fileId == req.query.data) {
-    
+
           let fileType = element.docs.contentType
           let fileName = (element.name).substring((element.name).indexOf('-') + 1);
           let fileData = element.docs.data
-    
+
           var fileContents = Buffer.from(fileData, "base64");
           DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE, 'Downloads/');
-          var savedFilePath = path.join(DOWNLOAD_DIR + fileName)
-          fs.writeFile(savedFilePath, fileContents, function () {
-            res.status(200).download(savedFilePath, fileName);
+          fs.mkdir(DOWNLOAD_DIR, err => { 
+            if (err && err.code != 'EEXIST') throw 'up'
+            var savedFilePath = path.join(DOWNLOAD_DIR + fileName)
+            fs.writeFile(savedFilePath, fileContents, function () {
+              res.status(200).download(savedFilePath, fileName);
+            })
+         
           });
         }
-  })
-  }
+      })
+    }
+  });
 });
-});
+
+router.use('/verify/:id', loggedin, (req, res, next) => {
+  Minute.verifyMinute(req.params.id, function (err, minutes) {
+    if (err) {
+      return next(err)
+    } else {
+          res.send(minutes)
+        }
+      })
+})
+
 
 module.exports = router;

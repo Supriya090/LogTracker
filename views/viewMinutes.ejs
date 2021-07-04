@@ -34,5 +34,20 @@
                         </div>
                     </div>
                     <% }) %>
+                    <%= (minutes._id).toString() %>
+                    <form action="/minute/comment/save/<%= minutes._id.toString() %>" method="POST">
+                        <input type="text" name="cmt" id="cmt">
+                        <input type="hidden" name="Mid" value="<%= minutes._id.toString() %>">
+                        <button class="btn btn-primary logout-btn" name="action" type="submit">comment</button>
+                    </form>
+                    <ul>
+                    <% comments.forEach(function(cmt) { %>
+                        <% if (cmt.minuteId.toString()==minutes._id.toString()) { %>
+                                <li><%= cmt.comment%>----<%= cmt.commentedBy%>----<%= cmt.createdDate%></li>
+                                <a href="/minute/comment/delete/<%= cmt._id.toString()%>">Delete</a>
+                        <% } %>
+                        <% }) %>
+                    </ul>  
+                    <a href="/minute/verify/<%= (minutes._id).toString() %>">verify</a>       
             </div>
             <% })} %>

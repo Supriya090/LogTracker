@@ -20,32 +20,45 @@
       <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Login As</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="true" href="/" data-launch-view="admin">Admin</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="true" href="#" data-launch-view="teacher">Teacher</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="true" href="#" data-launch-view="student">Student</a>
+            <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Login </a>
           </li>
         </ul>
       </div>
 
-      <!-- User Views -->
-      <%- include('partials/loginPages/adminLogin') %>
-
-        <%- include('partials/loginPages/teacherLogin') %>
-
-          <%- include('partials/loginPages/studentLogin') %>
-
+      <!-- Login Views -->
+      <div class="view" id="Login">
+        <div class="card-body">
+            <div class="login-body-top">
+                <h5 class="card-title">LOG TRACKER</h5>
+                <span>
+                    <!-- <i class="fa fa-angle-left"></i> -->
+                    <img src="/assets/logo.png" />
+                    <!-- <i class="fa fa-angle-right"></i> -->
+                </span>
+            </div>
+            <form action="/auth/login" class="login-form" method="post">
+                <div class="form-group">
+                    <label for="username">USERNAME </label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">PASSWORD</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" id="admin" value="admin" name ="userstatus">
+                </div>
+                <div class="button-div">
+                    <input class="btn btn-outline-primary login-btn" type="submit" value="Login">
+                </div>
+                <%- include('./partials/messages') %>
+            </form>
+        </div>
+    <!-- </div>
             <p class="acc-check">Don't have an account?
               <a href="/signup" style="color: #04a4e4;">Signup</a>
             </p>
-
-    </div>
+    </div> -->
   </div>
 
   <script src="/javascripts/userChange.js"></script>

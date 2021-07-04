@@ -178,7 +178,9 @@ min-height: 100px;
   padding: 0;
 }
 
-
+.form-group.title{
+  margin-bottom: 0;
+}
 
 
 /* Teacher Each Project Ends */

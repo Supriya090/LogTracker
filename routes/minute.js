@@ -14,7 +14,7 @@ router.use("/comment", commentRouter)
 //process minute form
 // POST /minutes/add
 
-router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) => {
+router.post('/save/:pId', upload.array('uploadedFiles', 10),  (req, res, next) => {
   //console.log("save")
   try {
     console.log(JSON.stringify(req.body))
@@ -27,7 +27,7 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
     var description = req.body.description
     var img = new Array()
 
-    const dir = './database/temp';
+    const dir = __dirname+'..' + '/public/uploads';
 if (!fs.existsSync(dir)) {
 	fs.mkdirSync(dir, {
 		recursive: true
@@ -39,7 +39,7 @@ if (!fs.existsSync(dir)) {
         name: req.files[i].filename,
         fileId: ID(),
         docs: {
-          data: fs.readFileSync(path.join('..' + '/public/uploads' + req.files[i].filename)),
+          data: fs.readFileSync(path.join(__dirname+'..' + '/public/uploads' + req.files[i].filename)),
           contentType: req.files[i].mimetype
         }
       }
@@ -63,14 +63,14 @@ if (!fs.existsSync(dir)) {
       if (err) {
         res.status(500).send("Database error occured");
       } else {
-        res.redirect("/student/eachProject");
+        res.redirect("/student/eachProject/pId");
       }
     }
     )
   }
   catch (err) {
-    console.error(err)
-    res.redirect("/student/eachProject");
+    res.render(err)
+    // res.redirect("/student/eachProject");
     // res.render
 
   }

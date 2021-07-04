@@ -22,7 +22,7 @@ var ProjectSchema = new mongoose.Schema({
     },
     members:{
         supervisor:String,
-        team:[String]
+        team:String
     },
     createdBy: {
         type: String,

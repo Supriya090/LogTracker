@@ -8,7 +8,7 @@
   </head>
   <body style="background-color: #1f3750">
     <%- include('partials/adminHeader') %>
-    <form class="container create-team" action="/project/createteams" method="POST">
+    <form action="/project/createteams" class="container create-team" method="post">
       <div class="form-group">
         <label for="projectName">Project Name</label>
         <input
@@ -53,17 +53,17 @@
       </div>
       <div class="form-group">
         <label for="supervisor">Supervisor</label>
-        <input type="text" id="newSuper_1" name="supervisor1" />
-        <button class="addSuper">+</button>
-        <button class="removeSuper">-</button>
+        <input type="text" id="newSuper_1" name="supervisor" />
+        <input class="addSuper" type="button" value="+">
+        <input class="removeSuper" type="button" value="-">
         <div id="new_supervisor"></div>
         <input type="hidden" value="1" id="total_supervisor" name="total_supervisor" />
       </div>
       <div class="form-group">
         <label for="student">Students</label>
-        <input type="text" id="newStud_1" name="std"/>
-        <button class="addStud">+</button>
-        <button class="removeStud">-</button>
+        <input type="text" id="newStud_1" name="std1"/>
+        <input class="addStud" type="button" value="+">
+        <input class="removeStud" type="button" value="-">
         <div id="new_student"></div>
         <input type="hidden" value="1" id="total_student" name="total_student" />
       </div>

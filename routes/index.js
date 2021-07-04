@@ -18,13 +18,35 @@ router.get("/dashboard", loggedin, function (req, res, next) {
       return next(err)
     } else if (user) {
       if (user.userstatus == "student") {
-        res.redirect('/student')
+        Project.getProjectsbyUser(req.user.username, function (err, projects) {
+          if (err) {
+            return next(err)
+          } else {
+            res.render("studentView", {
+              title: "Student View | Log Tracker",
+              projects:projects,
+              firstname: user.username.split(' ')[0]
+            });
+          }
+      })
       } else if (user.userstatus == "teacher") {
-        res.redirect('/teacher')
+        Project.getProjectsbySV(req.user.username, function (err, projects) {
+          if (err) {
+            return next(err)
+          } else {
+            res.render("teacherView", {
+              title: "Teacher View | Log Tracker",
+              firstname: user.username.split(' ')[0]
+            });
+          }
+      })
       
         // res.send(user);
       } else if (user.userstatus == "admin") {
-        res.redirect('/admin')
+        res.render("adminView", {
+          title: "Admin View | Log Tracker",
+          firstname: user.username.split(' ')[0]
+        });
      
         // res.send(user);
       }
@@ -32,45 +54,6 @@ router.get("/dashboard", loggedin, function (req, res, next) {
   })
 });
 
-router.get("/student", ensureAuth, function (req, res, next) {
-  Project.getProjectsbyUser(req.user.username, function (err, projects) {
-    if (err) {
-      return next(err)
-    } else {
-      res.render("studentView", {
-        title: "Student View | Log Tracker",
-        projects:projects,
-        firstname: user.username.split(' ')[0]
-      });
-    }
-})
-  
-});
-
-router.get("/teacher", ensureAuth, function (req, res, next) {
-  Project.getProjectsbySV(req.user.username, function (err, projects) {
-    if (err) {
-      return next(err)
-    } else {
-      res.render("studentView", {
-        title: "Student View | Log Tracker",
-        projects:projects,
-        firstname: user.username.split(' ')[0]
-      });
-    }
-})
-  res.render("teacherView", {
-    title: "Teacher View | Log Tracker",
-    firstname: user.username.split(' ')[0]
-  });
-});
-
-router.get("/admin", ensureAuth, function (req, res, next) {
-  res.render("adminView", {
-    title: "Admin View | Log Tracker",
-    firstname: user.username.split(' ')[0]
-  });
-});
 
 
 /* GET home page. */

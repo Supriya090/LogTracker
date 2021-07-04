@@ -23,11 +23,8 @@ var ProjectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  team: [
-    {
-      type: String,
-    },
-  ],
+  team: [String],
+  
   createdBy: {
     type: String,
     required: true,

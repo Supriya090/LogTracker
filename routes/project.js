@@ -8,13 +8,13 @@ router.post("/createteams", function (req, res, next) {
     var projectname = req.body.projectname;
     var description= req.body.description;
     var std = req.body.std;
-    var supervisor = req.body.supervisor;
+    // var supervisor = req.body.supervisor;
     var events = req.body.events;
     var semester = req.body.sems;
     var username = req.user.username;
     var supervisor= req.body.supervisor,
-    // team= [req.body.std1,req.body.std2,req.body.std3,req.body.std4,req.body.std5]
-    team=["Ranju G.C.","Rahul Shah","Supriya Khadka","Prabin Paudel"]
+    team= [req.body.std1,req.body.std2,req.body.std3,req.body.std4,req.body.std5]
+    // team=["Ranju G.C.","Rahul Shah","Supriya Khadka","Prabin Paudel"]
     if (!projectname) {
               errors.push({
                 msg: "Please sfill in all fields"
@@ -25,14 +25,15 @@ router.post("/createteams", function (req, res, next) {
             project.projectname = projectname
             project.description = description
             project.supervisor = supervisor
-            // project.team = team
+            project.team = team
             project.createdBy = username
             project.semester = semester
-            project.events = events
+            // project.events = events
 
             Project.createProject(project, function (err, projects) {
               //Save to database
               if (err) {
+                console.log(err)
                 res.status(500).send("Database error occured");
               } else {
                 res.send(projects);

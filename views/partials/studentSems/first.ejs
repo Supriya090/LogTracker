@@ -14,9 +14,12 @@
                 <%= team.split(' ').pop().charAt(0)%>.<%=
                                 team.split(' ')[0]%>,<% }}) %><br />
 
-                                CREATED ON: <%=projects.createdDate%></p>
+                                CREATED ON: <%=projects.createdDate.toLocaleString()%></p>
         </div>
-        <a href="/student/eachProject/<%= projects._id.toString()%>" class="stretched-link"></a>
-    </div>
+        <% if (userstatus == "teacher") { %>
+            <a href="/teacher/eachProject/<%= projects._id.toString()%>" class="stretched-link"></a>
+        <% } else { %>
+            <a href="/student/eachProject/<%= projects._id.toString()%>" class="stretched-link"></a>
+            <% } %> </div>
     <%}})}%>
 </div>

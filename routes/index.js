@@ -29,6 +29,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
                 res.render("studentView", {
                   title: "Student View | Log Tracker",
                   projects: projects,
+                  userstatus:user.userstatus,
                   firstname: user.username.split(" ")[0],
                 });
               }
@@ -42,6 +43,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
               res.render("teacherView", {
                 title: "Teacher View | Log Tracker",
                 projects:projects,
+                userstatus:user.userstatus,
                 firstname: user.username.split(" ")[0],
               });
             }
@@ -107,8 +109,8 @@ router.get(
 );
 
 /* GET Teacher's Individual Project*/
-router.get("/teacher/eachProject", loggedin, function (req, res, next) {
-  Minute.getMinutesbyPid("todo", function (err, minutes) {
+router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
+  Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
     if (err) {
       return next(err);
     } else {
@@ -120,6 +122,7 @@ router.get("/teacher/eachProject", loggedin, function (req, res, next) {
             minutes: minutes.reverse(),
             comments: cmt.reverse(),
             title: "Project | Log Tracker",
+            pId: req.params.pId,
             username: req.user.username,
             firstname: req.user.username.split(" ")[0],
           });

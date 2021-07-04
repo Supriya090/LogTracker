@@ -116,10 +116,14 @@ router.get('/download', function (req, res) {
           let fileData = element.docs.data
 
           var fileContents = Buffer.from(fileData, "base64");
-          DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE, 'Downloads/');
-          var savedFilePath = path.join(DOWNLOAD_DIR + fileName)
-          fs.writeFile(savedFilePath, fileContents, function () {
-            res.status(200).download(savedFilePath, fileName);
+          DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE, 'downloads/');
+          fs.mkdir(DOWNLOAD_DIR, err => { 
+            if (err && err.code != 'EEXIST') throw 'up'
+            var savedFilePath = path.join(DOWNLOAD_DIR + fileName)
+            fs.writeFile(savedFilePath, fileContents, function () {
+              res.status(200).download(savedFilePath, fileName);
+            })
+         
           });
         }
       })

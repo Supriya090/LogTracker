@@ -9,79 +9,216 @@
 
 <body style="background-color: #1f3750">
     <%- include('partials/header') %>
-        <div class="student-dashboard container">
-            <div class="buttons-div row">
-                <button id="showProjects8Btn" studentData-launch-view="sem8" class="col semBtn activeBtn">
-                    8th Sem
-                </button>
-                <button id="showProjects7Btn" studentData-launch-view="sem7" class="col semBtn">
-                    7th Sem
-                </button>
-                <button id="showProjects6Btn" studentData-launch-view="sem6" class="col semBtn">
-                    6th Sem
-                </button>
-                <button id="showProjects5Btn" studentData-launch-view="sem5" class="col semBtn">
-                    5th Sem
-                </button>
-                <button id="showProjects4Btn" studentData-launch-view="sem4" class="col semBtn">
-                    4th Sem
-                </button>
-                <button id="showProjects3Btn" studentData-launch-view="sem3" class="col semBtn">
-                    3rd Sem
-                </button>
-                <button id="showProjects2Btn" studentData-launch-view="sem2" class="col semBtn">
-                    2nd Sem
-                </button>
-                <button id="showProjects1Btn" studentData-launch-view="sem1" class="col semBtn">
-                    1st Sem
-                </button>
-            </div>
+    <div class="student-dashboard container">
+        <div class="buttons-div row">
+            <button id="showProjects8Btn" studentData-launch-view="sem8" class="col semBtn activeBtn">
+                8th Sem
+            </button>
+            <button id="showProjects7Btn" studentData-launch-view="sem7" class="col semBtn">
+                7th Sem
+            </button>
+            <button id="showProjects6Btn" studentData-launch-view="sem6" class="col semBtn">
+                6th Sem
+            </button>
+            <button id="showProjects5Btn" studentData-launch-view="sem5" class="col semBtn">
+                5th Sem
+            </button>
+            <button id="showProjects4Btn" studentData-launch-view="sem4" class="col semBtn">
+                4th Sem
+            </button>
+            <button id="showProjects3Btn" studentData-launch-view="sem3" class="col semBtn">
+                3rd Sem
+            </button>
+            <button id="showProjects2Btn" studentData-launch-view="sem2" class="col semBtn">
+                2nd Sem
+            </button>
+            <button id="showProjects1Btn" studentData-launch-view="sem1" class="col semBtn">
+                1st Sem
+            </button>
+        </div>
 
-            <div class="view" id="sem<%= projects.semester%>">
-                <h5>Ongoing Projects</h5>
-            <% if( Array.isArray(projects) ) { %> 
-                <%projects.forEach( function(projects ){ %>
-                    <% p =(projects.semester=="8" ) %>
-                    <%= p%>
-                        <% if(projects.semester=="8" ) { %>
-                        <div class="card ">
-                            <div class="project-card">
-                                <h4 class="card-title"><%= projects.projectname%></h4>
-                                <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
-                                    STUDENTS:
-                                    <% projects.team.forEach(function(team) { %> 
-                                        <% if(team!=null ) { %>
-                                        <%= team.split(' ').pop().charAt(0)%>.<%=
+        <div class="view" id="sem8">
+            <h5>Ongoing Projects</h5>
+            <% if( Array.isArray(projects) ) { %>
+            <%projects.forEach( function(projects ){ %>
+            <% if(projects.semester=="8" ) { %>
+            <div class="card ">
+                <div class="project-card">
+                    <h4 class="card-title"><%= projects.projectname%></h4>
+                    <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
+                        STUDENTS:
+                        <% projects.team.forEach(function(team) { %>
+                        <% if(team!=null ) { %>
+                        <%= team.split(' ').pop().charAt(0)%>.<%=
                                         team.split(' ')[0]%>,<% }}) %><br />
-        
-                                    CREATED ON: projects.createdDate</p>
-                            </div>
-                            <a href="/student/eachProject" class="stretched-link"></a>
-                        </div>
-                   
-                            <%}})}%>
 
-
-            
-                    
-                    
-               
-            
-                <h5>Completed Projects</h5>
-                <div class="card ">
-                    <div class="project-card">
-                        <h4 class="card-title">Log Tracker</h4>
-                        <p class="card-text">SUPERVISED BY: AMAN SHAKYA<br />
-                            STUDENTS: S.RAHUL, K.SUPRIYA, P.PRABIN, G.RANJU<br />
-                            CREATED ON: 2021-06-18</p>
-                    </div>
-                    <a href="/student/eachProject" class="stretched-link"></a>
+                        CREATED ON: projects.createdDate</p>
                 </div>
+                <a href="/student/eachProject" class="stretched-link"></a>
             </div>
-            
-            <!-- Load content from database -->
-            <!-- Also fix hyperlink after creating each page -->
-            <!-- <%- include('partials/studentSems/eighth') %>
+            <%}})}%>
+        </div>
+
+        <div class="view" id="sem7">
+            <h5>Ongoing Projects</h5>
+            <% if( Array.isArray(projects) ) { %>
+            <%projects.forEach( function(projects ){ %>
+            <% if(projects.semester=="7" ) { %>
+            <div class="card ">
+                <div class="project-card">
+                    <h4 class="card-title"><%= projects.projectname%></h4>
+                    <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
+                        STUDENTS:
+                        <% projects.team.forEach(function(team) { %>
+                        <% if(team!=null ) { %>
+                        <%= team.split(' ').pop().charAt(0)%>.<%=
+                                        team.split(' ')[0]%>,<% }}) %><br />
+
+                        CREATED ON: projects.createdDate</p>
+                </div>
+                <a href="/student/eachProject" class="stretched-link"></a>
+            </div>
+            <%}})}%>
+        </div>
+
+        <div class="view" id="sem6">
+            <h5>Ongoing Projects</h5>
+            <% if( Array.isArray(projects) ) { %>
+            <%projects.forEach( function(projects ){ %>
+            <% if(projects.semester=="6" ) { %>
+            <div class="card ">
+                <div class="project-card">
+                    <h4 class="card-title"><%= projects.projectname%></h4>
+                    <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
+                        STUDENTS:
+                        <% projects.team.forEach(function(team) { %>
+                        <% if(team!=null ) { %>
+                        <%= team.split(' ').pop().charAt(0)%>.<%=
+                                        team.split(' ')[0]%>,<% }}) %><br />
+
+                        CREATED ON: projects.createdDate</p>
+                </div>
+                <a href="/student/eachProject" class="stretched-link"></a>
+            </div>
+            <%}})}%>
+        </div>
+
+        <div class="view" id="sem5">
+            <h5>Ongoing Projects</h5>
+            <% if( Array.isArray(projects) ) { %>
+            <%projects.forEach( function(projects ){ %>
+            <% if(projects.semester=="5" ) { %>
+            <div class="card ">
+                <div class="project-card">
+                    <h4 class="card-title"><%= projects.projectname%></h4>
+                    <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
+                        STUDENTS:
+                        <% projects.team.forEach(function(team) { %>
+                        <% if(team!=null ) { %>
+                        <%= team.split(' ').pop().charAt(0)%>.<%=
+                                        team.split(' ')[0]%>,<% }}) %><br />
+
+                        CREATED ON: projects.createdDate</p>
+                </div>
+                <a href="/student/eachProject" class="stretched-link"></a>
+            </div>
+            <%}})}%>
+        </div>
+
+        <div class="view" id="sem4">
+            <h5>Ongoing Projects</h5>
+            <% if( Array.isArray(projects) ) { %>
+            <%projects.forEach( function(projects ){ %>
+            <% if(projects.semester=="4" ) { %>
+            <div class="card ">
+                <div class="project-card">
+                    <h4 class="card-title"><%= projects.projectname%></h4>
+                    <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
+                        STUDENTS:
+                        <% projects.team.forEach(function(team) { %>
+                        <% if(team!=null ) { %>
+                        <%= team.split(' ').pop().charAt(0)%>.<%=
+                                        team.split(' ')[0]%>,<% }}) %><br />
+
+                        CREATED ON: projects.createdDate</p>
+                </div>
+                <a href="/student/eachProject" class="stretched-link"></a>
+            </div>
+            <%}})}%>
+        </div>
+
+        <div class="view" id="sem3">
+            <h5>Ongoing Projects</h5>
+            <% if( Array.isArray(projects) ) { %>
+            <%projects.forEach( function(projects ){ %>
+            <% if(projects.semester=="3" ) { %>
+            <div class="card ">
+                <div class="project-card">
+                    <h4 class="card-title"><%= projects.projectname%></h4>
+                    <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
+                        STUDENTS:
+                        <% projects.team.forEach(function(team) { %>
+                        <% if(team!=null ) { %>
+                        <%= team.split(' ').pop().charAt(0)%>.<%=
+                                        team.split(' ')[0]%>,<% }}) %><br />
+
+                        CREATED ON: projects.createdDate</p>
+                </div>
+                <a href="/student/eachProject" class="stretched-link"></a>
+            </div>
+            <%}})}%>
+        </div>
+
+        <div class="view" id="sem2">
+            <h5>Ongoing Projects</h5>
+            <% if( Array.isArray(projects) ) { %>
+            <%projects.forEach( function(projects ){ %>
+            <% if(projects.semester=="2" ) { %>
+            <div class="card ">
+                <div class="project-card">
+                    <h4 class="card-title"><%= projects.projectname%></h4>
+                    <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
+                        STUDENTS:
+                        <% projects.team.forEach(function(team) { %>
+                        <% if(team!=null ) { %>
+                        <%= team.split(' ').pop().charAt(0)%>.<%=
+                                        team.split(' ')[0]%>,<% }}) %><br />
+
+                        CREATED ON: projects.createdDate</p>
+                </div>
+                <a href="/student/eachProject" class="stretched-link"></a>
+            </div>
+            <%}})}%>
+        </div>
+
+        <div class="view" id="sem1">
+            <h5>Ongoing Projects</h5>
+            <% if( Array.isArray(projects) ) { %>
+            <%projects.forEach( function(projects ){ %>
+            <% if(projects.semester=="1" ) { %>
+            <div class="card ">
+                <div class="project-card">
+                    <h4 class="card-title"><%= projects.projectname%></h4>
+                    <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
+                        STUDENTS:
+                        <% projects.team.forEach(function(team) { %>
+                        <% if(team!=null ) { %>
+                        <%= team.split(' ').pop().charAt(0)%>.<%=
+                                        team.split(' ')[0]%>,<% }}) %><br />
+
+                        CREATED ON: projects.createdDate</p>
+                </div>
+                <a href="/student/eachProject" class="stretched-link"></a>
+            </div>
+            <%}})}%>
+        </div>
+
+
+
+
+        <!-- Load content from database -->
+        <!-- Also fix hyperlink after creating each page -->
+        <!-- <%- include('partials/studentSems/eighth') %>
                 <%- include('partials/studentSems/seventh') %>
                     <%- include('partials/studentSems/sixth') %>
                         <%- include('partials/studentSems/fifth') %>
@@ -89,10 +226,10 @@
                                 <%- include('partials/studentSems/third') %>
                                     <%- include('partials/studentSems/second') %>
                                         <%- include('partials/studentSems/first') %> -->
-        </div>
+    </div>
 
-        <script src="/javascripts/userChange.js"></script>
-        <script src="/javascripts/linkActive.js"></script>
+    <script src="/javascripts/userChange.js"></script>
+    <script src="/javascripts/linkActive.js"></script>
 </body>
 
 </html>

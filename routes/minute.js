@@ -25,18 +25,20 @@ router.post('/save/:pId', upload.array('uploadedFiles', 10),  (req, res, next) =
 
     var title = req.body.title
     var description = req.body.description
+    var pId = req.params.pId
     var img = new Array()
+    console.log(pId)
 
-    for (let i = 0; i < req.files.length; i++) {
-      var file = {
-        name: req.files[i].filename,
-        fileId: ID(),
-        docs: {
-          data: fs.readFileSync(path.join(__dirname,'..' + '/public/uploads' + req.files[i].filename)),
-          contentType: req.files[i].mimetype
+      for (let i = 0; i < req.files.length; i++) {
+        var file = {
+          name: req.files[i].filename,
+          fileId: ID(),
+          docs: {
+            data: fs.readFileSync(path.join(__dirname, '..' + '/public/uploads/' + req.files[i].filename)),
+            contentType: req.files[i].mimetype
+          }
         }
-      }
-      img.push(file)
+        img.push(file)
       console.log(title)
     }
     if (!title || !description) {
@@ -46,7 +48,7 @@ router.post('/save/:pId', upload.array('uploadedFiles', 10),  (req, res, next) =
     }
 
     const minute = new Minute()
-    //minute.projectId = "project id"
+    minute.projectId = pId
     minute.title = title
     minute.description = description
     minute.attachment = img
@@ -56,7 +58,7 @@ router.post('/save/:pId', upload.array('uploadedFiles', 10),  (req, res, next) =
       if (err) {
         res.status(500).send("Database error occured");
       } else {
-        res.redirect("/student/eachProject/pId");
+        res.redirect("/student/eachProject/"+pId);
       }
     }
     )

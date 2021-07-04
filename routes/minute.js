@@ -27,12 +27,19 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
     var description = req.body.description
     var img = new Array()
 
+    const dir = './database/temp';
+if (!fs.existsSync(dir)) {
+	fs.mkdirSync(dir, {
+		recursive: true
+	});
+}
+
     for (let i = 0; i < req.files.length; i++) {
       var file = {
         name: req.files[i].filename,
         fileId: ID(),
         docs: {
-          data: fs.readFileSync(path.join(__dirname, '..' + '/public/uploads/' + req.files[i].filename)),
+          data: fs.readFileSync(path.join('..' + '/public/uploads' + req.files[i].filename)),
           contentType: req.files[i].mimetype
         }
       }
@@ -116,7 +123,7 @@ router.get('/download', function (req, res) {
           let fileData = element.docs.data
 
           var fileContents = Buffer.from(fileData, "base64");
-          DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE, 'downloads/');
+          DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE, 'Downloads/');
           fs.mkdir(DOWNLOAD_DIR, err => { 
             if (err && err.code != 'EEXIST') throw 'up'
             var savedFilePath = path.join(DOWNLOAD_DIR + fileName)

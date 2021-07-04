@@ -16,31 +16,60 @@
             <h5>
                 Detailed Logs
             </h5>    
+
             <div class="row teacher-log-details">
-                <div class="col-9 minutes-list">    
+
+                <div class="col-8 minutes-list">    
                     <div class="card ">
                         <h4 class="card-title">Meeting 1</h4>
                     </div>
                 </div>
-                <div class="col-3 events-list">
-                    <div class="card ">
-                        <h4 class="card-title">Upcoming Events</h4>
-                        <a type="button" class="btn btn-primary btn-download-minutes" href="">Download</a>
-                        <a type="button" class="btn btn-primary btn-verify-minutes" href="">Verify Minutes</a>
-                        <!--p>Both botton href empty</p-->
 
-                        <hr style="border-top: 1px solid white; margin-top: 0px">
+                <div class="col-4 events-list">
+                    <div class="card">
+                        <div class="event-card">
+                            <h4 class="card-title">Upcoming Events</h4>
+                            <hr style="border-top: 1px solid white; margin-top: 0; margin-bottom: 5px">
+                            <p class="card-body display-events">The upcoming events list.</p>
+
+                            <h4 class="card-title">Add Events</h4>
+                            <hr style="border-top: 1px solid white; margin-top: 0">
+                            <p class="add-title">Title:</p>
+
+                            <div class="form-group">
+                                <label for="college">Description:</label>
+                                <textarea
+                                type="strnpming"
+                                class="form-control"
+                                id="descriptionTeacher"
+                                name="description"
+                                required
+                                >
+                                </textarea>
+                            </div>
+
+                            <button
+                            class="btn btn-primary logout-btn events-btn"
+                            name="action"
+                            type="submit"
+                            style="width: 30%"
+                            >Add</button>
                         
-                        <h6 class="card-title supervisor">Supervisor</h4>
-                            <p class="card-body supervisor">Aman Shakya</p>
-                            <h6 class="card-title members">Members</h4>
-                            <p class="card-body members">Prabin Paudel<br>Rahul Shah<br>Ranju G.C.<br>Supriya Khadka</p>
+                        </div>
+                        
+                        <h5 class="card-title supervisor">Supervisor</h5>
+                        <hr style="border-top: 1px solid white; margin-top: 0; margin-bottom: 0">
+                        <p class="card-body supervisor">Aman Shakya</p>
+
+
+                        <h5 class="card-title members">Members</h5>
+                        <hr style="border-top: 1px solid white; margin-top: 0px; margin-bottom: 0">
+                        <p class="card-body members">Prabin Paudel<br>Rahul Shah<br>Ranju G.C.<br>Supriya Khadka</p>
                     </div>
                 </div>
+
             </div>
         </div>
-        <script src="/javascripts/userChange.js"></script>
-        <script src="/javascripts/linkActive.js"></script>
 </body>
 
 </html>

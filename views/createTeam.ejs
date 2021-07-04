@@ -8,7 +8,7 @@
   </head>
   <body style="background-color: #1f3750">
     <%- include('partials/adminHeader') %>
-    <div class="container create-team">
+    <form class="container create-team" action="/project/createteams" method="POST">
       <div class="form-group">
         <label for="projectName">Project Name</label>
         <input
@@ -53,7 +53,7 @@
       </div>
       <div class="form-group">
         <label for="supervisor">Supervisor</label>
-        <input type="text" id="newSuper_1" name="supervisor" />
+        <input type="text" id="newSuper_1" name="supervisor1" />
         <button class="addSuper">+</button>
         <button class="removeSuper">-</button>
         <div id="new_supervisor"></div>
@@ -68,52 +68,54 @@
         <input type="hidden" value="1" id="total_student" name="total_student" />
       </div>
 
-      <script>
-        $(".addSuper").on("click", addSuper);
-        $(".removeSuper").on("click", removeSuper);
-
-        function addSuper() {
-          var new_supervisor_no = parseInt($("#total_supervisor").val()) + 1;
-          var new_input =
-            "<input type='text' id='newSuper_" + new_supervisor_no + "'>";
-
-          $("#new_supervisor").append(new_input);
-
-          $("#total_supervisor").val(new_supervisor_no);
-        }
-
-        function removeSuper() {
-          var last_supervisor_no = $("#total_supervisor").val();
-
-          if (last_supervisor_no > 1) {
-            $("#newSuper_" + last_supervisor_no).remove();
-            $("#total_supervisor").val(last_supervisor_no - 1);
-          }
-        }
-
-        $(".addStud").on("click", addStud);
-        $(".removeStud").on("click", removeStud);
-
-        function addStud() {
-          var new_student_no = parseInt($("#total_student").val()) + 1;
-          var new_input =
-            "<input type='text' id='newStud_" + new_student_no + "'>";
-
-          $("#new_student").append(new_input);
-
-          $("#total_student").val(new_student_no);
-        }
-
-        function removeStud() {
-          var last_student_no = $("#total_student").val();
-
-          if (last_student_no > 1) {
-            $("#newStud_" + last_student_no).remove();
-            $("#total_student").val(last_student_no - 1);
-          }
-        }
-      </script>
+     
       <button type="submit" class="btn btn-primary">Create</button>
     </div>
+
+    <script>
+      $(".addSuper").on("click", addSuper);
+      $(".removeSuper").on("click", removeSuper);
+
+      function addSuper() {
+        var new_supervisor_no = parseInt($("#total_supervisor").val()) + 1;
+        var new_input =
+          "<input type='text' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "'>";
+
+        $("#new_supervisor").append(new_input);
+
+        $("#total_supervisor").val(new_supervisor_no);
+      }
+
+      function removeSuper() {
+        var last_supervisor_no = $("#total_supervisor").val();
+
+        if (last_supervisor_no > 1) {
+          $("#newSuper_" + last_supervisor_no).remove();
+          $("#total_supervisor").val(last_supervisor_no - 1);
+        }
+      }
+
+      $(".addStud").on("click", addStud);
+      $(".removeStud").on("click", removeStud);
+
+      function addStud() {
+        var new_student_no = parseInt($("#total_student").val()) + 1;
+        var new_input =
+          "<input type='text' id='newStud_" + new_student_no + "' name='std" + new_student_no + "'>";
+
+        $("#new_student").append(new_input);
+
+        $("#total_student").val(new_student_no);
+      }
+
+      function removeStud() {
+        var last_student_no = $("#total_student").val();
+
+        if (last_student_no > 1) {
+          $("#newStud_" + last_student_no).remove();
+          $("#total_student").val(last_student_no - 1);
+        }
+      }
+    </script>
   </body>
 </html>

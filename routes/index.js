@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require("../models/User");
 var Minute = require("../models/Minute");
 var Comment = require("../models/Comment");
+var Project = require("../models/Project");
 var { loggedin, ensureAuth } = require("../middleware/ensureLogin");
 
 /* GET Dashboard. */
@@ -17,27 +18,58 @@ router.get("/dashboard", loggedin, function (req, res, next) {
       return next(err)
     } else if (user) {
       if (user.userstatus == "student") {
-        res.render("studentView", {
-          title: "Student View | Log Tracker",
-          firstname: user.username.split(' ')[0]
-        });
+        res.redirect('/student')
       } else if (user.userstatus == "teacher") {
-        // res.render('/teacher')
-        res.render("teacherView", {
-          title: "Teacher View | Log Tracker",
-          firstname: user.username.split(' ')[0]
-        });
+        res.redirect('/teacher')
+      
         // res.send(user);
       } else if (user.userstatus == "admin") {
-        // res.redirect('/admin')
-        res.render("adminView", {
-          title: "Admin View | Log Tracker",
-          firstname: user.username.split(' ')[0]
-        });
+        res.redirect('/admin')
+     
         // res.send(user);
       }
     }
   })
+});
+
+router.get("/student", ensureAuth, function (req, res, next) {
+  Project.getProjectsbyUser(req.user.username, function (err, projects) {
+    if (err) {
+      return next(err)
+    } else {
+      res.render("studentView", {
+        title: "Student View | Log Tracker",
+        projects:projects,
+        firstname: user.username.split(' ')[0]
+      });
+    }
+})
+  
+});
+
+router.get("/teacher", ensureAuth, function (req, res, next) {
+  Project.getProjectsbySV(req.user.username, function (err, projects) {
+    if (err) {
+      return next(err)
+    } else {
+      res.render("studentView", {
+        title: "Student View | Log Tracker",
+        projects:projects,
+        firstname: user.username.split(' ')[0]
+      });
+    }
+})
+  res.render("teacherView", {
+    title: "Teacher View | Log Tracker",
+    firstname: user.username.split(' ')[0]
+  });
+});
+
+router.get("/admin", ensureAuth, function (req, res, next) {
+  res.render("adminView", {
+    title: "Admin View | Log Tracker",
+    firstname: user.username.split(' ')[0]
+  });
 });
 
 
@@ -96,7 +128,7 @@ router.get("/teacher/eachProject", loggedin, function (req, res, next) {
 });
 
 /* GET Admin Create Team */
-router.get("/admin/createTeam", loggedin, function (req, res, next) {
+router.use("/admin/createTeam", loggedin, function (req, res, next) {
   res.render("createTeam", {
     title: "Create Team | Log Tracker",
     firstname: req.user.username.split(' ')[0]

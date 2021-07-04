@@ -47,6 +47,7 @@ module.exports.createEvent = function (newEvent, callback){
 
 module.exports.deleteEvent = function (eventid, callback){
     Event.deleteOne({ _id: eventid }, callback)
+    
 }
 
 module.exports.getEventsbyPid = function (pId,callback) {

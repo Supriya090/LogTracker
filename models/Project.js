@@ -26,7 +26,7 @@ var ProjectSchema = new mongoose.Schema({
   team: [
     {
       type: String,
-    }
+    },
   ],
   createdBy: {
     type: String,
@@ -49,9 +49,16 @@ module.exports.createProject = function (newProject, callback) {
   newProject.save(callback);
 };
 
-module.exports.getProjectsbyUser = function (userId, callback) {
+module.exports.getProjectsbyUser = function (name, callback) {
   let query = {
-    projectId: pid,
+    team: { $all: [name] },
+  };
+  Project.find(query, callback);
+};
+
+module.exports.getProjectsbySV = function (name, callback) {
+  let query = {
+    supervisor: name,
   };
   Project.find(query, callback);
 };

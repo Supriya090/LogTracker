@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Project = require("../models/Project");
+var Event = require("../models/Event");
 
 
 router.post("/createteams", function (req, res, next) {
@@ -43,16 +44,49 @@ router.post("/createteams", function (req, res, next) {
           
 })
 
-// router.use('/getall', loggedin, (req, res, next) => {
-//   Project.getProjectsbyUser(req.user.username, function (err, projects) {
-//     if (err) {
-//       return next(err)
-//     } else {
-      
+router.post('/event/save/:pId',(req, res, next) => {
+  try {
+    console.log(JSON.stringify(req.body))
+    let errors = [];
 
-//     }
-//   })
-// })
+    var title = req.body.title
+    var dueDate = req.body.dueDate
+    var pId = req.body.pId
+
+    if (!title) {
+      errors.push({
+        msg: "Add event field cannot be empty!"
+      });
+    }
+
+    // var mId = mongoose.Types.ObjectId(req.params.mId);
+
+    const event = new Event()
+    event.projectId = pId
+    event.event = title
+    event.dueDate = dueDate
+    event.commentedBy = req.user.username
+
+    // console.log(req.user.username)
+
+    Event.createEvent(event, function (err, events) {
+      //Save to database
+      if (err) {
+        res.status(500).send("Database error occured");
+      } else {
+        res.redirect('/minute/getall')
+      }
+    }
+    )
+  }
+  
+  catch (err) {
+    console.error(err)
+
+  }
+
+})
+
 
 
 

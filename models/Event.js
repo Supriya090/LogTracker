@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 //Models
 var EventSchema = new mongoose.Schema({
   projectId: {
-    type: mongoose.ObjectId,
+    type: String,
     default: 'todo',
     required: true,
   },
@@ -19,7 +19,7 @@ var EventSchema = new mongoose.Schema({
     required: true,
   },
   dueDate: {
-    type: Date,
+    type: String,
     required: true,
   },
   event: {

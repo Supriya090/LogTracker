@@ -27,19 +27,12 @@ router.post('/save/:pId', upload.array('uploadedFiles', 10),  (req, res, next) =
     var description = req.body.description
     var img = new Array()
 
-    const dir = __dirname+'..' + '/public/uploads';
-if (!fs.existsSync(dir)) {
-	fs.mkdirSync(dir, {
-		recursive: true
-	});
-}
-
     for (let i = 0; i < req.files.length; i++) {
       var file = {
         name: req.files[i].filename,
         fileId: ID(),
         docs: {
-          data: fs.readFileSync(path.join(__dirname+'..' + '/public/uploads' + req.files[i].filename)),
+          data: fs.readFileSync(path.join(__dirname,'..' + '/public/uploads' + req.files[i].filename)),
           contentType: req.files[i].mimetype
         }
       }

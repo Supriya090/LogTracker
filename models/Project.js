@@ -8,7 +8,7 @@ var ProjectSchema = new mongoose.Schema({
         default: Date.now(),
         required: true,
     },
-    title: {
+    projectname: {
         type: String,
         required: true
     },
@@ -24,10 +24,6 @@ var ProjectSchema = new mongoose.Schema({
         supervisor:String,
         team:[String]
     },
-    events: [{
-        title: String,
-        status: String,
-    }],
     createdBy: {
         type: String,
         required: true

@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var Minute = require("../models/Minute");
+var Project = require("../models/Project");
 var Comment = require("../models/Comment");
 var path = require("path");
 var fs = require('fs');

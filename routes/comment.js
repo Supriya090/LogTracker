@@ -8,7 +8,7 @@ var { loggedin } = require("../middleware/ensureLogin");
 //process comment form
 // POST /comment/save
 
-router.post('/save/:mId',(req, res, next) => {
+router.post('/save/:mId/:pId',(req, res, next) => {
   try {
     console.log(JSON.stringify(req.body))
     let errors = [];
@@ -35,7 +35,7 @@ router.post('/save/:mId',(req, res, next) => {
       if (err) {
         res.status(500).send("Database error occured");
       } else {
-        res.redirect('/minute/getall')
+        res.redirect("/student/eachProject/"+req.params.pId);
       }
     }
     )
@@ -58,7 +58,7 @@ router.use('/getall', loggedin, (req, res, next) => {
   })
 })
 
-router.use('/delete/:id', loggedin, (req, res, next) => {
+router.use('/delete/:id/:pId', loggedin, (req, res, next) => {
   console.log(req.params.id)
   Comment.findById({_id:req.params.id}, function (err, cmt) {
     if (cmt.commentedBy==req.user.username) {
@@ -66,7 +66,7 @@ router.use('/delete/:id', loggedin, (req, res, next) => {
         if (err) {
           return next(err)
         } else {
-          res.redirect('/minute/getall')
+          res.redirect("/student/eachProject/"+req.params.pId);
         }
       })
     } 

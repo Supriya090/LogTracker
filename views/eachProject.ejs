@@ -49,7 +49,7 @@
                     class="uploaded-images"
                     onerror="this.src='/assets/alternative.png';"
                   />
-                  <p><%= file.name %></p>
+                  <p><%= file.name.substring((file.name).indexOf('-') + 1)%></p>
                   <form action="/minute/download" method="GET">
                     <input type="hidden" name="data" value="<%=file.fileId%>" />
                     <button
@@ -106,7 +106,7 @@
                 cmt.commentedBy.split(' ')[0]%> <span><%= cmt.comment%></span>
               </p>
               <% if (cmt.commentedBy==username) { %>
-              <a href="/minute/comment/delete/<%= cmt._id.toString()%>"
+              <a href="/minute/comment/delete/<%= cmt._id.toString()%>/<%= pId %> "
                 ><i class="fa fa-trash"></i
               ></a>
 
@@ -115,7 +115,7 @@
             <% } %> <% }) %>
             <form
               class="comment-form"
-              action="/minute/comment/save/<%= minutes._id.toString() %>"
+              action="/minute/comment/save/<%= minutes._id.toString() %>/<%= pId %> "
               method="POST"
             >
               <div class="form-group">

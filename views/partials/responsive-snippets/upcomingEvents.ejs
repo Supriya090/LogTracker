@@ -1,0 +1,111 @@
+<style>
+  /* The popup form - hidden by default */
+  .event-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 1px solid #f1f1f1;
+    border-radius: 10px;
+    z-index: 100;
+  }
+
+  .btn.btn-primary.logout-btn.popup-btn {
+    margin: 0px;
+  }
+
+  .addeventpopup-end {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
+
+<div class="card event-popup" id="events">
+  <h4 class="card-subtitle">Upcoming Events</h4>
+  <hr style="border-top: 1px solid white; margin: 10px 0px" />
+  <div class="upcoming-events-div">No Upcoming Events!</div>
+  <button
+    type="button"
+    class="btn btn-primary logout-btn popup-btn"
+    onclick="openAddEvents()"
+  >
+    Add Events
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary logout-btn popup-btn"
+    onclick="closeEvents()"
+  >
+    Close
+  </button>
+</div>
+
+<div class="card event-popup" id="addEvents">
+  <h4 class="card-subtitle">Add Events</h4>
+  <hr style="border-top: 1px solid white; margin: 10px 0px" />
+  <div>
+    <form
+      method="POST"
+      action="/project/event/save/<%= pId%>"
+      class="login-form add-events-form"
+    >
+      <div class="form-group">
+        <label for="name">Title : </label>
+        <input type="" class="form-control" id="title" name="title" required />
+      </div>
+
+      <div class="form-group">
+        <label for="college">Description:</label>
+        <textarea
+          type="string"
+          class="form-control"
+          id="description"
+          name="description"
+          required
+        >
+        </textarea>
+      </div>
+      <button
+        class="btn btn-primary logout-btn events-btn"
+        name="action"
+        type="submit"
+        style="width: 30%"
+      >
+        Add
+      </button>
+    </form>
+  </div>
+  <div class="addeventpopup-end">
+    <div>
+      <h4 class="card-subtitle">Supervisor</h4>
+      <hr style="border-top: 1px solid white; margin: 10px 0px" />
+      <p>Mr. Aman Shakya</p>
+    </div>
+    <button
+      type="button"
+      class="btn btn-primary logout-btn popup-btn"
+      onclick="closeAddEvents()"
+    >
+      Close
+    </button>
+  </div>
+</div>
+
+<script>
+  function openEvents() {
+    document.getElementById("events").style.display = "block";
+  }
+
+  function closeEvents() {
+    document.getElementById("events").style.display = "none";
+  }
+
+  function openAddEvents() {
+    document.getElementById("addEvents").style.display = "block";
+  }
+
+  function closeAddEvents() {
+    document.getElementById("addEvents").style.display = "none";
+  }
+</script>

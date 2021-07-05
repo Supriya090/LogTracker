@@ -9,8 +9,7 @@ router.post("/createteams", function (req, res, next) {
     var projectname = req.body.projectname;
     var description= req.body.description;
     var std = req.body.std;
-    // var supervisor = req.body.supervisor;
-    var events = req.body.events;
+    var teamname = req.body.teamName;
     var semester = req.body.sems;
     var username = req.user.username;
     var supervisor= req.body.supervisor,
@@ -29,7 +28,7 @@ router.post("/createteams", function (req, res, next) {
             project.team = team
             project.createdBy = username
             project.semester = semester
-            // project.events = events
+            project.teamname = teamname
 
             Project.createProject(project, function (err, projects) {
               //Save to database

@@ -7,8 +7,26 @@
   <body style="background-color: #1f3750">
     <%- include('partials/header') %>
     <div class="container each-project">
-      <h3>PROJECT'S NAME</h3>
-      <h5>Detailed Logs</h5>
+      <div class="responsive-flex-box">
+        <h3>PROJECT'S NAME</h3>
+        <a
+          type="button"
+          class="btn btn-primary logout-btn responsive-btn"
+          href="/student/eachProject/addMinutes/<%= pId%>"
+        >
+          Add Minutes
+        </a>
+      </div>
+      <div class="responsive-flex-box">
+        <h5>Detailed Logs</h5>
+        <button
+          class="btn btn-primary logout-btn responsive-btn"
+          onclick="openEvents()"
+        >
+          View Upcoming Events
+        </button>
+        <%- include('partials/responsive-snippets/upcomingEvents') %>
+      </div>
 
       <div class="row student-log-details">
         <div class="col-8 minutes-list">
@@ -106,7 +124,8 @@
                 cmt.commentedBy.split(' ')[0]%> <span><%= cmt.comment%></span>
               </p>
               <% if (cmt.commentedBy==username) { %>
-              <a href="/minute/comment/delete/<%= cmt._id.toString()%>/<%= pId %> "
+              <a
+                href="/minute/comment/delete/<%= cmt._id.toString()%>/<%= pId %> "
                 ><i class="fa fa-trash"></i
               ></a>
 

@@ -28,6 +28,7 @@
 
 .nav-link.disabled {
   padding-right: 100px;
+  color: white;
 }
 .hidden {
   display: none;
@@ -80,11 +81,12 @@
   margin: 20px;
   color: #04a4e4;
   border: #04a4e4 solid 1px;
+  border-radius: 3px;
 }
 
 .btn.login-btn:hover {
-  background-color: #37464d;
-  border: none;
+  background-color: #04a4e4;
+  color: #1a2226;
 }
 
 .alert.alert-danger {

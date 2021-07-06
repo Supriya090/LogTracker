@@ -133,28 +133,35 @@ router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
 });
 
 /* GET Admin Create Team */
-router.use("/admin/createTeam", loggedin, function (req, res, next) {
-  res.render("createTeam", {
-    title: "Create Team | Log Tracker",
-    firstname: req.user.username.split(" ")[0],
+router.use("/signup", function (req, res, next) {
+  res.render("signup", {
+    title: "Log Tracker | Sign Up",
   });
 });
 
 /* GET signup page. */
-router.get("/signup", loggedin, function (req, res, next) {
+router.get("/admin/createTeam", loggedin, function (req, res, next) {
   User.findOne(
     {
       username: req.user.username,
     },
     function (err, user) {
-      console.log(user._id);
+      //console.log(user._id);
       if (err) {
         return next(err);
       } else if (user) {
         if (user.userstatus == "admin") {
-          res.render("signup", {
-            title: "Log Tracker | Sign Up",
-          });
+          User.find({}, function (err, usr) {
+            if (err) {
+              console.log(err);
+            } else {
+              res.render("createTeam", {
+                users: usr.reverse(),
+                title: "Create Team | Log Tracker",
+                firstname: req.user.username.split(" ")[0],
+              });
+            }
+          })
         } else {
           res.redirect("/dashboard");
         }

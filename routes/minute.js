@@ -78,26 +78,26 @@ var ID = function () {
   return '_' + Math.random().toString(36).substr(2, 9);
 };
 
-router.use('/getall', loggedin, (req, res, next) => {
-  Minute.getMinutesbyPid('todo', function (err, minutes) {
-    if (err) {
-      return next(err)
-    } else {
-      Comment.find({}, function (err, cmt) {
-        if (err) {
-          console.log(err);
-        } else {
+router.use('/getall/:pId', loggedin, (req, res, next) => {
+  // Minute.getMinutesbyPid('todo', function (err, minutes) {
+  //   if (err) {
+  //     return next(err)
+  //   } else {
+  //     Comment.find({}, function (err, cmt) {
+  //       if (err) {
+  //         console.log(err);
+  //       } else {
           // res.render('viewMinutes.ejs', {
           //   minutes: minutes,
           //   comments: cmt,
           //   msg: "Get All Minutes"
           // });
-          res.redirect("/student/eachProject");
-        }
-      })
-
-    }
-  })
+          res.redirect("/student/eachProject/"+req.params.pId);
+        // }
+      // })
+// 
+    // }
+  // })
 })
 
 

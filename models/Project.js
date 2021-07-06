@@ -11,6 +11,10 @@ var ProjectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  teamname: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     required: true,

@@ -1,11 +1,15 @@
-<div class="card">
+<div class="card upcoming-event-card">
   <h4 class="card-subtitle">Upcoming Events</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
   <div class="upcoming-events-div">No Upcoming Events!</div>
   <h4 class="card-subtitle">Add Events</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
   <div>
-    <form method="POST" class="login-form add-events-form">
+    <form
+      method="POST"
+      action="/project/event/save/<%= pId%>"
+      class="login-form add-events-form"
+    >
       <div class="form-group">
         <label for="name">Title : </label>
         <input type="" class="form-control" id="title" name="title" required />
@@ -42,3 +46,4 @@
   >
     Add Minutes
   </a>
+</div>

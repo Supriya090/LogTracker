@@ -7,8 +7,26 @@
   <body style="background-color: #1f3750">
     <%- include('partials/header') %>
     <div class="container each-project">
-      <h3>PROJECT'S NAME</h3>
-      <h5>Detailed Logs</h5>
+      <div class="responsive-flex-box">
+        <h3>PROJECT'S NAME</h3>
+        <a
+          type="button"
+          class="btn btn-primary logout-btn responsive-btn"
+          href="/student/eachProject/addMinutes/<%= pId%>"
+        >
+          Add Minutes
+        </a>
+      </div>
+      <div class="responsive-flex-box">
+        <h5>Detailed Logs</h5>
+        <button
+          class="btn btn-primary logout-btn responsive-btn"
+          onclick="openEvents()"
+        >
+          View Upcoming Events
+        </button>
+        <%- include('partials/responsive-snippets/upcomingEvents') %>
+      </div>
 
       <div class="row student-log-details">
         <div class="col-8 minutes-list">
@@ -49,7 +67,7 @@
                     class="uploaded-images"
                     onerror="this.src='/assets/alternative.png';"
                   />
-                  <p><%= file.name %></p>
+                  <p><%= file.name.substring((file.name).indexOf('-') + 1)%></p>
                   <form action="/minute/download" method="GET">
                     <input type="hidden" name="data" value="<%=file.fileId%>" />
                     <button
@@ -106,7 +124,8 @@
                 cmt.commentedBy.split(' ')[0]%> <span><%= cmt.comment%></span>
               </p>
               <% if (cmt.commentedBy==username) { %>
-              <a href="/minute/comment/delete/<%= cmt._id.toString()%>"
+              <a
+                href="/minute/comment/delete/<%= cmt._id.toString()%>/<%= pId %> "
                 ><i class="fa fa-trash"></i
               ></a>
 
@@ -115,7 +134,7 @@
             <% } %> <% }) %>
             <form
               class="comment-form"
-              action="/minute/comment/save/<%= minutes._id.toString() %>"
+              action="/minute/comment/save/<%= minutes._id.toString() %>/<%= pId %> "
               method="POST"
             >
               <div class="form-group">

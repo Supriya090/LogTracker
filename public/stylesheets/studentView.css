@@ -28,6 +28,20 @@
   font-weight: bold;
   color: #04a4e4;
 }
+
+@media screen and (max-width: 600px) {
+  .navbar.sticky-top {
+    padding: 15px 30px;
+  }
+
+  .navbar.sticky-top a.navbar-brand {
+    font-size: 1.3rem;
+  }
+
+  .btn.btn-primary.logout-btn {
+    margin-right: 15px;
+  }
+}
 /* Navbar Begins */
 
 /* Student Dashboard Begins */
@@ -313,6 +327,9 @@ img.uploaded-images:hover {
   border-radius: 15px;
 }
 
+.btn.btn-primary.logout-btn.responsive-btn {
+  display: none;
+}
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px) {
   .modal-content {
@@ -320,6 +337,25 @@ img.uploaded-images:hover {
   }
 }
 /* Student Each Project Ends */
+
+/* Each Project Responsiveness Begins */
+@media screen and (max-width: 991px) {
+  .col-8.minutes-list {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .responsive-flex-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn.btn-primary.logout-btn.responsive-btn {
+    display: block;
+  }
+}
+/* Each Project Responsiveness Ends */
 
 /* Upcoming Event Section Begins */
 h4.card-subtitle {
@@ -361,7 +397,7 @@ h4.card-subtitle {
 }
 
 .login-form.add-events-form .form-group:first-child label {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .login-form.add-events-form .form-group:first-child input {
@@ -374,6 +410,24 @@ h4.card-subtitle {
   margin-bottom: 20px;
 }
 /* Upcoming Event Section Ends */
+
+/* Upcoming Event Responsiveness Begins */
+@media screen and (max-width: 1199px) {
+  .login-form.add-events-form .form-group label {
+    font-size: 15px;
+  }
+
+  .login-form.add-events-form .form-group:first-child input {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .card.upcoming-event-card {
+    display: none;
+  }
+}
+/* Upcoming Event Responsiveness Ends */
 
 /* Add Minutes Page Begins */
 body.minute-body {
@@ -426,3 +480,11 @@ body.minute-body {
   text-align: right;
 }
 /* Add Minutes Page Ends */
+
+/* Add Minutes Responsiveness Begins */
+@media screen and (max-width: 767px) {
+  form.login-form.minute-form {
+    padding: 0px;
+  }
+}
+/* Add Minutes Responsiveness Ends */

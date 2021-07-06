@@ -29,7 +29,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
                 res.render("studentView", {
                   title: "Student View | Log Tracker",
                   projects: projects,
-                  userstatus:user.userstatus,
+                  userstatus: user.userstatus,
                   firstname: user.username.split(" ")[0],
                 });
               }
@@ -42,8 +42,8 @@ router.get("/dashboard", loggedin, function (req, res, next) {
             } else {
               res.render("teacherView", {
                 title: "Teacher View | Log Tracker",
-                projects:projects,
-                userstatus:user.userstatus,
+                projects: projects,
+                userstatus: user.userstatus,
                 firstname: user.username.split(" ")[0],
               });
             }
@@ -133,10 +133,16 @@ router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
 });
 
 /* GET Admin Create Team */
-router.use("/admin/createTeam", loggedin, function (req, res, next) {
+router.get("/admin/createTeam", loggedin, function (req, res, next) {
   res.render("createTeam", {
     title: "Create Team | Log Tracker",
-    firstname: req.user.username.split(" ")[0],
+  });
+});
+
+/* GET Admin Each Project */
+router.get("/admin/eachProject", loggedin, function (req, res, next) {
+  res.render("eachProjectAdmin", {
+    title: "Project | Log Tracker",
   });
 });
 

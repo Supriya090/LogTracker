@@ -54,7 +54,7 @@
       </div>
       <div class="form-group">
         <label for="supervisor">Supervisor</label>
-        <select name="supervisor" id="addSupervisor">
+        <select name="supervisor" id="addSuper">
         <% if( Array.isArray(users) ) { %> <%users.forEach( function(
           users ){ %> 
             <% if (users.userstatus=="teacher") { %>
@@ -96,8 +96,9 @@
 
       function addSuper() {
         var new_supervisor_no = parseInt($("#total_supervisor").val()) + 1;
-        var new_input =
-          "<label type='text' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "></label>";
+        var userSelect = document.getElementById("addSuper");
+        var new_input = "<legend class='button-type' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "'>"+userSelect.options[userSelect.selectedIndex].text+"</legend>"
+        //var new_input ="<label type='text' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "></label>";
 
         $("#new_supervisor").append(new_input);
 
@@ -118,11 +119,10 @@
 
       function addStud() {
         var new_student_no = parseInt($("#total_student").val()) + 1;
-        var new_input =
-          "<input type='text' id='newStud_" + new_student_no + "' name='std" + new_student_no + "'>";
-
+        var userSelect = document.getElementById("addStudent");
+        var new_input = "<legend class='button-type' id='newStud_" + new_student_no + "' name='std" + new_student_no + "'>"+userSelect.options[userSelect.selectedIndex].text+"</legend>"
+          //"<select name='std' id='addStudent'><% if( Array.isArray(users) ) { %> <%users.forEach( function(users ){ %> <% if (users.userstatus=='student') { %><option><%= users.username%></option><% } %><%})}%></select>"
         $("#new_student").append(new_input);
-
         $("#total_student").val(new_student_no);
       }
 

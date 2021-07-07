@@ -49,32 +49,35 @@
             ></textarea>
           </div>
           <div class="form-group options">
-            <label for="sems">Semester</label>
-            <p>:</p>
-            <select name="sems" id="sems">
-              <option value="1">1st</option>
-              <option value="2">2nd</option>
-              <option value="3">3rd</option>
-              <option value="4">4th</option>
-              <option value="5">5th</option>
-              <option value="6">6th</option>
-              <option value="7">7th</option>
-              <option value="8">8th</option>
-            </select>
+            <div>
+              <label for="sems">Semester</label>
+              <p>:</p>
+              <select name="sems" id="sems">
+                <option value="1">1st</option>
+                <option value="2">2nd</option>
+                <option value="3">3rd</option>
+                <option value="4">4th</option>
+                <option value="5">5th</option>
+                <option value="6">6th</option>
+                <option value="7">7th</option>
+                <option value="8">8th</option>
+              </select>
+            </div>
           </div>
           <div class="form-group options">
-            <label for="supervisor">Supervisor</label>
-            <p>:</p>
-            <select name="supervisor" id="addSuper">
-              <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-              users ){ %> <% if (users.userstatus=="teacher") { %>
-              <option><%= users.username%></option>
-<<<<<<< HEAD
-              <% } %> <%})}%>
-            </select>
-            <!-- <input type="text" id="newSuper_1" name="supervisor" /> -->
-            <input class="addSuper changeBtn" type="button" value="+" />
-            <input class="removeSuper changeBtn" type="button" value="-" />
+            <div>
+              <label for="supervisor">Supervisor</label>
+              <p>:</p>
+              <select name="supervisor" id="addSuper">
+                <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+                users ){ %> <% if (users.userstatus=="teacher") { %>
+                <option><%= users.username%></option>
+                <% } %> <%})}%>
+              </select>
+              <!-- <input type="text" id="newSuper_1" name="supervisor" /> -->
+              <input class="addSuper changeBtn" type="button" value="+" />
+              <input class="removeSuper changeBtn" type="button" value="-" />
+            </div>
             <div id="new_supervisor" class="chosen-list"></div>
             <input
               type="hidden"
@@ -84,17 +87,19 @@
             />
           </div>
           <div class="form-group options">
-            <label for="student">Students</label>
-            <p>:</p>
-            <select name="std" id="addStudent">
-              <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-              users ){ %> <% if (users.userstatus=="student") { %>
-              <option><%= users.username%></option>
-              <% } %> <%})}%>
-            </select>
-            <!-- <input type="text" id="newStud_1" name="std1"/> -->
-            <input class="addStud changeBtn" type="button" value="+" />
-            <input class="removeStud changeBtn" type="button" value="-" />
+            <div>
+              <label for="student">Students</label>
+              <p>:</p>
+              <select name="std" id="addStudent">
+                <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+                users ){ %> <% if (users.userstatus=="student") { %>
+                <option><%= users.username%></option>
+                <% } %> <%})}%>
+              </select>
+              <!-- <input type="text" id="newStud_1" name="std1"/> -->
+              <input class="addStud changeBtn" type="button" value="+" />
+              <input class="removeStud changeBtn" type="button" value="-" />
+            </div>
             <div id="new_student" class="chosen-list"></div>
             <input
               type="hidden"
@@ -107,90 +112,8 @@
             Create
           </button>
         </form>
-=======
-              <% } %>
-          <%})}%>
-        </select>
-        <!-- <input type="text" id="newSuper_1" name="supervisor" /> -->
-        <input class="addSuper" type="button" value="+">
-        <input class="removeSuper" type="button" value="-">
-        <div id="new_supervisor"></div>
-        <input type="hidden" value="1" id="total_supervisor" name="total_supervisor" />
-
-      </div>
-      <div class="form-group">
-        <label for="student">Students</label>
-        <div id="changestd">
-          <select  class="student" id="addStudent">
-            <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-              users ){ %> 
-                <% if (users.userstatus=="student") { %>
-                  <option><%= users.username%></option>
-                  <% } %>
-              <%})}%>
-            </select>
-        </div>
-      
-        <!-- <input type="text" id="newStud_1" name="std1"/> -->
-        <input class="addStud" type="button" value="+">
-        <input class="removeStud" type="button" value="-">
-        <div id="new_student"></div>
-        <input type="hidden" value="1" id="total_student" name="total_student" />
->>>>>>> master
       </div>
     </div>
-
-<<<<<<< HEAD
     <script src="/javascripts/chooseUser.js"></script>
-=======
-    <script>
-      $(".addSuper").on("click", addSuper);
-      $(".removeSuper").on("click", removeSuper);
-
-      function addSuper() {
-        var new_supervisor_no = parseInt($("#total_supervisor").val());
-        var userSelect = document.getElementById("addSuper");
-       // var new_input = userSelect.options[userSelect.selectedIndex].text
-        var new_input = "<input class='btn btn-primary' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "' value ='"+userSelect.options[userSelect.selectedIndex].text+"' />"
-        new_supervisor_no++;
-        //var new_input ="<label type='text' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "></label>";
-
-        $("#new_supervisor").append(new_input);
-
-        $("#total_supervisor").val(new_supervisor_no);
-      }
-
-      function removeSuper() {
-        var last_supervisor_no = $("#total_supervisor").val();
-
-        if (last_supervisor_no > 1) {
-          $("#newSuper_" + last_supervisor_no).remove();
-          $("#total_supervisor").val(last_supervisor_no - 1);
-        }
-      }
-
-      $(".addStud").on("click", addStud);
-      $(".removeStud").on("click", removeStud);
-
-      function addStud() {
-        var new_student_no = parseInt($("#total_student").val());
-        var userSelect = document.getElementById("addStudent");
-        var new_input = "<input class='btn btn-primary' id='newStud_" + new_student_no + "' name='std" + new_student_no + "' value ='"+userSelect.options[userSelect.selectedIndex].text+"' />"
-        new_student_no++;
-        $("#new_student").append(new_input);
-        $("#total_student").val(new_student_no);
-
-      }
-
-      function removeStud() {
-        var last_student_no = $("#total_student").val();
-
-        if (last_student_no > 0) {
-          $("#newStud_" + last_student_no).remove();
-          $("#total_student").val(last_student_no - 1);
-        }
-      }
-    </script>
->>>>>>> master
   </body>
 </html>

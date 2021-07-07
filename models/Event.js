@@ -14,8 +14,8 @@ var EventSchema = new mongoose.Schema({
     required: true,
   },
   createdBy: {
-    type: Date,
-    default: Date.now(),
+    type: String,
+    //default: Date.now(),
     required: true,
   },
   dueDate: {

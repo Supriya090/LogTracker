@@ -8,7 +8,7 @@ router.post("/createteams", function (req, res, next) {
 console.log(teamname)
     var projectname = req.body.projectname;
     var description= req.body.description;
-    var std = req.body.std;
+    // var std = req.body.std;
     var teamname = req.body.teamname;
     var semester = req.body.sems;
     var username = req.user.username;

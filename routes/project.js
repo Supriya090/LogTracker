@@ -71,9 +71,9 @@ router.post('/event/save/:pId',(req, res, next) => {
     Event.createEvent(event, function (err, events) {
       //Save to database
       if (err) {
-        res.status(500).send("Database error occured");
+        console.log(err)
       } else {
-        res.redirect('/student/eachProject/:pId')
+        res.redirect("/student/eachProject/"+pId);
       }
     }
     )

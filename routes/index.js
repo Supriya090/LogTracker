@@ -82,23 +82,21 @@ router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
         if (err) {
           console.log(err);
         } else {
-          Event.getEventsbyPid(req.params.pId, function (err, events)
-          {
-            if(err){
-              return next(err)
-            }
-            else{
+          Event.getEventsbyPid(req.params.pId, function (err, evt) {
+            if (err) {
+              console.log(err);
+            } else {
               res.render("eachProject", {
-                events: events.reverse(),
                 minutes: minutes.reverse(),
+                events: evt,
                 comments: cmt.reverse(),
                 title: "Project | Log Tracker",
-                pId: req.params.pId,
                 username: req.user.username,
+                pId: req.params.pId,
                 firstname: req.user.username.split(" ")[0],
               });
             }
-          })
+          });
         }
       });
     }

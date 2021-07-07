@@ -1,5 +1,109 @@
-.create-team {
+.container h3 {
   color: white;
+}
+
+.login-form.create-team {
+  padding: 10px 40px;
+  color: white;
+}
+
+.login-form.create-team div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-form.create-team div:nth-child(3) {
+  align-items: flex-start;
+}
+
+.login-form.create-team div input {
+  width: 85%;
+}
+
+.login-form.create-team div textarea {
+  height: 150px;
+  width: 85%;
+  background-color: #37464d;
+  color: white;
+  border: none;
+  margin-bottom: 20px;
+}
+
+.login-form.create-team div label {
+  margin-top: 0px;
+  font-size: 17px;
+}
+
+.login-form.create-team div p {
+  margin-top: 10px;
+  font-size: 17px;
+}
+
+.login-form.create-team div:nth-child(3) p {
+  margin-top: 0px;
+}
+
+.login-form.create-team div.options {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.login-form.create-team div.options label {
+  width: 100px;
+}
+
+.login-form.create-team div.options p {
+  margin-left: 20px;
+  margin-top: 0px;
+  font-size: 17px;
+}
+
+.login-form.create-team div.options input {
+  border: none;
+  width: fit-content;
+  margin-bottom: 0px;
+}
+
+.login-form.create-team div.options select {
+  margin-left: 30px;
+  width: 160px;
+  padding: 5px 35px 5px 15px;
+  border-radius: 3px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  color: white;
+  height: 36px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("/assets/dropdown.png") 92% / 10% no-repeat #37464d;
+}
+
+.login-form.create-team div.options input {
+  background-color: #37464d;
+  border: 1px solid #ccc;
+  width: 25px;
+  border-radius: 2px;
+  margin-left: 15px;
+  margin-top: 4px;
+}
+
+.login-form.create-team div.options input:nth-of-type(2) {
+  margin-left: 5px;
+}
+
+.login-form.create-team div.options legend {
+  font-size: 15px;
+  background-color: #37464d;
+  margin: 0px 5px;
+  margin-top: 2px;
+  padding: 5px 10px;
+  border-radius: 2px;
+}
+
+.login-form.create-team div.options .chosen-list {
+  margin-left: 10px;
 }
 
 .logout-btn.admin {

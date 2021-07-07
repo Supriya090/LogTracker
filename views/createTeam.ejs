@@ -8,132 +8,107 @@
   </head>
   <body style="background-color: #1f3750">
     <%- include('partials/adminHeader') %>
-    <form action="/project/createteams" class="container create-team" method="post">
-      <div class="form-group">
-        <label for="projectName">Project Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="projectName"
-          name="projectname"
-          placeholder="Enter project name"
-        />
-      </div>
-      <div class="form-group">
-        <label for="teamName">Team Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="teamName"
-          name="teamname"
-          placeholder="Enter team name"
-        />
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea
-          type="text"
-          class="form-control"
-          id="description"
-          name = "description"
-          placeholder="Enter description"
-        ></textarea>
-      </div>
-      <div class="form-group">
-        <label for="sems">Semester</label>
-        <select name="sems" id="sems">
-          <option value="1">1st</option>
-          <option value="2">2nd</option>
-          <option value="3">3rd</option>
-          <option value="4">4th</option>
-          <option value="5">5th</option>
-          <option value="6">6th</option>
-          <option value="7">7th</option>
-          <option value="8">8th</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="supervisor">Supervisor</label>
-        <select name="supervisor" id="addSuper">
-        <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-          users ){ %> 
-            <% if (users.userstatus=="teacher") { %>
+    <div class="container">
+      <h3>Create Team</h3>
+      <div class="card">
+        <form
+          action="/project/createteams"
+          class="login-form create-team"
+          method="post"
+        >
+          <div class="form-group">
+            <label for="projectName">Project Name</label>
+            <p>:</p>
+            <input
+              type="text"
+              class="form-control"
+              id="projectName"
+              name="projectname"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="teamName">Team Name</label>
+            <p>:</p>
+            <input
+              type="text"
+              class="form-control"
+              id="teamName"
+              name="teamname"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <p>:</p>
+            <textarea
+              type="text"
+              class="form-control"
+              id="description"
+              name="description"
+            ></textarea>
+          </div>
+          <div class="form-group options">
+            <label for="sems">Semester</label>
+            <p>:</p>
+            <select name="sems" id="sems">
+              <option value="1">1st</option>
+              <option value="2">2nd</option>
+              <option value="3">3rd</option>
+              <option value="4">4th</option>
+              <option value="5">5th</option>
+              <option value="6">6th</option>
+              <option value="7">7th</option>
+              <option value="8">8th</option>
+            </select>
+          </div>
+          <div class="form-group options">
+            <label for="supervisor">Supervisor</label>
+            <p>:</p>
+            <select name="supervisor" id="addSuper">
+              <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+              users ){ %> <% if (users.userstatus=="teacher") { %>
               <option><%= users.username%></option>
-              <% } %>
-          <%})}%>
-        </select>
-        <!-- <input type="text" id="newSuper_1" name="supervisor" /> -->
-        <input class="addSuper" type="button" value="+">
-        <input class="removeSuper" type="button" value="-">
-        <div id="new_supervisor"></div>
-        <input type="hidden" value="1" id="total_supervisor" name="total_supervisor" />
-
+              <% } %> <%})}%>
+            </select>
+            <!-- <input type="text" id="newSuper_1" name="supervisor" /> -->
+            <input class="addSuper changeBtn" type="button" value="+" />
+            <input class="removeSuper changeBtn" type="button" value="-" />
+            <div id="new_supervisor" class="chosen-list"></div>
+            <input
+              type="hidden"
+              value="1"
+              id="total_supervisor"
+              name="total_supervisor"
+            />
+          </div>
+          <div class="form-group options">
+            <label for="student">Students</label>
+            <p>:</p>
+            <select name="std" id="addStudent">
+              <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+              users ){ %> <% if (users.userstatus=="student") { %>
+              <option><%= users.username%></option>
+              <% } %> <%})}%>
+            </select>
+            <!-- <input type="text" id="newStud_1" name="std1"/> -->
+            <input class="addStud changeBtn" type="button" value="+" />
+            <input class="removeStud changeBtn" type="button" value="-" />
+            <div id="new_student" class="chosen-list"></div>
+            <input
+              type="hidden"
+              value="1"
+              id="total_student"
+              name="total_student"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary logout-btn">
+            Create
+          </button>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="student">Students</label>
-        <select name="std" id="addStudent">
-          <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-            users ){ %> 
-              <% if (users.userstatus=="student") { %>
-                <option><%= users.username%></option>
-                <% } %>
-            <%})}%>
-          </select>
-        <!-- <input type="text" id="newStud_1" name="std1"/> -->
-        <input class="addStud" type="button" value="+">
-        <input class="removeStud" type="button" value="-">
-        <div id="new_student"></div>
-        <input type="hidden" value="1" id="total_student" name="total_student" />
-      </div>
-
-     
-      <button type="submit" class="btn btn-primary">Create</button>
     </div>
 
-    <script>
-      $(".addSuper").on("click", addSuper);
-      $(".removeSuper").on("click", removeSuper);
-
-      function addSuper() {
-        var new_supervisor_no = parseInt($("#total_supervisor").val()) + 1;
-        var userSelect = document.getElementById("addSuper");
-        var new_input = "<legend class='button-type' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "'>"+userSelect.options[userSelect.selectedIndex].text+"</legend>"
-        //var new_input ="<label type='text' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "></label>";
-
-        $("#new_supervisor").append(new_input);
-
-        $("#total_supervisor").val(new_supervisor_no);
-      }
-
-      function removeSuper() {
-        var last_supervisor_no = $("#total_supervisor").val();
-
-        if (last_supervisor_no > 1) {
-          $("#newSuper_" + last_supervisor_no).remove();
-          $("#total_supervisor").val(last_supervisor_no - 1);
-        }
-      }
-
-      $(".addStud").on("click", addStud);
-      $(".removeStud").on("click", removeStud);
-
-      function addStud() {
-        var new_student_no = parseInt($("#total_student").val()) + 1;
-        var userSelect = document.getElementById("addStudent");
-        var new_input = "<legend class='button-type' id='newStud_" + new_student_no + "' name='std" + new_student_no + "'>"+userSelect.options[userSelect.selectedIndex].text+"</legend>"
-          //"<select name='std' id='addStudent'><% if( Array.isArray(users) ) { %> <%users.forEach( function(users ){ %> <% if (users.userstatus=='student') { %><option><%= users.username%></option><% } %><%})}%></select>"
-        $("#new_student").append(new_input);
-        $("#total_student").val(new_student_no);
-      }
-
-      function removeStud() {
-        var last_student_no = $("#total_student").val();
-
-        if (last_student_no > 1) {
-          $("#newStud_" + last_student_no).remove();
-          $("#total_student").val(last_student_no - 1);
-        }
-      }
-    </script>
+    <script src="/javascripts/chooseUser.js"></script>
   </body>
 </html>

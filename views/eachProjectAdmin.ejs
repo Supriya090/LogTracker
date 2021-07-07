@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+
+  <body style="background-color: #1f3750">
+    <%- include('partials/adminHeader') %>
+    <div class="container each-project">
+      <h4>Team Quadruples: Log Tracker</h4>
+      <div class="responsive-flex-box" style="margin: 20px 0px 10px 0px">
+        <h5>Detailed Logs</h5>
+        <button
+          class="btn btn-primary logout-btn responsive-btn"
+          onclick="openEvents()"
+        >
+          View Upcoming Events
+        </button>
+        <%- include('partials/responsive-snippets/adminUpcomingEvents') %>
+      </div>
+
+      <!-- I have either commented or hardcoded ejs contents, please fix it while you define routing - Supriya -->
+
+      <div class="row student-log-details">
+        <div class="col-8 minutes-list">
+          <div class="card">
+            <div class="minute-header">
+              <div>
+                <h5 class="card-title">Meeting 1</h5>
+                <span class="badge badge-secondary"> Verified </span>
+              </div>
+              <div>
+                <h6>8:14:45 PM, Mon Jul 05 2021</h6>
+                <h6>By Ranju G.C.</h6>
+              </div>
+            </div>
+            <hr style="border-top: 1px solid white; margin-top: 0px" />
+            <div>DESCRIPTION</div>
+            <hr style="border-top: 1px solid white; margin-top: 0px" />
+            <%# if(minutes.attachment.length){%>
+            <h6>Uploaded Files</h6>
+            <%# }%>
+            <div class="uploaded-images-div">
+              <%# minutes.attachment.forEach(function(file) { %>
+              <div>
+                <div class="each-image">
+                  <img
+                    id="testImg"
+                    alt="testImg"
+                    src="/assets/alternative.png"
+                    class="uploaded-images"
+                    onerror="this.src='/assets/alternative.png';"
+                  />
+                  <p><%# file.name.substring((file.name).indexOf('-') + 1)%></p>
+                  <form action="/minute/download" method="GET">
+                    <input
+                      type="hidden"
+                      name="data"
+                      value="<%# file.fileId%>"
+                    />
+                    <button
+                      class="btn btn-primary logout-btn"
+                      name="action"
+                      type="submit"
+                    >
+                      Download
+                    </button>
+                  </form>
+                </div>
+                <div>
+                  <div id="myModal" class="modal">
+                    <span class="closeBtn">&times;</span>
+                    <img class="modal-content" id="img01" />
+                    <div id="caption"></div>
+                  </div>
+                </div>
+
+                <script>
+                  // Get the modal
+                  var modal = document.getElementById("myModal");
+
+                  // Get the image and insert it inside the modal - use its "alt" text as a caption
+                  var id = "testImg";
+                  console.log(id);
+                  var img = document.getElementById(id);
+                  var modalImg = document.getElementById("img01");
+                  var captionText = document.getElementById("caption");
+                  img.onclick = function () {
+                    modal.style.display = "block";
+                    modalImg.src = this.src;
+                    captionText.innerHTML = this.alt;
+                  };
+
+                  // Get the <span> element that closes the modal
+                  var span = document.getElementsByClassName("closeBtn")[0];
+
+                  // When the user clicks on <span> (x), close the modal
+                  span.onclick = function () {
+                    modal.style.display = "none";
+                  };
+                </script>
+              </div>
+              <%# }) %>
+            </div>
+            <%# if(minutes.attachment.length){%>
+            <hr style="border-top: 1px solid white" />
+            <%# }%> <%# comments.forEach(function(cmt) { %> <%# if
+            (cmt.minuteId.toString()==minutes._id.toString()) { %>
+            <div class="comment-section">
+              <p class="comment-view">
+                <%# cmt.commentedBy.split(' ').pop().charAt(0)%>.<%#
+                cmt.commentedBy.split(' ')[0]%> <span><%# cmt.comment%></span>
+              </p>
+            </div>
+            <%# } %> <%# }) %>
+          </div>
+          <%# })}%>
+        </div>
+
+        <div class="col-4 events-list">
+          <%- include('partials/adminUpcomingEvents') %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

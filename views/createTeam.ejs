@@ -71,14 +71,17 @@
       </div>
       <div class="form-group">
         <label for="student">Students</label>
-        <select name="std" id="addStudent">
-          <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-            users ){ %> 
-              <% if (users.userstatus=="student") { %>
-                <option><%= users.username%></option>
-                <% } %>
-            <%})}%>
-          </select>
+        <div id="changestd">
+          <select  class="student" id="addStudent">
+            <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+              users ){ %> 
+                <% if (users.userstatus=="student") { %>
+                  <option><%= users.username%></option>
+                  <% } %>
+              <%})}%>
+            </select>
+        </div>
+      
         <!-- <input type="text" id="newStud_1" name="std1"/> -->
         <input class="addStud" type="button" value="+">
         <input class="removeStud" type="button" value="-">
@@ -95,9 +98,11 @@
       $(".removeSuper").on("click", removeSuper);
 
       function addSuper() {
-        var new_supervisor_no = parseInt($("#total_supervisor").val()) + 1;
+        var new_supervisor_no = parseInt($("#total_supervisor").val());
         var userSelect = document.getElementById("addSuper");
-        var new_input = "<legend class='button-type' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "'>"+userSelect.options[userSelect.selectedIndex].text+"</legend>"
+       // var new_input = userSelect.options[userSelect.selectedIndex].text
+        var new_input = "<input class='btn btn-primary' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "' value ='"+userSelect.options[userSelect.selectedIndex].text+"' />"
+        new_supervisor_no++;
         //var new_input ="<label type='text' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "></label>";
 
         $("#new_supervisor").append(new_input);
@@ -118,18 +123,19 @@
       $(".removeStud").on("click", removeStud);
 
       function addStud() {
-        var new_student_no = parseInt($("#total_student").val()) + 1;
+        var new_student_no = parseInt($("#total_student").val());
         var userSelect = document.getElementById("addStudent");
-        var new_input = "<legend class='button-type' id='newStud_" + new_student_no + "' name='std" + new_student_no + "'>"+userSelect.options[userSelect.selectedIndex].text+"</legend>"
-          //"<select name='std' id='addStudent'><% if( Array.isArray(users) ) { %> <%users.forEach( function(users ){ %> <% if (users.userstatus=='student') { %><option><%= users.username%></option><% } %><%})}%></select>"
+        var new_input = "<input class='btn btn-primary' id='newStud_" + new_student_no + "' name='std" + new_student_no + "' value ='"+userSelect.options[userSelect.selectedIndex].text+"' />"
+        new_student_no++;
         $("#new_student").append(new_input);
         $("#total_student").val(new_student_no);
+
       }
 
       function removeStud() {
         var last_student_no = $("#total_student").val();
 
-        if (last_student_no > 1) {
+        if (last_student_no > 0) {
           $("#newStud_" + last_student_no).remove();
           $("#total_student").val(last_student_no - 1);
         }

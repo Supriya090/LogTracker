@@ -358,6 +358,10 @@ img.uploaded-images:hover {
 /* Each Project Responsiveness Ends */
 
 /* Upcoming Event Section Begins */
+.card.upcoming-event-card h4:nth-of-type(2) {
+  margin-top: 20px;
+}
+
 h4.card-subtitle {
   font-size: 18px;
 }
@@ -367,10 +371,27 @@ h4.card-subtitle {
   margin-bottom: 20px;
 }
 
+.card .upcoming-events-div h6:nth-of-type(1) {
+  margin-top: 10px;
+}
+
+.card .upcoming-events-div h6 {
+  margin-top: 20px;
+}
+
+.card .upcoming-events-div p {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.card .upcoming-events-div span {
+  font-size: 14px;
+}
+
 .login-form.add-events-form {
   padding: 0px;
   margin: 0px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .login-form.add-events-form input {

@@ -5,14 +5,14 @@ var Event = require("../models/Event");
 
 
 router.post("/createteams", function (req, res, next) {
-console.log(teamname)
+//console.log(teamname)
     var projectname = req.body.projectname;
     var description= req.body.description;
-    var std = req.body.std;
+    // var std = req.body.std;
     var teamname = req.body.teamname;
     var semester = req.body.sems;
     var username = req.user.username;
-    var supervisor= req.body.supervisor,
+    supervisor= [req.body.supervisor1,req.body.supervisor2],
     team= [req.body.std1,req.body.std2,req.body.std3,req.body.std4,req.body.std5]
     // team=["Ranju G.C.","Rahul Shah","Supriya Khadka","Prabin Paudel"]
     if (!projectname) {
@@ -49,8 +49,8 @@ router.post('/event/save/:pId',(req, res, next) => {
     let errors = [];
 
     var title = req.body.title
-    var dueDate = req.body.dueDate
-    var pId = req.body.pId
+    var dueDate = req.body.eventDate
+    var pId = req.params.pId
 
     if (!title) {
       errors.push({
@@ -64,16 +64,16 @@ router.post('/event/save/:pId',(req, res, next) => {
     event.projectId = pId
     event.event = title
     event.dueDate = dueDate
-    event.commentedBy = req.user.username
+    event.createdBy = req.user.username
 
-    // console.log(req.user.username)
+    console.log(event);
 
     Event.createEvent(event, function (err, events) {
       //Save to database
       if (err) {
         res.status(500).send("Database error occured");
       } else {
-        res.redirect('/minute/getall')
+        res.redirect('/student/eachProject/:pId')
       }
     }
     )

@@ -24,10 +24,13 @@ var ProjectSchema = new mongoose.Schema({
     required: true,
   },
   supervisor: {
-    type: String,
+    type: [String],
     required: true,
   },
-  team: [String],
+  team:{
+    type: [String],
+    required: true,
+  },
   
   createdBy: {
     type: String,

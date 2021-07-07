@@ -29,17 +29,17 @@ router.post("/createteams", function (req, res, next) {
             project.createdBy = username
             project.semester = semester
             project.teamname = teamname
-console.log(project);
-            // Project.createProject(project, function (err, projects) {
-            //   //Save to database
-            //   if (err) {
-            //     console.log(err)
-            //     res.status(500).send("Database error occured");
-            //   } else {
-            //     res.send(projects);
-            //   }
-            // }
-            // )
+
+            Project.createProject(project, function (err, projects) {
+              //Save to database
+              if (err) {
+                console.log(err)
+                res.status(500).send("Database error occured");
+              } else {
+                res.send(projects);
+              }
+            }
+            )
           
 })
 

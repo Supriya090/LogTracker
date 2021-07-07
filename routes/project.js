@@ -5,14 +5,14 @@ var Event = require("../models/Event");
 
 
 router.post("/createteams", function (req, res, next) {
-console.log(teamname)
+//console.log(teamname)
     var projectname = req.body.projectname;
     var description= req.body.description;
     // var std = req.body.std;
     var teamname = req.body.teamname;
     var semester = req.body.sems;
     var username = req.user.username;
-    var supervisor= req.body.supervisor,
+    supervisor= [req.body.supervisor1,req.body.supervisor2],
     team= [req.body.std1,req.body.std2,req.body.std3,req.body.std4,req.body.std5]
     // team=["Ranju G.C.","Rahul Shah","Supriya Khadka","Prabin Paudel"]
     if (!projectname) {
@@ -29,17 +29,17 @@ console.log(teamname)
             project.createdBy = username
             project.semester = semester
             project.teamname = teamname
-
-            Project.createProject(project, function (err, projects) {
-              //Save to database
-              if (err) {
-                console.log(err)
-                res.status(500).send("Database error occured");
-              } else {
-                res.send(projects);
-              }
-            }
-            )
+console.log(project);
+            // Project.createProject(project, function (err, projects) {
+            //   //Save to database
+            //   if (err) {
+            //     console.log(err)
+            //     res.status(500).send("Database error occured");
+            //   } else {
+            //     res.send(projects);
+            //   }
+            // }
+            // )
           
 })
 

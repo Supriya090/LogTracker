@@ -98,9 +98,11 @@
       $(".removeSuper").on("click", removeSuper);
 
       function addSuper() {
-        var new_supervisor_no = parseInt($("#total_supervisor").val()) + 1;
+        var new_supervisor_no = parseInt($("#total_supervisor").val());
         var userSelect = document.getElementById("addSuper");
-        var new_input = userSelect.options[userSelect.selectedIndex].text
+       // var new_input = userSelect.options[userSelect.selectedIndex].text
+        var new_input = "<input class='btn btn-primary' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "' value ='"+userSelect.options[userSelect.selectedIndex].text+"' />"
+        new_supervisor_no++;
         //var new_input ="<label type='text' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "></label>";
 
         $("#new_supervisor").append(new_input);
@@ -123,7 +125,7 @@
       function addStud() {
         var new_student_no = parseInt($("#total_student").val());
         var userSelect = document.getElementById("addStudent");
-        var new_input = "<input id='newStud_" + new_student_no + "' name='std" + new_student_no + "' value ='"+userSelect.options[userSelect.selectedIndex].text+"' />"
+        var new_input = "<input class='btn btn-primary' id='newStud_" + new_student_no + "' name='std" + new_student_no + "' value ='"+userSelect.options[userSelect.selectedIndex].text+"' />"
         new_student_no++;
         $("#new_student").append(new_input);
         $("#total_student").val(new_student_no);

@@ -11,7 +11,6 @@ var session = require("express-session");
 var mongoose = require("mongoose");
 var MongoStore = require("connect-mongo");
 var passport = require("passport");
-const multer = require("multer");
 
 //Passport configs
 require("./config/passport")(passport);
@@ -25,6 +24,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth")(passport);
 var minuteRouter = require("./routes/minute")
+var projectRouter = require("./routes/project")
 
 var app = express();
 
@@ -67,7 +67,7 @@ app.use(bodyParser.json());
 
 // Body parser
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(form.array())
 
@@ -75,8 +75,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
-app.use("/auth", authRouter);
 app.use("/minute", minuteRouter);
+app.use("/project", projectRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

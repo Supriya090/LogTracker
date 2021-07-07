@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body style="background-color: #1f3750">
+    <%- include('partials/teacherheader') %>
+        <div class="teacher-dashboard container">
+            <div class="buttons-div row">
+                <button id="showProjectsTeacher8Btn" teacherData-launch-view="sem8" class="col semBtn activeBtn">
+                    8th Sem
+                </button>
+                <button id="showProjectsTeacher7Btn" teacherData-launch-view="sem7" class="col semBtn ">
+                    7th Sem
+                </button>
+                <button id="showProjectsTeacher6Btn" teacherData-launch-view="sem6" class="col semBtn">
+                    6th Sem
+                </button>
+                <button id="showProjectsTeacher5Btn" teacherData-launch-view="sem5" class="col semBtn">
+                    5th Sem
+                </button>
+                <button id="showProjectsTeacher4Btn" teacherData-launch-view="sem4" class="col semBtn">
+                    4th Sem
+                </button>
+                <button id="showProjectsTeacher3Btn" teacherData-launch-view="sem3" class="col semBtn">
+                    3rd Sem
+                </button>
+                <button id="showProjectsTeacher2Btn" teacherData-launch-view="sem2" class="col semBtn">
+                    2nd Sem
+                </button>
+                <button id="showProjectsTeacher1Btn" teacherData-launch-view="sem1" class="col semBtn">
+                    1st Sem
+                </button>
+            </div>
+
+            <!-- Load content from database -->
+            <!-- Also fix hyperlink after creating each page -->
+            <%- include('partials/studentSems/eighth') %>
+                <%- include('partials/studentSems/seventh') %>
+                    <%- include('partials/studentSems/sixth') %>
+                        <%- include('partials/studentSems/fifth') %>
+                            <%- include('partials/studentSems/fourth') %>
+                                <%- include('partials/studentSems/third') %>
+                                    <%- include('partials/studentSems/second') %>
+                                        <%- include('partials/studentSems/first') %>
+        </div>
+
+        <script src="/javascripts/userChange.js"></script>
+        <script src="/javascripts/linkActive.js"></script>
+</body>
+
+</html>

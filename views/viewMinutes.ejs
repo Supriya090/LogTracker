@@ -1,26 +1,53 @@
-
 <% if( Array.isArray(minutes) ) { %>
     <ul>
-    <%minutes.forEach( function( minutes ){ %>
-    <div>
-        <h1><%= minutes.title%></h1>
-        <h3><%= minutes.createdDate%></h3>
-        <h3><%= minutes.createdBy%></h3>
-        <div><%= minutes.description%></div>
-
-    </div>
-    <h5>Uploaded Images</h5>
-    <div>
-        <% minutes.attachment.forEach(function(file) { %>
-        <div>
+        <%minutes.forEach( function( minutes ){ %>
             <div>
-                <img src="data:file/<%=file.docs.contentType%>;base64,
-                     <%=file.docs.data.toString('base64')%>">
+                <h1>
+                    <%= minutes.title%>
+                </h1>
+                <h3>
+                    <%= minutes.createdDate%>
+                </h3>
+                <h3>
+                    <%= minutes.createdBy%>
+                </h3>
                 <div>
-                    <h5>File name: <%= file.name %></h5>
+                    <%- minutes.description%>
                 </div>
             </div>
-        </div>
-        <% }) %>
-    </div>
-    <% })} %>
+            <h5>Uploaded Images</h5>
+            <div>
+                <% minutes.attachment.forEach(function(file) { %>
+                    <div>
+                        <div>
+                            <!-- <%=file.docs.data%> -->
+                            <form action="/minute/download" method="GET">
+                                <input type="hidden" name="data" value="<%=file.fileId%>">
+                                <button class="btn btn-primary logout-btn" name="action" type="submit">Download</button>
+                            </form>
+                            <img src="data:file/<%=file.docs.contentType%>;base64,
+                     <%=file.docs.data.toString('base64')%>">
+                            <div>
+                                <h5>File name: <%= file.name %>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                    <%= (minutes._id).toString() %>
+                    <form action="/minute/comment/save/<%= minutes._id.toString() %>" method="POST">
+                        <input type="text" name="cmt" id="cmt">
+                        <input type="hidden" name="Mid" value="<%= minutes._id.toString() %>">
+                        <button class="btn btn-primary logout-btn" name="action" type="submit">comment</button>
+                    </form>
+                    <ul>
+                    <% comments.forEach(function(cmt) { %>
+                        <% if (cmt.minuteId.toString()==minutes._id.toString()) { %>
+                                <li><%= cmt.comment%>----<%= cmt.commentedBy%>----<%= cmt.createdDate%></li>
+                                <a href="/minute/comment/delete/<%= cmt._id.toString()%>">Delete</a>
+                        <% } %>
+                        <% }) %>
+                    </ul>  
+                    <a href="/minute/verify/<%= (minutes._id).toString() %>">verify</a>       
+            </div>
+            <% })} %>

@@ -28,6 +28,20 @@
   font-weight: bold;
   color: #04a4e4;
 }
+
+@media screen and (max-width: 600px) {
+  .navbar.sticky-top {
+    padding: 15px 30px;
+  }
+
+  .navbar.sticky-top a.navbar-brand {
+    font-size: 1.3rem;
+  }
+
+  .btn.btn-primary.logout-btn {
+    margin-right: 15px;
+  }
+}
 /* Navbar Begins */
 
 /* Student Dashboard Begins */
@@ -112,7 +126,308 @@
   margin: 30px 0 5px 0;
 }
 
+.minute-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.minute-header div {
+  display: flex;
+  align-items: center;
+}
+
+.minute-header div .card-title {
+  font-weight: 500;
+}
+
+.badge.badge-secondary {
+  margin: 0 20px 15px 20px;
+}
+
+.minute-header div h6 {
+  margin-left: 15px;
+}
+
+.each-image {
+  display: flex;
+  flex-direction: column;
+}
+
+.each-image p {
+  font-size: 10px;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.uploaded-images-div {
+  display: flex;
+}
+
+img.uploaded-images {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+img.uploaded-images:hover {
+  opacity: 0.7;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9);
+  /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation */
+.modal-content,
+#caption {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {
+    -webkit-transform: scale(0);
+  }
+
+  to {
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+/* The Close Button */
+.closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.closeBtn:hover,
+.closeBtn:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.comment-section {
+  display: flex;
+  align-items: baseline;
+}
+
+.comment-section a {
+  margin-left: 30px;
+  font-size: 14px;
+  text-decoration: none;
+  color: white;
+  background-color: #37464d;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: transform 0.2s ease;
+}
+
+.comment-section a:hover {
+  color: white;
+  transform: scale(1.1);
+}
+
+.comment-form div.form-group {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.comment-form div.form-group input {
+  background-color: #37464d;
+  margin: 0 15px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+}
+
+.comment-form div.form-group input::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+
+.comment-form div.form-group button {
+  border-radius: 10px;
+  padding: 0 20px;
+}
+
+.card p.comment-view {
+  color: #ee9e67;
+  margin: 5px 15px 15px 15px;
+}
+
+.card p.comment-view span {
+  background-color: #37464d;
+  color: white;
+  margin: 0 10px;
+  padding: 5px 15px;
+  border-radius: 15px;
+}
+
+.btn.btn-primary.logout-btn.responsive-btn {
+  display: none;
+}
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+  .modal-content {
+    width: 100%;
+  }
+}
 /* Student Each Project Ends */
+
+/* Each Project Responsiveness Begins */
+@media screen and (max-width: 991px) {
+  .col-8.minutes-list {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .responsive-flex-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn.btn-primary.logout-btn.responsive-btn {
+    display: block;
+  }
+}
+/* Each Project Responsiveness Ends */
+
+/* Upcoming Event Section Begins */
+h4.card-subtitle {
+  font-size: 18px;
+}
+
+.card .upcoming-events-div {
+  min-height: 100px;
+  margin-bottom: 20px;
+}
+
+.login-form.add-events-form {
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 40px;
+}
+
+.login-form.add-events-form input {
+  margin: 0px;
+}
+
+.login-form.add-events-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form.add-events-form .form-group:first-child {
+  flex-direction: row;
+}
+
+.login-form.add-events-form .form-group label {
+  font-size: 17px;
+}
+
+.login-form.add-events-form .form-group textarea {
+  font-size: 12px;
+  padding: 5px 10px;
+  height: 100px;
+}
+
+.login-form.add-events-form .form-group:first-child label {
+  margin-top: 20px;
+}
+
+.login-form.add-events-form .form-group:first-child input {
+  margin-left: 10px;
+  width: 80%;
+}
+
+.btn.btn-primary.logout-btn.events-btn {
+  width: 50%;
+  margin-bottom: 20px;
+}
+/* Upcoming Event Section Ends */
+
+/* Upcoming Event Responsiveness Begins */
+@media screen and (max-width: 1199px) {
+  .login-form.add-events-form .form-group label {
+    font-size: 15px;
+  }
+
+  .login-form.add-events-form .form-group:first-child input {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .card.upcoming-event-card {
+    display: none;
+  }
+}
+/* Upcoming Event Responsiveness Ends */
 
 /* Add Minutes Page Begins */
 body.minute-body {
@@ -165,3 +480,11 @@ body.minute-body {
   text-align: right;
 }
 /* Add Minutes Page Ends */
+
+/* Add Minutes Responsiveness Begins */
+@media screen and (max-width: 767px) {
+  form.login-form.minute-form {
+    padding: 0px;
+  }
+}
+/* Add Minutes Responsiveness Ends */

@@ -1,59 +1,173 @@
 var express = require("express");
 var router = express.Router();
-var multer = require("multer");
-const path = require("path");
+var User = require("../models/User");
+var Minute = require("../models/Minute");
+var Comment = require("../models/Comment");
+var Project = require("../models/Project");
+var { loggedin, ensureAuth } = require("../middleware/ensureLogin");
 
+/* GET Dashboard. */
+router.get("/dashboard", loggedin, function (req, res, next) {
+  //console.log(req.body);
+  // User.getUser(req.user.username)
+  User.findOne(
+    {
+      username: req.user.username,
+    },
+    function (err, user) {
+      console.log(user._id);
+      if (err) {
+        return next(err);
+      } else if (user) {
+        if (user.userstatus == "student") {
+          Project.getProjectsbyUser(
+            req.user.username,
+            function (err, projects) {
+              if (err) {
+                return next(err);
+              } else {
+                res.render("studentView", {
+                  title: "Student View | Log Tracker",
+                  projects: projects,
+                  userstatus:user.userstatus,
+                  firstname: user.username.split(" ")[0],
+                });
+              }
+            }
+          );
+        } else if (user.userstatus == "teacher") {
+          Project.getProjectsbySV(req.user.username, function (err, projects) {
+            if (err) {
+              return next(err);
+            } else {
+              res.render("teacherView", {
+                title: "Teacher View | Log Tracker",
+                projects:projects,
+                userstatus:user.userstatus,
+                firstname: user.username.split(" ")[0],
+              });
+            }
+          });
 
-//to verify login
-var loggedin = function (req, res, next) {
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    res.redirect("/");
-  }
-};
-//to protecting from login bypass
-var ensureAuth = function(req, res, next){
-  if(!req.isAuthenticated()) {
-    return next();
-  }else {
-    res.redirect("/student");
-  }
-};
+          // res.send(user);
+        } else if (user.userstatus == "admin") {
+          res.render("adminView", {
+            title: "Admin View | Log Tracker",
+            firstname: user.username.split(" ")[0],
+          });
+
+          // res.send(user);
+        }
+      }
+    }
+  );
+});
 
 /* GET home page. */
 router.get("/", ensureAuth, function (req, res, next) {
-  res.render("index", { title: "Log Tracker | Login" });
-});
-
-/* GET Student Dashboard. */
-router.get("/student", loggedin, function (req, res, next) {
-  res.render("studentView", { title: "Student View | Log Tracker", firstname: req.user.username.split(' ')[0] });
+  res.render("index", {
+    title: "Log Tracker | Login",
+  });
 });
 
 /* GET Individual Project */
-router.get("/student/eachProject", function (req, res, next) {
-  res.render("eachProject", { title: "Project | Log Tracker", firstname: req.user.username.split(' ')[0] });
+router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
+  console.log(req.params.pId)
+  Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
+    if (err) {
+      return next(err);
+    } else {
+      Comment.find({}, function (err, cmt) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("eachProject", {
+            minutes: minutes.reverse(),
+            comments: cmt.reverse(),
+            title: "Project | Log Tracker",
+            username: req.user.username,
+            pId: req.params.pId,
+            firstname: req.user.username.split(" ")[0],
+          });
+        }
+      });
+    }
+  });
 });
 
 /* GET Student Minutes */
-router.get("/student/eachProject/addMinutes", function (req, res, next) {
-  res.render("addMinutes", { title: "Add Minutes | Log Tracker", firstname: req.user.username.split(' ')[0] });
+router.get(
+  "/student/eachProject/addMinutes/:pId",
+  loggedin,
+  function (req, res, next) {
+    res.render("addMinutes", {
+      title: "Add Minutes | Log Tracker",
+      pId: req.params.pId,
+      firstname: req.user.username.split(" ")[0],
+    });
+  }
+);
+
+/* GET Teacher's Individual Project*/
+router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
+  Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
+    if (err) {
+      return next(err);
+    } else {
+      Comment.find({}, function (err, cmt) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("eachProjectTeacher", {
+            minutes: minutes.reverse(),
+            comments: cmt.reverse(),
+            title: "Project | Log Tracker",
+            pId: req.params.pId,
+            username: req.user.username,
+            firstname: req.user.username.split(" ")[0],
+          });
+        }
+      });
+    }
+  });
 });
 
-/* Displays data added in minutes in console & saves uploaded files in uploads */
-// router.post("/save", upload.array("uploadedFiles", 10), function (req, res) {
-//   if (req.files) {
-//     console.log(req.files);
-//     console.log("files uploaded");
-//   }
-//   console.log(req.body);
-//   res.redirect("/student");
-// });
+/* GET Admin Create Team */
+router.use("/signup", function (req, res, next) {
+  res.render("signup", {
+    title: "Log Tracker | Sign Up",
+  });
+});
 
 /* GET signup page. */
-router.get("/signup", ensureAuth, function (req, res, next) {
-  res.render("signup", { title: "Log Tracker | Sign Up" });
+router.get("/admin/createTeam", loggedin, function (req, res, next) {
+  User.findOne(
+    {
+      username: req.user.username,
+    },
+    function (err, user) {
+      //console.log(user._id);
+      if (err) {
+        return next(err);
+      } else if (user) {
+        if (user.userstatus == "admin") {
+          User.find({}, function (err, usr) {
+            if (err) {
+              console.log(err);
+            } else {
+              res.render("createTeam", {
+                users: usr.reverse(),
+                title: "Create Team | Log Tracker",
+                firstname: req.user.username.split(" ")[0],
+              });
+            }
+          })
+        } else {
+          res.redirect("/dashboard");
+        }
+      }
+    }
+  );
 });
 
 /* Logout Session. */
@@ -61,6 +175,5 @@ router.get("/logout", loggedin, function (req, res, next) {
   req.logout();
   res.redirect("/");
 });
-
 
 module.exports = router;

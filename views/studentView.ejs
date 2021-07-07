@@ -7,78 +7,51 @@
     </title>
 </head>
 
-<body style="background-color: #1F3750;">
+<body style="background-color: #1f3750">
     <%- include('partials/header') %>
-        <div class="student-dashboard container">
-            <div class="buttons-div row">
-                <button id="showProjects8Btn" studentData-launch-view="sem8" class="col semBtn activeBtn">8th
-                    Sem</button>
-                <button id="showProjects7Btn" studentData-launch-view="sem7" class="col semBtn">7th Sem</button>
-                <button id="showProjects6Btn" studentData-launch-view="sem6" class="col semBtn">6th Sem</button>
-                <button id="showProjects5Btn" studentData-launch-view="sem5" class="col semBtn">5th Sem</button>
-                <button id="showProjects4Btn" studentData-launch-view="sem4" class="col semBtn">4th Sem</button>
-                <button id="showProjects3Btn" studentData-launch-view="sem3" class="col semBtn">3rd Sem</button>
-                <button id="showProjects2Btn" studentData-launch-view="sem2" class="col semBtn">2nd Sem</button>
-                <button id="showProjects1Btn" studentData-launch-view="sem1" class="col semBtn">1st Sem</button>
-            </div>
-
-
-            <!-- Load content from database -->
-            <!-- Also fix hyperlink after creating each page -->
-            <div class="view" id="sem8">
-                <h5>Ongoing Projects</h5>
-                <div class="card ">
-                    <div class="project-card">
-                        <h4 class="card-title">Log Tracker</h4>
-                        <p class="card-text">SUPERVISED BY: AMAN SHAKYA<br />
-                            STUDENTS: S.RAHUL, K.SUPRIYA, P.PRABIN, G.RANJU<br />
-                            CREATED ON: 2021-06-18</p>
-                    </div>
-                    <a href="/student/eachProject" class="stretched-link"></a>
-                </div>
-
-                <h5>Completed Projects</h5>
-                <div class="card ">
-                    <div class="project-card">
-                        <h4 class="card-title">Log Tracker</h4>
-                        <p class="card-text">SUPERVISED BY: AMAN SHAKYA<br />
-                            STUDENTS: S.RAHUL, K.SUPRIYA, P.PRABIN, G.RANJU<br />
-                            CREATED ON: 2021-06-18</p>
-                    </div>
-                    <a href="/student/eachProject" class="stretched-link"></a>
-                </div>
-            </div>
-
-            <div class="view hide hidden" id="sem7">
-                Sem 7 Projects
-            </div>
-
-            <div class="view hide hidden" id="sem6">
-                Sem 6 Projects
-            </div>
-
-            <div class="view hide hidden" id="sem5">
-                Sem 5 Projects
-            </div>
-
-            <div class="view hide hidden" id="sem4">
-                Sem 4 Projects
-            </div>
-
-            <div class="view hide hidden" id="sem3">
-                Sem 3 Projects
-            </div>
-
-            <div class="view hide hidden" id="sem2">
-                Sem 2 Projects
-            </div>
-
-            <div class="view hide hidden" id="sem1">
-                Sem 1 Projects
-            </div>
+    <div class="student-dashboard container">
+        <div class="buttons-div row">
+            <button id="showProjects8Btn" studentData-launch-view="sem8" class="col semBtn activeBtn">
+                8th Sem
+            </button>
+            <button id="showProjects7Btn" studentData-launch-view="sem7" class="col semBtn">
+                7th Sem
+            </button>
+            <button id="showProjects6Btn" studentData-launch-view="sem6" class="col semBtn">
+                6th Sem
+            </button>
+            <button id="showProjects5Btn" studentData-launch-view="sem5" class="col semBtn">
+                5th Sem
+            </button>
+            <button id="showProjects4Btn" studentData-launch-view="sem4" class="col semBtn">
+                4th Sem
+            </button>
+            <button id="showProjects3Btn" studentData-launch-view="sem3" class="col semBtn">
+                3rd Sem
+            </button>
+            <button id="showProjects2Btn" studentData-launch-view="sem2" class="col semBtn">
+                2nd Sem
+            </button>
+            <button id="showProjects1Btn" studentData-launch-view="sem1" class="col semBtn">
+                1st Sem
+            </button>
         </div>
-        <script src="/javascripts/userChange.js"></script>
-        <script src="/javascripts/linkActive.js"></script>
+
+        
+        <!-- Load content from database -->
+        <!-- Also fix hyperlink after creating each page -->
+        <%- include('partials/studentSems/eighth') %>
+                <%- include('partials/studentSems/seventh') %>
+                    <%- include('partials/studentSems/sixth') %>
+                        <%- include('partials/studentSems/fifth') %>
+                            <%- include('partials/studentSems/fourth') %>
+                                <%- include('partials/studentSems/third') %>
+                                    <%- include('partials/studentSems/second') %>
+                                        <%- include('partials/studentSems/first') %>
+    </div>
+
+    <script src="/javascripts/userChange.js"></script>
+    <script src="/javascripts/linkActive.js"></script>
 </body>
 
 </html>

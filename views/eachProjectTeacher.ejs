@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body style="background-color: #1F3750;">
+    <%- include('partials/teacherheader') %>
+        <div class="container each-project">
+            <h3>
+                PROJECT'S NAME
+            </h3>
+            <h5>
+                Detailed Logs
+            </h5>    
+            <div class="row teacher-log-details">
+                <div class="col-9 minutes-list">    
+                    <div class="card ">
+                        <h4 class="card-title">Meeting 1</h4>
+                    </div>
+                </div>
+                <div class="col-3 events-list">
+                    <div class="card ">
+                        <h4 class="card-title">Upcoming Events</h4>
+                        <a type="button" class="btn btn-primary btn-download-minutes" href="">Download</a>
+                        <a type="button" class="btn btn-primary btn-verify-minutes" href="">Verify Minutes</a>
+                        <!--p>Both botton href empty</p-->
+
+                        <hr style="border-top: 1px solid white; margin-top: 0px">
+                        
+                        <h6 class="card-title supervisor">Supervisor</h4>
+                            <p class="card-body supervisor">Aman Shakya</p>
+                            <h6 class="card-title members">Members</h4>
+                            <p class="card-body members">Prabin Paudel<br>Rahul Shah<br>Ranju G.C.<br>Supriya Khadka</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/javascripts/userChange.js"></script>
+        <script src="/javascripts/linkActive.js"></script>
+</body>
+
+</html>

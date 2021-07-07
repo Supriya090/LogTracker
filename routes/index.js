@@ -4,6 +4,7 @@ var User = require("../models/User");
 var Minute = require("../models/Minute");
 var Comment = require("../models/Comment");
 var Project = require("../models/Project");
+var Event = require("../models/Event");
 var { loggedin, ensureAuth } = require("../middleware/ensureLogin");
 
 /* GET Dashboard. */
@@ -81,14 +82,23 @@ router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
         if (err) {
           console.log(err);
         } else {
-          res.render("eachProject", {
-            minutes: minutes.reverse(),
-            comments: cmt.reverse(),
-            title: "Project | Log Tracker",
-            username: req.user.username,
-            pId: req.params.pId,
-            firstname: req.user.username.split(" ")[0],
-          });
+          Event.getEventsbyPid(req.params.pId, function (err, events)
+          {
+            if(err){
+              return next(err)
+            }
+            else{
+              res.render("eachProject", {
+                events: events.reverse(),
+                minutes: minutes.reverse(),
+                comments: cmt.reverse(),
+                title: "Project | Log Tracker",
+                pId: req.params.pId,
+                username: req.user.username,
+                firstname: req.user.username.split(" ")[0],
+              });
+            }
+          })
         }
       });
     }
@@ -118,14 +128,23 @@ router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
         if (err) {
           console.log(err);
         } else {
-          res.render("eachProjectTeacher", {
-            minutes: minutes.reverse(),
-            comments: cmt.reverse(),
-            title: "Project | Log Tracker",
-            pId: req.params.pId,
-            username: req.user.username,
-            firstname: req.user.username.split(" ")[0],
-          });
+          Event.getEventsbyPid(req.params.pId, function (err, events)
+          {
+            if(err){
+              return next(err)
+            }
+            else{
+              res.render("eachProjectTeacher", {
+                events: events.reverse(),
+                minutes: minutes.reverse(),
+                comments: cmt.reverse(),
+                title: "Project | Log Tracker",
+                pId: req.params.pId,
+                username: req.user.username,
+                firstname: req.user.username.split(" ")[0],
+              });
+            }
+          })
         }
       });
     }

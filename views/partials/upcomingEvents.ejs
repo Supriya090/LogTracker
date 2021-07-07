@@ -1,7 +1,14 @@
 <div class="card upcoming-event-card">
   <h4 class="card-subtitle">Upcoming Events</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
-  <div class="upcoming-events-div">No Upcoming Events!</div>
+ 
+  <div class="upcoming-events-div"> 
+    <% if( Array.isArray(events) ) { %> <%events.forEach( function(
+      events ){ %> 
+          <h5><%= events.event%></h5>
+          
+      <%})}%>
+  </div>
   <h4 class="card-subtitle">Add Events</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
   <div>

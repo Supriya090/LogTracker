@@ -400,11 +400,11 @@ h4.card-subtitle {
 
 .login-form.add-events-form .form-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
-.login-form.add-events-form .form-group:first-child {
-  flex-direction: row;
+.login-form.add-events-form .form-group:nth-child(2) {
+  flex-direction: column;
 }
 
 .login-form.add-events-form .form-group label {
@@ -417,29 +417,59 @@ h4.card-subtitle {
   height: 100px;
 }
 
-.login-form.add-events-form .form-group:first-child label {
+.login-form.add-events-form .form-group label {
   margin-top: 20px;
 }
 
-.login-form.add-events-form .form-group:first-child input {
+.login-form.add-events-form .form-group:nth-child(2) {
+  margin-bottom: 30px;
+}
+
+.login-form.add-events-form .form-group input {
   margin-left: 10px;
   width: 80%;
 }
 
 .btn.btn-primary.logout-btn.events-btn {
   width: 50%;
-  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }
 /* Upcoming Event Section Ends */
 
 /* Upcoming Event Responsiveness Begins */
 @media screen and (max-width: 1199px) {
+  div#addEvents {
+    margin-bottom: 10px;
+  }
+
   .login-form.add-events-form .form-group label {
     font-size: 15px;
   }
 
-  .login-form.add-events-form .form-group:first-child input {
-    width: 70%;
+  .login-form.add-events-form {
+    margin-bottom: 10px;
+  }
+
+  .login-form.add-events-form .form-group {
+    margin-bottom: 0px;
+  }
+
+  .login-form.add-events-form .form-group:nth-child(2) {
+    margin-bottom: 15px;
+  }
+
+  .login-form.add-events-form .form-group input {
+    margin-left: 10px;
+    width: 80%;
+  }
+
+  .btn.btn-primary.logout-btn.events-btn {
+    width: 50%;
+    margin: 20px 0px;
   }
 }
 

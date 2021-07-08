@@ -209,23 +209,19 @@ min-height: 100px;
   margin-left: 10px;
 }
 
-.minute-header div {
-  min-height: 60px;
-}
 
-.dateAndTime, .minuteCreator {
-  margin-bottom: 5;
-  margin-top: auto;
-}
-
-.card {
+.minuteDescription {
   position: relative;
+}
+
+.minuteDescription .description {
+  max-width: 550px;
 }
 
 .btn.btn-success, .btn.btn-danger {
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: 9px;
+  right: 0;
 }
 
 .each-image {
@@ -413,52 +409,5 @@ img.uploaded-images:hover {
   }
 }
 
-
+/* Teacher Detailed Log Ends*/
 /* Teacher Each Project Ends */
-
-/* Add Minutes Page Begins
-body.minute-body {
-background-color: #1f3750;
-color: white;
-}
-
-.container h3 {
-margin: 30px 0;
-font-size: 25px;
-font-weight: 400;
-}
-
-
-
-.minute-form div.form-group {
-display: flex;
-flex-direction: column;
-}
-
-.minute-form div.form-group:nth-child(1) {
-flex-direction: row;
-}
-
-.minute-form div label {
-font-size: 18px;
-margin: 15px 20px 15px 0px;
-}
-
-.minute-form input {
-width: 60%;
-}
-
-.minute-form div #cke_description {
-border-radius: 5px;
-margin-bottom: 30px;
-}
-
-.minute-form div.form-group:nth-child(3) input {
-border: none;
-max-width: fit-content;
-}
-
-.minute-form .verification-button {
-text-align: right;
-}
-/* Add Minutes Page Ends */

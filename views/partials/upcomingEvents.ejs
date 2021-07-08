@@ -5,7 +5,13 @@
   <div class="upcoming-events-div">
     <%var i = 1%> <% if( Array.isArray(events) ) { %> <%events.forEach(
     function( events ){ %>
-    <h6><%= i%>) <%= events.event%></h6>
+    <div class="upcoming-header">
+      <h6><%= i%>) <%= events.event%></h6>
+      <div>
+        <label for="completed">Done</label>
+        <input type="checkbox" name="completed" class="completed-checkbox" />
+      </div>
+    </div>
     <p>
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       Lorem Ipsum has been the industry's standard dummy text ever since the

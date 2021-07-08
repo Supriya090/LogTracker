@@ -14,7 +14,7 @@ router.use("/comment", commentRouter)
 //process minute form
 // POST /minutes/add
 
-router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) => {
+router.post('/save/:pId', upload.array('uploadedFiles', 10),  (req, res, next) => {
   //console.log("save")
   try {
     console.log(JSON.stringify(req.body))
@@ -25,25 +25,20 @@ router.post('/save', upload.array('uploadedFiles', 10), async (req, res, next) =
 
     var title = req.body.title
     var description = req.body.description
+    var pId = req.params.pId
     var img = new Array()
+    console.log(pId)
 
-    const dir = './database/temp';
-if (!fs.existsSync(dir)) {
-	fs.mkdirSync(dir, {
-		recursive: true
-	});
-}
-
-    for (let i = 0; i < req.files.length; i++) {
-      var file = {
-        name: req.files[i].filename,
-        fileId: ID(),
-        docs: {
-          data: fs.readFileSync(path.join('..' + '/public/uploads' + req.files[i].filename)),
-          contentType: req.files[i].mimetype
+      for (let i = 0; i < req.files.length; i++) {
+        var file = {
+          name: req.files[i].filename,
+          fileId: ID(),
+          docs: {
+            data: fs.readFileSync(path.join(__dirname, '..' + '/public/uploads/' + req.files[i].filename)),
+            contentType: req.files[i].mimetype
+          }
         }
-      }
-      img.push(file)
+        img.push(file)
       console.log(title)
     }
     if (!title || !description) {
@@ -53,7 +48,7 @@ if (!fs.existsSync(dir)) {
     }
 
     const minute = new Minute()
-    //minute.projectId = "project id"
+    minute.projectId = pId
     minute.title = title
     minute.description = description
     minute.attachment = img
@@ -63,14 +58,14 @@ if (!fs.existsSync(dir)) {
       if (err) {
         res.status(500).send("Database error occured");
       } else {
-        res.redirect("/student/eachProject");
+        res.redirect("/student/eachProject/"+pId);
       }
     }
     )
   }
   catch (err) {
-    console.error(err)
-    res.redirect("/student/eachProject");
+    res.render(err)
+    // res.redirect("/student/eachProject");
     // res.render
 
   }
@@ -83,26 +78,26 @@ var ID = function () {
   return '_' + Math.random().toString(36).substr(2, 9);
 };
 
-router.use('/getall', loggedin, (req, res, next) => {
-  Minute.getMinutesbyPid('todo', function (err, minutes) {
-    if (err) {
-      return next(err)
-    } else {
-      Comment.find({}, function (err, cmt) {
-        if (err) {
-          console.log(err);
-        } else {
+router.use('/getall/:pId', loggedin, (req, res, next) => {
+  // Minute.getMinutesbyPid('todo', function (err, minutes) {
+  //   if (err) {
+  //     return next(err)
+  //   } else {
+  //     Comment.find({}, function (err, cmt) {
+  //       if (err) {
+  //         console.log(err);
+  //       } else {
           // res.render('viewMinutes.ejs', {
           //   minutes: minutes,
           //   comments: cmt,
           //   msg: "Get All Minutes"
           // });
-          res.redirect("/student/eachProject");
-        }
-      })
-
-    }
-  })
+          res.redirect("/student/eachProject/"+req.params.pId);
+        // }
+      // })
+// 
+    // }
+  // })
 })
 
 

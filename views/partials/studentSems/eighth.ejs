@@ -1,23 +1,27 @@
+
 <div class="view" id="sem8">
     <h5>Ongoing Projects</h5>
+    <% if( Array.isArray(projects) ) { %>
+    <%projects.forEach( function(projects ){ %>
+    <% if(projects.semester=="8" ) { %>
     <div class="card ">
         <div class="project-card">
-            <h4 class="card-title">Log Tracker</h4>
-            <p class="card-text">SUPERVISED BY: AMAN SHAKYA<br />
-                STUDENTS: S.RAHUL, K.SUPRIYA, P.PRABIN, G.RANJU<br />
-                CREATED ON: 2021-06-18</p>
-        </div>
-        <a href="/student/eachProject" class="stretched-link"></a>
-    </div>
+            <h4 class="card-title"><%= projects.projectname%></h4>
+            <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
+                STUDENTS:
+                <% projects.team.forEach(function(team) { %>
+                <% if(team!=null ) { %>
+                <%= team.split(' ').pop().charAt(0)%>.<%=
+                                team.split(' ')[0]%>,<% }}) %><br />
 
-    <h5>Completed Projects</h5>
-    <div class="card ">
-        <div class="project-card">
-            <h4 class="card-title">Log Tracker</h4>
-            <p class="card-text">SUPERVISED BY: AMAN SHAKYA<br />
-                STUDENTS: S.RAHUL, K.SUPRIYA, P.PRABIN, G.RANJU<br />
-                CREATED ON: 2021-06-18</p>
+                                CREATED ON: <%=projects.createdDate.toLocaleString()%></p>
         </div>
-        <a href="/student/eachProject" class="stretched-link"></a>
+        <% if (userstatus == "teacher") { %>
+            <a href="/teacher/eachProject/<%= projects._id.toString()%>" class="stretched-link"></a>
+        <% } else { %>
+            <a href="/student/eachProject/<%= projects._id.toString()%>" class="stretched-link"></a>
+            <% } %>
+
     </div>
+    <%}})}%>
 </div>

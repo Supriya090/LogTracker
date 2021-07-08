@@ -28,6 +28,20 @@
   font-weight: bold;
   color: #04a4e4;
 }
+
+@media screen and (max-width: 600px) {
+  .navbar.sticky-top {
+    padding: 15px 30px;
+  }
+
+  .navbar.sticky-top a.navbar-brand {
+    font-size: 1.3rem;
+  }
+
+  .btn.btn-primary.logout-btn {
+    margin-right: 15px;
+  }
+}
 /* Navbar Begins */
 
 /* Student Dashboard Begins */
@@ -91,6 +105,20 @@
   pointer-events: auto;
   content: "";
   background-color: rgba(0, 0, 0, 0);
+}
+
+@media screen and (max-width: 768px) {
+  .project-card {
+    flex-direction: column;
+  }
+
+  .project-card.admin {
+    text-align: center;
+  }
+
+  .view div.card {
+    text-align: center;
+  }
 }
 /* Student Dashboard Ends */
 
@@ -313,6 +341,9 @@ img.uploaded-images:hover {
   border-radius: 15px;
 }
 
+.btn.btn-primary.logout-btn.responsive-btn {
+  display: none;
+}
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px) {
   .modal-content {
@@ -321,7 +352,30 @@ img.uploaded-images:hover {
 }
 /* Student Each Project Ends */
 
+/* Each Project Responsiveness Begins */
+@media screen and (max-width: 991px) {
+  .col-8.minutes-list {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .responsive-flex-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn.btn-primary.logout-btn.responsive-btn {
+    display: block;
+  }
+}
+/* Each Project Responsiveness Ends */
+
 /* Upcoming Event Section Begins */
+.card.upcoming-event-card h4:nth-of-type(2) {
+  margin-top: 20px;
+}
+
 h4.card-subtitle {
   font-size: 18px;
 }
@@ -331,10 +385,29 @@ h4.card-subtitle {
   margin-bottom: 20px;
 }
 
+.card .upcoming-events-div .upcoming-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.card .upcoming-events-div .upcoming-header:nth-child(1) {
+  margin-top: 10px;
+}
+
+.card .upcoming-events-div p {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.card .upcoming-events-div span {
+  font-size: 14px;
+}
+
 .login-form.add-events-form {
   padding: 0px;
   margin: 0px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .login-form.add-events-form input {
@@ -343,11 +416,11 @@ h4.card-subtitle {
 
 .login-form.add-events-form .form-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
-.login-form.add-events-form .form-group:first-child {
-  flex-direction: row;
+.login-form.add-events-form .form-group:nth-child(2) {
+  flex-direction: column;
 }
 
 .login-form.add-events-form .form-group label {
@@ -360,20 +433,100 @@ h4.card-subtitle {
   height: 100px;
 }
 
-.login-form.add-events-form .form-group:first-child label {
-  margin-top: 15px;
+.login-form.add-events-form .form-group label {
+  margin-top: 20px;
 }
 
-.login-form.add-events-form .form-group:first-child input {
+.login-form.add-events-form .form-group:nth-child(2) {
+  margin-bottom: 30px;
+}
+
+.login-form.add-events-form .form-group input {
   margin-left: 10px;
   width: 80%;
 }
 
 .btn.btn-primary.logout-btn.events-btn {
   width: 50%;
-  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+input[type="checkbox"] {
+  position: relative;
+  cursor: pointer;
+  margin-left: 5px;
+}
+input[type="checkbox"]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 0;
+  left: 0;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  background-color: #37464d;
+}
+input[type="checkbox"]:checked:after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 10px;
+  border: solid #04a4e4;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+  left: 6px;
 }
 /* Upcoming Event Section Ends */
+
+/* Upcoming Event Responsiveness Begins */
+@media screen and (max-width: 1199px) {
+  div#addEvents {
+    margin-bottom: 10px;
+  }
+
+  .login-form.add-events-form .form-group label {
+    font-size: 15px;
+  }
+
+  .login-form.add-events-form {
+    margin-bottom: 10px;
+  }
+
+  .login-form.add-events-form .form-group {
+    margin-bottom: 0px;
+  }
+
+  .login-form.add-events-form .form-group:nth-child(2) {
+    margin-bottom: 15px;
+  }
+
+  .login-form.add-events-form .form-group input {
+    margin-left: 10px;
+    width: 80%;
+  }
+
+  .btn.btn-primary.logout-btn.events-btn {
+    width: 50%;
+    margin: 20px 0px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .card.upcoming-event-card {
+    display: none;
+  }
+}
+/* Upcoming Event Responsiveness Ends */
 
 /* Add Minutes Page Begins */
 body.minute-body {
@@ -426,3 +579,11 @@ body.minute-body {
   text-align: right;
 }
 /* Add Minutes Page Ends */
+
+/* Add Minutes Responsiveness Begins */
+@media screen and (max-width: 767px) {
+  form.login-form.minute-form {
+    padding: 0px;
+  }
+}
+/* Add Minutes Responsiveness Ends */

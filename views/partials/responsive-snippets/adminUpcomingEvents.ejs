@@ -1,0 +1,60 @@
+<style>
+  /* The popup form - hidden by default */
+  .event-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 1px solid #f1f1f1;
+    border-radius: 10px;
+    z-index: 100;
+  }
+
+  .btn.btn-primary.logout-btn.popup-btn {
+    margin: 0px;
+  }
+
+  .addeventpopup-end {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+</style>
+
+<div class="card event-popup" id="events">
+  <h4 class="card-subtitle">Upcoming Events</h4>
+  <hr style="border-top: 1px solid white; margin: 10px 0px" />
+  <!-- Add from database -->
+  <div class="upcoming-events-div">No Upcoming Events!</div>
+  <div class="addeventpopup-end">
+    <div style="margin-right: 30px">
+      <h4 class="card-subtitle">Supervisor</h4>
+      <hr style="border-top: 1px solid white; margin: 10px 0px" />
+      <p>Mr. Aman Shakya</p>
+    </div>
+    <div style="margin-left: 30px">
+      <h4 class="card-subtitle">Students</h4>
+      <hr style="border-top: 1px solid white; margin: 10px 0px" />
+      <p style="margin-bottom: 20px">
+        Prabin Poudel<br />Rahul Shah<br />Ranju G.C.<br />Supriya Khadka <br />
+      </p>
+    </div>
+  </div>
+  <button
+    type="button"
+    class="btn btn-primary logout-btn popup-btn"
+    onclick="closeEvents()"
+  >
+    Close
+  </button>
+</div>
+
+<script>
+  function openEvents() {
+    document.getElementById("events").style.display = "block";
+  }
+
+  function closeEvents() {
+    document.getElementById("events").style.display = "none";
+  }
+</script>

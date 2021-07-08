@@ -1,7 +1,41 @@
-<div class="card upcoming-event-card">
+<style>
+  /* The popup form - hidden by default */
+  .event-popup {
+    display: none;
+    position: fixed;
+    top: 100px;
+    right: 15px;
+    border: 1px solid #f1f1f1;
+    border-radius: 10px;
+    z-index: 100;
+    height: 500px;
+    margin: 0px 10px 0px 30px;
+    overflow: auto;
+  }
+
+  .btn.btn-primary.logout-btn.popup-btn {
+    margin: 0px;
+  }
+
+  .addeventpopup-end {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  div#events {
+    margin-bottom: 20px;
+  }
+
+  div#addEvents {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+  }
+</style>
+
+<div class="card event-popup" id="events">
   <h4 class="card-subtitle">Upcoming Events</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
-
   <div class="upcoming-events-div">
     <%var i = 1%> <% if( Array.isArray(events) ) { %> <%events.forEach(
     function( events ){ %>
@@ -21,6 +55,23 @@
     <span>Date: 07/20/2021</span>
     <% i++ %> <%})}%>
   </div>
+  <button
+    type="button"
+    class="btn btn-primary logout-btn popup-btn"
+    onclick="openAddEvents()"
+  >
+    Add Events
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary logout-btn popup-btn"
+    onclick="closeEvents()"
+  >
+    Close
+  </button>
+</div>
+
+<div class="card event-popup" id="addEvents">
   <h4 class="card-subtitle">Add Events</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
   <div>
@@ -31,13 +82,7 @@
     >
       <div class="form-group">
         <label for="name">Title : </label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          name="title"
-          required
-        />
+        <input type="" class="form-control" id="title" name="title" required />
       </div>
 
       <div class="form-group">
@@ -47,6 +92,7 @@
           class="form-control"
           id="description"
           name="description"
+          required
         >
         </textarea>
       </div>
@@ -71,14 +117,36 @@
       </button>
     </form>
   </div>
-  <h4 class="card-subtitle">Supervisor</h4>
-  <hr style="border-top: 1px solid white; margin: 10px 0px" />
-  <p style="margin-bottom: 40px">Mr. Aman Shakya</p>
-  <a
-    type="button"
-    class="btn btn-primary logout-btn events-btn"
-    href="/student/eachProject/addMinutes/<%= pId%>"
-  >
-    Add Minutes
-  </a>
+  <div class="addeventpopup-end">
+    <div>
+      <h4 class="card-subtitle">Supervisor</h4>
+      <hr style="border-top: 1px solid white; margin: 10px 0px" />
+      <p>Mr. Aman Shakya</p>
+    </div>
+    <button
+      type="button"
+      class="btn btn-primary logout-btn popup-btn"
+      onclick="closeAddEvents()"
+    >
+      Close
+    </button>
+  </div>
 </div>
+
+<script>
+  function openEvents() {
+    document.getElementById("events").style.display = "block";
+  }
+
+  function closeEvents() {
+    document.getElementById("events").style.display = "none";
+  }
+
+  function openAddEvents() {
+    document.getElementById("addEvents").style.display = "block";
+  }
+
+  function closeAddEvents() {
+    document.getElementById("addEvents").style.display = "none";
+  }
+</script>

@@ -5,19 +5,10 @@
   </head>
 
   <body style="background-color: #1f3750">
-    <%- include('partials/header') %>
+    <%- include('partials/adminHeader') %>
     <div class="container each-project">
-      <div class="responsive-flex-box">
-        <h3>PROJECT'S NAME</h3>
-        <a
-          type="button"
-          class="btn btn-primary logout-btn responsive-btn"
-          href="/student/eachProject/addMinutes/<%= pId%>"
-        >
-          Add Minutes
-        </a>
-      </div>
-      <div class="responsive-flex-box">
+      <h4>Team Quadruples: Log Tracker</h4>
+      <div class="responsive-flex-box" style="margin: 20px 0px 10px 0px">
         <h5>Detailed Logs</h5>
         <button
           class="btn btn-primary logout-btn responsive-btn"
@@ -25,51 +16,48 @@
         >
           View Upcoming Events
         </button>
-        <%- include('partials/responsive-snippets/upcomingEvents') %>
+        <%- include('partials/responsive-snippets/adminUpcomingEvents') %>
       </div>
+
+      <!-- I have either commented or hardcoded ejs contents, please fix it while you define routing - Supriya -->
 
       <div class="row student-log-details">
         <div class="col-8 minutes-list">
-          <% if( Array.isArray(minutes) ) { %> <%minutes.forEach( function(
-          minutes ){ %>
           <div class="card">
             <div class="minute-header">
               <div>
-                <h5 class="card-title"><%= minutes.title%></h5>
-                <span class="badge badge-secondary">
-                  <% if (minutes.isVerified) { %> Verified <% } else { %> Not
-                  Verified <% }%>
-                </span>
+                <h5 class="card-title">Meeting 1</h5>
+                <span class="badge badge-secondary"> Verified </span>
               </div>
               <div>
-                <h6>
-                  <%=minutes.createdDate.toLocaleTimeString()%>, <%=
-                  minutes.createdDate.toDateString()%>
-                </h6>
-                <h6>By <%= minutes.createdBy%></h6>
+                <h6>8:14:45 PM, Mon Jul 05 2021</h6>
+                <h6>By Ranju G.C.</h6>
               </div>
             </div>
             <hr style="border-top: 1px solid white; margin-top: 0px" />
-            <div><%- minutes.description%></div>
+            <div>DESCRIPTION</div>
             <hr style="border-top: 1px solid white; margin-top: 0px" />
-            <%if(minutes.attachment.length){%>
+            <%# if(minutes.attachment.length){%>
             <h6>Uploaded Files</h6>
-            <%}%>
+            <%# }%>
             <div class="uploaded-images-div">
-              <% minutes.attachment.forEach(function(file) { %>
+              <%# minutes.attachment.forEach(function(file) { %>
               <div>
                 <div class="each-image">
                   <img
-                    id="<%= file._id%>"
-                    alt="<%= file.name%>"
-                    src="data:file/<%=file.docs.contentType%>;base64,
-                     <%=file.docs.data.toString('base64')%>"
+                    id="testImg"
+                    alt="testImg"
+                    src="/assets/alternative.png"
                     class="uploaded-images"
                     onerror="this.src='/assets/alternative.png';"
                   />
-                  <p><%= file.name.substring((file.name).indexOf('-') + 1)%></p>
+                  <p><%# file.name.substring((file.name).indexOf('-') + 1)%></p>
                   <form action="/minute/download" method="GET">
-                    <input type="hidden" name="data" value="<%=file.fileId%>" />
+                    <input
+                      type="hidden"
+                      name="data"
+                      value="<%# file.fileId%>"
+                    />
                     <button
                       class="btn btn-primary logout-btn"
                       name="action"
@@ -92,7 +80,7 @@
                   var modal = document.getElementById("myModal");
 
                   // Get the image and insert it inside the modal - use its "alt" text as a caption
-                  var id = "<%=file._id%>";
+                  var id = "testImg";
                   console.log(id);
                   var img = document.getElementById(id);
                   var modalImg = document.getElementById("img01");
@@ -112,50 +100,25 @@
                   };
                 </script>
               </div>
-              <% }) %>
+              <%# }) %>
             </div>
-            <%if(minutes.attachment.length){%>
+            <%# if(minutes.attachment.length){%>
             <hr style="border-top: 1px solid white" />
-            <%}%> <% comments.forEach(function(cmt) { %> <% if
+            <%# }%> <%# comments.forEach(function(cmt) { %> <%# if
             (cmt.minuteId.toString()==minutes._id.toString()) { %>
             <div class="comment-section">
               <p class="comment-view">
-                <%= cmt.commentedBy.split(' ').pop().charAt(0)%>.<%=
-                cmt.commentedBy.split(' ')[0]%> <span><%= cmt.comment%></span>
+                <%# cmt.commentedBy.split(' ').pop().charAt(0)%>.<%#
+                cmt.commentedBy.split(' ')[0]%> <span><%# cmt.comment%></span>
               </p>
-              <% if (cmt.commentedBy==username) { %>
-              <a
-                href="/minute/comment/delete/<%= cmt._id.toString()%>/<%= pId %> "
-                ><i class="fa fa-trash"></i
-              ></a>
-
-              <% } %>
             </div>
-            <% } %> <% }) %>
-            <form
-              class="comment-form"
-              action="/minute/comment/save/<%= minutes._id.toString() %>/<%= pId %> "
-              method="POST"
-            >
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  name="cmt"
-                  placeholder="Add Comments"
-                />
-                <button type="submit" class="btn btn-primary logout-btn">
-                  Post
-                </button>
-              </div>
-            </form>
+            <%# } %> <%# }) %>
           </div>
-          <%})}%>
+          <%# })}%>
         </div>
 
         <div class="col-4 events-list">
-          <%- include('partials/upcomingEvents') %>
+          <%- include('partials/adminUpcomingEvents') %>
         </div>
       </div>
     </div>

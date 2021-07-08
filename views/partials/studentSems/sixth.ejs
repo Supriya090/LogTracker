@@ -1,3 +1,24 @@
 <div class="view hide hidden" id="sem6">
-    Sem 6 Projects
+    <h5>Ongoing Projects</h5>
+    <% if( Array.isArray(projects) ) { %>
+    <%projects.forEach( function(projects ){ %>
+    <% if(projects.semester=="6" ) { %>
+    <div class="card ">
+        <div class="project-card">
+            <h4 class="card-title"><%= projects.projectname%></h4>
+            <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
+                STUDENTS:
+                <% projects.team.forEach(function(team) { %>
+                <% if(team!=null ) { %>
+                <%= team.split(' ').pop().charAt(0)%>.<%=
+                                team.split(' ')[0]%>,<% }}) %><br />
+
+                                CREATED ON: <%=projects.createdDate.toLocaleString()%></p>
+        </div>
+        <% if (userstatus == "teacher") { %>
+            <a href="/teacher/eachProject/<%= projects._id.toString()%>" class="stretched-link"></a>
+        <% } else { %>
+            <a href="/student/eachProject/<%= projects._id.toString()%>" class="stretched-link"></a>
+            <% } %> </div>
+    <%}})}%>
 </div>

@@ -154,51 +154,7 @@
         </div>
 
         <div class="col-4 events-list">
-          <div class="card">
-              <h4 class="card-title">Upcoming Events</h4>
-              <hr style="border-top: 1px solid white; margin-top: 0; margin-bottom: 5px">
-              <p class="card-body display-events">The upcoming events list.</p>
-
-              <h4 class="card-title">Add Events</h4>
-              <hr style="border-top: 1px solid white; margin-top: 0">
-              
-              <form method="POST" class="login-form add-events-form" id="project-detail-form">
-                <div class="form-group title">
-                  <label for="name">Title : </label>
-                  <input type="" class="input-title" id="title" name="title" required />
-                </div>
-          
-                <div class="form-group description">
-                  <label for="college">Description:</label>
-                  <textarea
-                    type="string"
-                    class="form-control"
-                    id="description"
-                    name="description"
-                    required
-                  >
-                  </textarea>
-                </div>
-                
-                <button
-                  class="btn btn-primary logout-btn events-btn"
-                  name="action"
-                  type="submit"
-                  style="width: 30%"
-                >
-                  Add
-                </button>
-              </form>
-            
-            <h5 class="card-title supervisor">Supervisor</h5>
-            <hr style="border-top: 1px solid white; margin-top: 0; margin-bottom: 0">
-            <p class="card-body supervisor">Aman Shakya</p>
-
-
-            <h5 class="card-title members">Members</h5>
-            <hr style="border-top: 1px solid white; margin-top: 0px; margin-bottom: 0">
-            <p class="card-body members">Prabin Paudel<br>Rahul Shah<br>Ranju G.C.<br>Supriya Khadka</p>
-          </div>
+          <%- include('partials/upcomingEventTeacher') %>
         </div>
 
       </div>

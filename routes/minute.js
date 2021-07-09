@@ -133,12 +133,22 @@ router.get('/download', function (req, res) {
   });
 });
 
-router.use('/verify/:id', loggedin, (req, res, next) => {
+router.use('/verify/:pId/:id', loggedin, (req, res, next) => {
   Minute.verifyMinute(req.params.id, function (err, minutes) {
     if (err) {
       return next(err)
     } else {
-          res.send(minutes)
+      res.redirect("/teacher/eachProject/"+req.params.pId);
+        }
+      })
+})
+
+router.use('/unverify/:pId/:id', loggedin, (req, res, next) => {
+  Minute.unVerifyMinute(req.params.id, function (err, minutes) {
+    if (err) {
+      return next(err)
+    } else {
+      res.redirect("/teacher/eachProject/"+req.params.pId);
         }
       })
 })

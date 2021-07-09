@@ -119,3 +119,28 @@ module.exports.verifyMinute = function (minuteId,callback) {
         }
     })
 }
+
+module.exports.unVerifyMinute = function (minuteId,callback) {
+    let query = {
+        _id: minuteId
+    }
+
+    Minute.find(query, function (err, m) {
+        if (err) throw err
+
+        //minutes exist in database
+
+        if (m.length > 0) {
+            Minute.findOneAndUpdate(query, {
+                    $set: {
+                       isVerified: false
+                    }
+                }, 
+                {
+                    new: true
+                },
+                callback
+            )
+        }
+    })
+}

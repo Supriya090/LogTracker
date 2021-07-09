@@ -84,8 +84,9 @@
 .project-card {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0px 20px;
 }
 
 .project-card h4 {
@@ -105,6 +106,20 @@
   pointer-events: auto;
   content: "";
   background-color: rgba(0, 0, 0, 0);
+}
+
+@media screen and (max-width: 768px) {
+  .project-card {
+    flex-direction: column;
+  }
+
+  .project-card.admin {
+    text-align: center;
+  }
+
+  .view div.card {
+    text-align: center;
+  }
 }
 /* Student Dashboard Ends */
 
@@ -147,6 +162,23 @@
 
 .minute-header div h6 {
   margin-left: 15px;
+}
+
+.minute-header a {
+  text-decoration: none;
+  color: white;
+  /* transition: transform ease 0.2s; */
+}
+
+.minute-header a:hover {
+  text-decoration: none;
+  color: white;
+  transform: scale(1.02);
+}
+
+.minute-header a span i {
+  font-size: 18px;
+  margin-right: 5px;
 }
 
 .each-image {
@@ -371,12 +403,14 @@ h4.card-subtitle {
   margin-bottom: 20px;
 }
 
-.card .upcoming-events-div h6:nth-of-type(1) {
-  margin-top: 10px;
+.card .upcoming-events-div .upcoming-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-.card .upcoming-events-div h6 {
-  margin-top: 20px;
+.card .upcoming-events-div .upcoming-header:nth-child(1) {
+  margin-top: 10px;
 }
 
 .card .upcoming-events-div p {
@@ -437,6 +471,38 @@ h4.card-subtitle {
 
 ::-webkit-calendar-picker-indicator {
   filter: invert(1);
+}
+
+input[type="checkbox"] {
+  position: relative;
+  cursor: pointer;
+  margin-left: 5px;
+}
+input[type="checkbox"]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 0;
+  left: 0;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  background-color: #37464d;
+}
+input[type="checkbox"]:checked:after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 10px;
+  border: solid #04a4e4;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+  left: 6px;
 }
 /* Upcoming Event Section Ends */
 

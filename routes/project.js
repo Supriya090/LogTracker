@@ -29,7 +29,6 @@ router.post("/createteams", function (req, res, next) {
             project.createdBy = username
             project.semester = semester
             project.teamname = teamname
-
             Project.createProject(project, function (err, projects) {
               //Save to database
               if (err) {
@@ -50,8 +49,8 @@ router.post('/event/save/:pId',(req, res, next) => {
 
     var title = req.body.title
     var dueDate = req.body.eventDate
+    var description = req.body.description
     var pId = req.params.pId
-
     if (!title) {
       errors.push({
         msg: "Add event field cannot be empty!"
@@ -65,7 +64,7 @@ router.post('/event/save/:pId',(req, res, next) => {
     event.event = title
     event.dueDate = dueDate
     event.createdBy = req.user.username
-
+    event.description = description
     console.log(event);
 
     Event.createEvent(event, function (err, events) {
@@ -73,7 +72,7 @@ router.post('/event/save/:pId',(req, res, next) => {
       if (err) {
         console.log(err)
       } else {
-        res.redirect("/student/eachProject/"+pId);
+        res.redirect('/student/eachProject/'.concat(pId))
       }
     }
     )

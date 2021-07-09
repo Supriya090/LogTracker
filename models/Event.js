@@ -21,6 +21,10 @@ var EventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
   event: {
       type: String,
       required: true

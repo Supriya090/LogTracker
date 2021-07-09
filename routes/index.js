@@ -52,12 +52,21 @@ router.get("/dashboard", loggedin, function (req, res, next) {
 
           // res.send(user);
         } else if (user.userstatus == "admin") {
-          res.render("adminView", {
-            title: "Admin View | Log Tracker",
-            firstname: user.username.split(" ")[0],
-          });
-
-          // res.send(user);
+          Project.getProjectsbyCreator(
+            req.user.username,
+            function (err, projects) {
+              if (err) {
+                return next(err);
+              } else {
+                res.render("adminView", {
+                  projects: projects,
+                  title: "Admin View | Log Tracker",
+                  userstatus: user.userstatus,
+                  firstname: user.username.split(" ")[0],
+                });
+              }
+            }
+          );
         }
       }
     }
@@ -73,8 +82,8 @@ router.get("/", ensureAuth, function (req, res, next) {
 
 /* GET Individual Project */
 router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
-  console.log(req.params.pId)
-  Project.findById(pId,function(err,projects){})
+  console.log(req.params.pId);
+  Project.findById(pId, function (err, projects) {});
   Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
     if (err) {
       return next(err);
@@ -83,18 +92,25 @@ router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
         if (err) {
           console.log(err);
         } else {
-          Event.getEventsbyPid(req.params.pId, function (err, evt) {
+          Event.getEventsbyPid(req.params.pId, function (err, events) {
             if (err) {
-              console.log(err);
+              return next(err);
             } else {
-              res.render("eachProject", {
-                minutes: minutes.reverse(),
-                events: evt,
-                comments: cmt.reverse(),
-                title: "Project | Log Tracker",
-                username: req.user.username,
-                pId: req.params.pId,
-                firstname: req.user.username.split(" ")[0],
+              Project.getProjectsbyId(req.params.pId, function (err, project) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  res.render("eachProject", {
+                    project: project,
+                    events: events.reverse(),
+                    minutes: minutes.reverse(),
+                    comments: cmt.reverse(),
+                    title: "Project | Log Tracker",
+                    pId: req.params.pId,
+                    username: req.user.username,
+                    firstname: req.user.username.split(" ")[0],
+                  });
+                }
               });
             }
           });
@@ -119,31 +135,37 @@ router.get(
 
 /* GET Teacher's Individual Project*/
 router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
-  Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
+  Project.findById(req.params.pId, function (err, project) {
     if (err) {
-      return next(err);
+      console.log(err);
     } else {
-      Comment.find({}, function (err, cmt) {
+      Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
         if (err) {
-          console.log(err);
+          return next(err);
         } else {
-          Event.getEventsbyPid(req.params.pId, function (err, events)
-          {
-            if(err){
-              return next(err)
-            }
-            else{
-              res.render("eachProjectTeacher", {
-                events: events.reverse(),
-                minutes: minutes.reverse(),
-                comments: cmt.reverse(),
-                title: "Project | Log Tracker",
-                pId: req.params.pId,
-                username: req.user.username,
-                firstname: req.user.username.split(" ")[0],
+          Comment.find({}, function (err, cmt) {
+            if (err) {
+              console.log(err);
+            } else {
+              Event.getEventsbyPid(req.params.pId, function (err, events) {
+                if (err) {
+                  return next(err);
+                } else {
+                  console.log(project)
+                  res.render("eachProjectTeacher", {
+                    project: project,
+                    events: events.reverse(),
+                    minutes: minutes.reverse(),
+                    comments: cmt.reverse(),
+                    title: "Project | Log Tracker",
+                    pId: req.params.pId,
+                    username: req.user.username,
+                    firstname: req.user.username.split(" ")[0],
+                  });
+                }
               });
             }
-          })
+          });
         }
       });
     }
@@ -179,7 +201,7 @@ router.get("/admin/createTeam", loggedin, function (req, res, next) {
                 firstname: req.user.username.split(" ")[0],
               });
             }
-          })
+          });
         } else {
           res.redirect("/dashboard");
         }
@@ -190,9 +212,34 @@ router.get("/admin/createTeam", loggedin, function (req, res, next) {
 
 /* GET Admin Each Project */
 /* Todo: Fix Routing */
-router.get("/admin/eachProject", loggedin, function (req, res, next) {
-  res.render("eachProjectAdmin", {
-    title: "Project | Log Tracker",
+router.get("/admin/eachProject/:pId", loggedin, function (req, res, next) {
+  Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
+    if (err) {
+      return next(err);
+    } else {
+      Event.getEventsbyPid(req.params.pId, function (err, events) {
+        if (err) {
+          return next(err);
+        } else {
+          Project.getProjectsbyId(req.params.pId, function (err, project) {
+            if (err) {
+              console.log(err);
+            } else {
+              res.render("eachProjectAdmin", {
+                project: project,
+                events: events.reverse(),
+                minutes: minutes.reverse(),
+                //comments: cmt.reverse(),
+                title: "Project | Log Tracker",
+                pId: req.params.pId,
+                username: req.user.username,
+                firstname: req.user.username.split(" ")[0],
+              });
+            }
+          });
+        }
+      });
+    }
   });
 });
 

@@ -11,7 +11,13 @@
     <%- include('partials/teacherheader') %>
 
     <div class="container each-project">
-      <h3> PROJECT'S NAME </h3>
+      <% if( Array.isArray(project) ) { %>
+        <%project.forEach( function(project ){ %>
+          <h3><%= project.projectname%></h3>
+          <p style="color: lightblue; margin-top: 10px; margin-bottom: 20px;">
+          <%= project.description%>
+          </p>
+        <%})}%>
       <h5> Detailed Logs </h5>    
 
       <div class="row teacher-log-details"> 

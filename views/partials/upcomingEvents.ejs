@@ -13,10 +13,7 @@
       </div>
     </div>
     <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book.
+      <%= events.description%>
     </p>
     <span>Date: 07/20/2021</span>
     <% i++ %> <%})}%>
@@ -73,7 +70,19 @@
   </div>
   <h4 class="card-subtitle">Supervisor</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
-  <p style="margin-bottom: 40px">Mr. Aman Shakya</p>
+  
+    <% if( Array.isArray(project) ) { %>
+    <%project.forEach( function(project ){ %>
+      <% for (var i =0; i <2;  i++ ) { %>
+      <p style="margin-bottom: 10px"><%= project.supervisor[i]%></p>
+      <% } %>
+  <br>
+  <h4 class="card-subtitle">Students</h4>
+  <hr style="border-top: 1px solid white; margin: 10px 0px" /> 
+      <% for (var i =0; i <5;  i++ ) { %>
+      <p style="margin-bottom: 10px"><%= project.team[i]%></p>
+      <% } %>
+    <%})}%>
   <a
     type="button"
     class="btn btn-primary logout-btn events-btn"

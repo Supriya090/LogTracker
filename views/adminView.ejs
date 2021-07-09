@@ -15,22 +15,17 @@
         Create Team
       </a>
 
-      <%for(let i = 0; i<3; i++){%>
-      <div class="card">
-        <div class="project-card admin">
-          <div>
-            <h4 class="card-title">Team Quadruples</h4>
-            <h5 class="card-title">Project: Log Tracker</h5>
-          </div>
-          <p class="card-text">
-            CREATED ON: 2021-06-18<br />
-            SUPERVISED BY: AMAN SHAKYA<br />
-            STUDENTS: S.RAHUL, K.SUPRIYA, P.PRABIN, G.RANJU
-          </p>
-        </div>
-        <a href="/admin/eachProject" class="stretched-link"></a>
-      </div>
-      <%}%>
+        <!-- Load content from database -->
+        <!-- Also fix hyperlink after creating each page -->
+        <%- include('partials/Sems/eighth') %>
+                <%- include('partials/Sems/seventh') %>
+                    <%- include('partials/Sems/sixth') %>
+                        <%- include('partials/Sems/fifth') %>
+                            <%- include('partials/Sems/fourth') %>
+                                <%- include('partials/Sems/third') %>
+                                    <%- include('partials/Sems/second') %>
+                                        <%- include('partials/Sems/first') %>
+
     </div>
     <script src="/javascripts/userChange.js"></script>
     <script src="/javascripts/linkActive.js"></script>

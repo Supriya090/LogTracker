@@ -52,12 +52,18 @@ router.get("/dashboard", loggedin, function (req, res, next) {
 
           // res.send(user);
         } else if (user.userstatus == "admin") {
-          res.render("adminView", {
-            title: "Admin View | Log Tracker",
-            firstname: user.username.split(" ")[0],
+          Project.getProjectsbyCreator(req.user.username, function (err, projects) {
+            if (err) {
+              return next(err);
+            } else {
+            res.render("adminView", {
+              projects: projects,
+              title: "Admin View | Log Tracker",
+              userstatus: user.userstatus,
+              firstname: user.username.split(" ")[0],
+            });
+            }
           });
-
-          // res.send(user);
         }
       }
     }
@@ -88,7 +94,12 @@ router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
               return next(err)
             }
             else{
-              res.render("eachProject", {
+              Project.getProjectsbyId(req.params.pId, function (err, project) {
+                if (err) {
+                  console.log(err);
+                } else {
+                res.render("eachProject", {
+                project: project,
                 events: events.reverse(),
                 minutes: minutes.reverse(),
                 comments: cmt.reverse(),
@@ -97,6 +108,8 @@ router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
                 username: req.user.username,
                 firstname: req.user.username.split(" ")[0],
               });
+              }
+            });
             }
           })
         }
@@ -134,7 +147,12 @@ router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
               return next(err)
             }
             else{
-              res.render("eachProjectTeacher", {
+              Project.getProjectsbyId(req.params.pId, function (err, project) {
+                if (err) {
+                  console.log(err);
+                } else {
+                res.render("eachProject", {
+                project: project,
                 events: events.reverse(),
                 minutes: minutes.reverse(),
                 comments: cmt.reverse(),
@@ -143,6 +161,8 @@ router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
                 username: req.user.username,
                 firstname: req.user.username.split(" ")[0],
               });
+              }
+            });
             }
           })
         }
@@ -191,9 +211,36 @@ router.get("/admin/createTeam", loggedin, function (req, res, next) {
 
 /* GET Admin Each Project */
 /* Todo: Fix Routing */
-router.get("/admin/eachProject", loggedin, function (req, res, next) {
-  res.render("eachProjectAdmin", {
-    title: "Project | Log Tracker",
+router.get("/admin/eachProject/:pId", loggedin, function (req, res, next) {
+  Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
+    if (err) {
+      return next(err);
+    } else {
+          Event.getEventsbyPid(req.params.pId, function (err, events)
+          {
+            if(err){
+              return next(err)
+            }
+            else{
+              Project.getProjectsbyId(req.params.pId, function (err, project) {
+                if (err) {
+                  console.log(err);
+                } else {
+                res.render("eachProjectAdmin", {
+                project: project,
+                events: events.reverse(),
+                minutes: minutes.reverse(),
+                //comments: cmt.reverse(),
+                title: "Project | Log Tracker",
+                pId: req.params.pId,
+                username: req.user.username,
+                firstname: req.user.username.split(" ")[0],
+              });
+              }
+            });
+            }
+          });
+        }
   });
 });
 

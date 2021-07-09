@@ -74,6 +74,7 @@ router.get("/", ensureAuth, function (req, res, next) {
 /* GET Individual Project */
 router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
   console.log(req.params.pId)
+  Project.findById(pId,function(err,projects){})
   Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
     if (err) {
       return next(err);

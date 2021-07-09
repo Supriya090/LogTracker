@@ -99,13 +99,15 @@
   margin-left: 5px;
 }
 
-.login-form.create-team div.options legend {
+.login-form.create-team div.options input.button-type {
   font-size: 15px;
   background-color: #37464d;
+  width: 140px;
   margin: 0px 5px;
   margin-top: 2px;
   padding: 5px 10px;
   border-radius: 2px;
+  border: none;
 }
 
 .login-form.create-team div.options .chosen-list {
@@ -185,8 +187,9 @@
     margin-top: 2px;
   }
 
-  .login-form.create-team div.options legend {
+  .login-form.create-team div.options input.button-type {
     font-size: 13px;
+    width: 120px;
   }
 }
 

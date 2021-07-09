@@ -56,12 +56,12 @@ router.get("/dashboard", loggedin, function (req, res, next) {
             if (err) {
               return next(err);
             } else {
-            res.render("adminView", {
-              projects: projects,
-              title: "Admin View | Log Tracker",
-              userstatus: user.userstatus,
-              firstname: user.username.split(" ")[0],
-            });
+              res.render("adminView", {
+                projects: projects,
+                title: "Admin View | Log Tracker",
+                userstatus: user.userstatus,
+                firstname: user.username.split(" ")[0],
+              });
             }
           });
         }
@@ -88,28 +88,27 @@ router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
         if (err) {
           console.log(err);
         } else {
-          Event.getEventsbyPid(req.params.pId, function (err, events)
-          {
-            if(err){
+          Event.getEventsbyPid(req.params.pId, function (err, events) {
+            if (err) {
               return next(err)
             }
-            else{
+            else {
               Project.getProjectsbyId(req.params.pId, function (err, project) {
                 if (err) {
                   console.log(err);
                 } else {
-                res.render("eachProject", {
-                project: project,
-                events: events.reverse(),
-                minutes: minutes.reverse(),
-                comments: cmt.reverse(),
-                title: "Project | Log Tracker",
-                pId: req.params.pId,
-                username: req.user.username,
-                firstname: req.user.username.split(" ")[0],
+                  res.render("eachProject", {
+                    project: project,
+                    events: events.reverse(),
+                    minutes: minutes.reverse(),
+                    comments: cmt.reverse(),
+                    title: "Project | Log Tracker",
+                    pId: req.params.pId,
+                    username: req.user.username,
+                    firstname: req.user.username.split(" ")[0],
+                  });
+                }
               });
-              }
-            });
             }
           })
         }
@@ -141,28 +140,27 @@ router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
         if (err) {
           console.log(err);
         } else {
-          Event.getEventsbyPid(req.params.pId, function (err, events)
-          {
-            if(err){
+          Event.getEventsbyPid(req.params.pId, function (err, events) {
+            if (err) {
               return next(err)
             }
-            else{
+            else {
               Project.getProjectsbyId(req.params.pId, function (err, project) {
                 if (err) {
                   console.log(err);
                 } else {
-                res.render("eachProject", {
-                project: project,
-                events: events.reverse(),
-                minutes: minutes.reverse(),
-                comments: cmt.reverse(),
-                title: "Project | Log Tracker",
-                pId: req.params.pId,
-                username: req.user.username,
-                firstname: req.user.username.split(" ")[0],
+                  res.render("eachProjectTeacher", {
+                    project: project,
+                    events: events.reverse(),
+                    minutes: minutes.reverse(),
+                    comments: cmt.reverse(),
+                    title: "Project | Log Tracker",
+                    pId: req.params.pId,
+                    username: req.user.username,
+                    firstname: req.user.username.split(" ")[0],
+                  });
+                }
               });
-              }
-            });
             }
           })
         }
@@ -216,17 +214,16 @@ router.get("/admin/eachProject/:pId", loggedin, function (req, res, next) {
     if (err) {
       return next(err);
     } else {
-          Event.getEventsbyPid(req.params.pId, function (err, events)
-          {
-            if(err){
-              return next(err)
-            }
-            else{
-              Project.getProjectsbyId(req.params.pId, function (err, project) {
-                if (err) {
-                  console.log(err);
-                } else {
-                res.render("eachProjectAdmin", {
+      Event.getEventsbyPid(req.params.pId, function (err, events) {
+        if (err) {
+          return next(err)
+        }
+        else {
+          Project.getProjectsbyId(req.params.pId, function (err, project) {
+            if (err) {
+              console.log(err);
+            } else {
+              res.render("eachProjectAdmin", {
                 project: project,
                 events: events.reverse(),
                 minutes: minutes.reverse(),
@@ -236,11 +233,11 @@ router.get("/admin/eachProject/:pId", loggedin, function (req, res, next) {
                 username: req.user.username,
                 firstname: req.user.username.split(" ")[0],
               });
-              }
-            });
             }
           });
         }
+      });
+    }
   });
 });
 

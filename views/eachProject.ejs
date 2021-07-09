@@ -8,12 +8,14 @@
     <%- include('partials/header') %>
     <div class="container each-project">
       <div class="responsive-flex-box">
-        <% if( Array.isArray(project) ) { %>
-          <%project.forEach( function(project ){ %>
-            <h3><%= project.projectname%></h3>
-            <p style="color: lightblue; margin-top: 10px; margin-bottom: 20px;">
+        <% if( Array.isArray(project) ) { %> <%project.forEach( function(project
+        ){ %>
+        <div>
+          <h3><%= project.projectname%></h3>
+          <p style="color: lightblue; margin-top: 10px; margin-bottom: 20px">
             <%= project.description%>
-            </p>
+          </p>
+        </div>
         <%})}%>
         <a
           type="button"
@@ -54,6 +56,9 @@
                 </h6>
                 <h6>By <%= minutes.createdBy%></h6>
               </div>
+              <a href="#"
+                ><span><i class="fa fa-edit"></i>Edit</span></a
+              >
             </div>
             <hr style="border-top: 1px solid white; margin-top: 0px" />
             <div><%- minutes.description%></div>

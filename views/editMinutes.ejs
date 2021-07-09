@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.16.1/ckeditor.js"
+      integrity="sha512-2nFxKVmFuBhAR45DBnAANBjtxzf7z0m6wRU7NOquxibA6efrQpUtdjFT4wzqewqTI3/cCNbBzJNUtu1NxjFiKw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+
+  <body class="minute-body" style="background-color: #1f3750; color: white">
+    <%- include('partials/header') %>
+    <div class="container">
+      <h3>Add Minutes</h3>
+      <div class="card text-center">
+        <form
+          method="POST"
+          action="/minute/edit/<%=pId.toString()%>/<%= minute._id.toString() %> "
+          class="login-form minute-form"
+        >
+          <div class="form-group">
+            <label for="name">Title : </label>
+            <input
+              type=""
+              class="form-control"
+              id="title"
+              name="title"
+              value="<%= minute.title %> "
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="college">Description:</label>
+            <textarea
+              type="string"
+              class="form-control"
+              id="description"
+              name="description"
+              value="<%= minute.description %> "
+              required
+            >
+            </textarea>
+          </div>
+          <div class="verification-button">
+            <button
+              class="btn btn-primary logout-btn"
+              name="action"
+              type="submit"
+            >
+              Update
+            </button>
+          </div>
+          <%- include('partials/messages') %>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      CKEDITOR.replace("description", {
+        plugins: "wysiwygarea, toolbar, basicstyles, link, list",
+      });
+      $("form").submit(function (e) {
+        var messageLength = CKEDITOR.instances["description"]
+          .getData()
+          .replace(/<[^>]*>/gi, "").length;
+        console.log(messageLength);
+        if (!messageLength) {
+          alert("Do not leave description blank");
+          e.preventDefault();
+        }
+      });
+    </script>
+  </body>
+</html>

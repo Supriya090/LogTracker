@@ -5,12 +5,10 @@ var mongoose = require('mongoose')
 var MinuteSchema = new mongoose.Schema({
     projectId: {
         type: String,
-        default: 'todo',
         required: true,
     },
     createdDate: {
         type: Date,
-        default: Date.now(),
         required: true,
     },
     updatedDate: {
@@ -36,8 +34,7 @@ var MinuteSchema = new mongoose.Schema({
     }],
     createdBy: {
         type: String,
-        default: 'username'
-        //   required: true
+          required: true
     },
     isVerified: {
         type: Boolean,
@@ -46,8 +43,6 @@ var MinuteSchema = new mongoose.Schema({
     },
     updatedBy: {
         type: String,
-        default: 'updater',
-        required: true
     }
 })
 
@@ -64,9 +59,10 @@ module.exports.getMinutesbyPid = function (pid, callback) {
 module.exports.createMinute = function (newMinute, callback) {
     newMinute.save(callback)
 }
-module.exports.updateMinutebyId = function (pid, minuteId, newMinute, callback) {
+
+module.exports.updateMinute = function (mId, newMinute, callback) {
     let query = {
-        projectname: pid
+        _id: mId
     }
 
     Minute.find(query, function (err, m) {
@@ -75,25 +71,23 @@ module.exports.updateMinutebyId = function (pid, minuteId, newMinute, callback) 
         //minutes exist in database
 
         if (m.length > 0) {
-            Minute.findOneAndUpdate({
-                    projectname: pid,
-                }, {
-                    $set: {
-                        projectId: pid,
-                        title: newMinute.title,
-                        description: newMinute.description,
-                        updatedBy: todo
-                    }
-                }, {
-                    new: true
-                },
-                callback
-            )
-        } else {
-            newMinute.save(callback)
+            Minute.findOneAndUpdate(query, {
+                $set: {
+                    title: newMinute.title,
+                    description: newMinute.description,
+                    updatedBy: newMinute.updatedBy,
+                    updatedDate:Date.now()
+                }
+            }, {
+                new: true
+            },
+            callback
+        )
         }
     })
-}
+
+ 
+    }
 
 module.exports.verifyMinute = function (minuteId,callback) {
     let query = {

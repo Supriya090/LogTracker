@@ -68,16 +68,17 @@
     <h4 class="card-subtitle">Supervisor</h4>
     <hr style="border-top: 1px solid white; margin: 10px 0px" />
     
-    <% if( Array.isArray(project) ) { %>
-    <%project.forEach( function(project ){ %>
-      <% for (var i =0; i <2;  i++ ) { %>
-      <p style="margin-bottom: 10px"><%= project.supervisor[i]%></p>
-      <% } %>
+  <% project.supervisor.forEach(element => { %>
+    <p style="margin-bottom: 10px"><%= element%></p>
+  <% }) %>
+ 
+  
   <br>
   <h4 class="card-subtitle">Students</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" /> 
-      <% for (var i =0; i <5;  i++ ) { %>
-      <p style="margin-bottom: 10px"><%= project.team[i]%></p>
-      <% } %>
-    <%})}%>
+    
+      <% project.team.forEach(element => { %>
+        <p style="margin-bottom: 10px"><%= element%></p>
+      <% }) %>
+
 </div>

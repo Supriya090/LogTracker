@@ -83,23 +83,23 @@ router.get("/", ensureAuth, function (req, res, next) {
 /* GET Individual Project */
 router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
   console.log(req.params.pId);
-  Project.findById(pId, function (err, projects) {});
-  Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
+  Project.findById(req.params.pId, function (err, project) {
     if (err) {
-      return next(err);
+      console.log(err);
     } else {
-      Comment.find({}, function (err, cmt) {
+      Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
         if (err) {
-          console.log(err);
+          return next(err);
         } else {
-          Event.getEventsbyPid(req.params.pId, function (err, events) {
+          Comment.find({}, function (err, cmt) {
             if (err) {
-              return next(err);
+              console.log(err);
             } else {
-              Project.getProjectsbyId(req.params.pId, function (err, project) {
+              Event.getEventsbyPid(req.params.pId, function (err, events) {
                 if (err) {
-                  console.log(err);
+                  return next(err);
                 } else {
+                  console.log(project)
                   res.render("eachProject", {
                     project: project,
                     events: events.reverse(),
@@ -130,6 +130,22 @@ router.get(
       pId: req.params.pId,
       firstname: req.user.username.split(" ")[0],
     });
+  }
+);
+
+router.get(
+  "/student/eachProject/editMinutes/:pId/:mId",
+  loggedin,
+  function (req, res, next) {
+    Minute.findById(req.params.mId, function(err, minute){
+      res.render("editMinutes", {
+        minute:minute,
+        title: "Edit Minutes | Log Tracker",
+        pId: req.params.pId,
+        firstname: req.user.username.split(" ")[0],
+      });
+    })
+  
   }
 );
 

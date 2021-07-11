@@ -50,7 +50,7 @@ router.post('/event/save/:pId',(req, res, next) => {
 
     var title = req.body.title
     var dueDate = new Date(req.body.eventDate)
-    dueDate.setHours(11)
+    dueDate.setHours(23)
     dueDate.setMinutes(59)
     dueDate.setSeconds(59)
     var description = req.body.description

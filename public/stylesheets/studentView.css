@@ -577,18 +577,14 @@ input[type="checkbox"]:checked:after {
   left: 6px;
 }
 
-span.badge.badge-warning.overdue {
+span.badge.overdue {
   position: absolute;
   top: 0;
   right: 0;
   margin: 10px;
 }
 
-span.badge.badge-info.remaining {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 10px;
+.remaining {
   color: #000;
 }
 /* Upcoming Event Section Ends */

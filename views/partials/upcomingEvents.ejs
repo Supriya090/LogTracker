@@ -42,7 +42,7 @@
         <span class="badge badge-warning overdue">Overdue</span>
         <%} else { %>
         <% d=dhm(events.dueDate.getTime()-date.getTime()) %>
-        <span class="badge badge-info remaining"><%= d[0] %> days <%= d[1] %> hours <%= d[2] %> minutes left </span>
+        <span class="badge badge-info overdue remaining"><%= d[0] %> days <%= d[1] %> hours <%= d[2] %> minutes left </span>
         <% }%>
         <% i++ %>
       </div>

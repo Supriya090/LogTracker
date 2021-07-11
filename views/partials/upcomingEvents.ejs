@@ -23,26 +23,28 @@
     <p>
       <%= events.description%>
     </p>
-    <span style="color: red;">Due Date: <%= events.dueDate.toLocaleString()%></span>
-    <% function dhm(ms){
-        days = Math.floor(ms / (24*60*60*1000));
-        daysms=ms % (24*60*60*1000);
-        hours = Math.floor((daysms)/(60*60*1000));
-        hoursms=ms % (60*60*1000);
-        minutes = Math.floor((hoursms)/(60*1000));
-        minutesms=ms % (60*1000);
-        sec = Math.floor((minutesms)/(1000));
-        return [days,hours,minutes,sec]
-    }
-    date = new Date()
-     %>
-    <% if (events.dueDate.getTime()<date.getTime()) { %>
-    <span>Overdue</span>
-    <%} else { %>
-    <% d=dhm(events.dueDate.getTime()-date.getTime()) %>
-    <%= d[0] %> days<%= d[1] %>:<%= d[2] %>:<%= d[3] %> left
-    <% }%>
-    <% i++ %> <% }%><%})}%>
+    <div class="overdue-section">
+      <span style="color: red;">Due Date: <%= events.dueDate.toLocaleString()%></span>
+      <% function dhm(ms){
+          days = Math.floor(ms / (24*60*60*1000));
+          daysms=ms % (24*60*60*1000);
+          hours = Math.floor((daysms)/(60*60*1000));
+          hoursms=ms % (60*60*1000);
+          minutes = Math.floor((hoursms)/(60*1000));
+          minutesms=ms % (60*1000);
+          sec = Math.floor((minutesms)/(1000));
+          return [days,hours,minutes,sec]
+      }
+      date = new Date()
+      %>
+      <% if (events.dueDate.getTime()<date.getTime()) { %>
+      <span>Overdue</span>
+      <%} else { %>
+      <% d=dhm(events.dueDate.getTime()-date.getTime()) %>
+      <%= d[0] %> days<%= d[1] %>:<%= d[2] %>:<%= d[3] %> left
+      <% }%>
+      <% i++ %> <% }%><%})}%>
+    </div>
   </div>
 
   <h4 class="card-subtitle">Add Events</h4>

@@ -18,7 +18,7 @@ var EventSchema = new mongoose.Schema({
     required: true,
   },
   dueDate: {
-    type: String,
+    type: Date,
     required: true,
   },
   description: {

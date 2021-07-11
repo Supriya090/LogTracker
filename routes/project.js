@@ -18,7 +18,7 @@ router.post("/createteams", function (req, res, next) {
     // team=["Ranju G.C.","Rahul Shah","Supriya Khadka","Prabin Paudel"]
     if (!projectname) {
               errors.push({
-                msg: "Please sfill in all fields"
+                msg: "Please fill in all fields"
               });
             }
 
@@ -49,7 +49,10 @@ router.post('/event/save/:pId',(req, res, next) => {
     let errors = [];
 
     var title = req.body.title
-    var dueDate = req.body.eventDate
+    var dueDate = new Date(req.body.eventDate)
+    dueDate.setHours(11)
+    dueDate.setMinutes(59)
+    dueDate.setSeconds(59)
     var description = req.body.description
     var pId = req.params.pId
     if (!title) {

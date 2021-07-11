@@ -5,6 +5,7 @@
   <div class="upcoming-events-div">
     <%var i = 1%> <% if( Array.isArray(events) ) { %> <%events.forEach(
     function( events ){ %>
+      <% if (!events.isCompleted) { %>
     <div class="upcoming-header">
       <h6><%= i%>) <%= events.event%></h6>
       <div>
@@ -18,9 +19,10 @@
     <p>
       <%= events.description%>
     </p>
-    <span>Date: <%= events.dueDate%></span>
-    <% i++ %> <%})}%>
+    <span style="color: red;">Due Date: <%= events.dueDate%></span>
+    <% i++ %>   <% }%><%})}%>
   </div>
+  
   <h4 class="card-subtitle">Add Events</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
   <div>

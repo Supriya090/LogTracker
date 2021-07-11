@@ -5,15 +5,22 @@
   <div class="upcoming-events-div">
     <%var i = 1%> <% if( Array.isArray(events) ) { %> <%events.forEach(
     function( events ){ %>
-    <div class="upcoming-header">
-      <h6><%= i%>) <%= events.event%></h6>
+      <% if (!events.isCompleted) { %>
+      <div class="card each-event-card" style="padding-top: 30px;">
+        <div class="upcoming-header">
+          <h6><%= i%>) <%= events.event%></h6>
+        </div>
+        <p>
+          <%= events.description%>
+        </p>
+        <span>Due Date: <%= events.dueDate.toLocaleString()%></span>
+        <%  if (events.dueDate.getTime()<date.getTime()) { %>
+        <span class="badge badge-warning overdue">Overdue</span>
+        <%}%>
+        <% i++ %> </div>
+        <%}%>
+      <%})}%>
     </div>
-    <p>
-      <%= events.description%>
-    </p>
-    <span>Date: 07/20/2021</span>
-    <% i++ %> <%})}%>
-  </div>
   <h4 class="card-subtitle">Supervisor</h4>
     <hr style="border-top: 1px solid white; margin: 10px 0px" />
     

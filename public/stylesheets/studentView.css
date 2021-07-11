@@ -123,6 +123,66 @@
 }
 /* Student Dashboard Ends */
 
+/* Add Minutes Page Begins */
+body.minute-body {
+  background-color: #1f3750;
+  color: white;
+}
+
+.container h3 {
+  margin: 30px 0;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.container .card {
+  padding: 30px;
+  margin-bottom: 40px;
+  background-color: #1a2226;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.minute-form div.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.minute-form div.form-group:nth-child(1) {
+  flex-direction: row;
+}
+
+.minute-form div label {
+  font-size: 18px;
+  margin: 15px 20px 15px 0px;
+}
+
+.minute-form input {
+  width: 60%;
+}
+
+.minute-form div #cke_description {
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.minute-form div.form-group:nth-child(3) input {
+  border: none;
+  max-width: fit-content;
+}
+
+.minute-form .verification-button {
+  text-align: right;
+}
+/* Add Minutes Page Ends */
+
+/* Add Minutes Responsiveness Begins */
+@media screen and (max-width: 767px) {
+  form.login-form.minute-form {
+    padding: 0px;
+  }
+}
+/* Add Minutes Responsiveness Ends */
+
 /* Student Each Project Begins */
 .container.each-project {
   color: white;
@@ -422,6 +482,14 @@ h4.card-subtitle {
   font-size: 14px;
 }
 
+.card.each-event-card {
+  position: relative;
+  background-color: #37464d;
+  padding-top: 45px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .login-form.add-events-form {
   padding: 0px;
   margin: 0px;
@@ -508,6 +576,21 @@ input[type="checkbox"]:checked:after {
   top: 2px;
   left: 6px;
 }
+
+span.badge.badge-warning.overdue {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+}
+
+span.badge.badge-info.remaining {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  color: #000;
+}
 /* Upcoming Event Section Ends */
 
 /* Upcoming Event Responsiveness Begins */
@@ -549,63 +632,3 @@ input[type="checkbox"]:checked:after {
   }
 }
 /* Upcoming Event Responsiveness Ends */
-
-/* Add Minutes Page Begins */
-body.minute-body {
-  background-color: #1f3750;
-  color: white;
-}
-
-.container h3 {
-  margin: 30px 0;
-  font-size: 25px;
-  font-weight: 400;
-}
-
-.container .card {
-  padding: 30px;
-  margin-bottom: 40px;
-  background-color: #1a2226;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.minute-form div.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.minute-form div.form-group:nth-child(1) {
-  flex-direction: row;
-}
-
-.minute-form div label {
-  font-size: 18px;
-  margin: 15px 20px 15px 0px;
-}
-
-.minute-form input {
-  width: 60%;
-}
-
-.minute-form div #cke_description {
-  border-radius: 5px;
-  margin-bottom: 30px;
-}
-
-.minute-form div.form-group:nth-child(3) input {
-  border: none;
-  max-width: fit-content;
-}
-
-.minute-form .verification-button {
-  text-align: right;
-}
-/* Add Minutes Page Ends */
-
-/* Add Minutes Responsiveness Begins */
-@media screen and (max-width: 767px) {
-  form.login-form.minute-form {
-    padding: 0px;
-  }
-}
-/* Add Minutes Responsiveness Ends */

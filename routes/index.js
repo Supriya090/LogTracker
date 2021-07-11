@@ -212,7 +212,7 @@ router.get("/admin/createTeam", loggedin, function (req, res, next) {
               console.log(err);
             } else {
               res.render("createTeam", {
-                users: usr.reverse(),
+                users: usr,
                 title: "Create Team | Log Tracker",
                 firstname: req.user.username.split(" ")[0],
               });

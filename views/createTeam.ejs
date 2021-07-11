@@ -65,15 +65,18 @@
             </div>
           </div>
           <div class="form-group options">
+ 
             <div>
               <label for="supervisor">Supervisor</label>
               <p>:</p>
-              <select name="supervisor" id="addSuper">
-                <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-                users ){ %> <% if (users.userstatus=="teacher") { %>
-                <option><%= users.username%></option>
-                <% } %> <%})}%>
-              </select>
+              <input list="supervisor" name="supervisor" id="addSuper" style="width: max-content;">
+                <datalist id="supervisor">
+                  <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+                                users ){ %> <% if (users.userstatus=="teacher") { %>
+                                <option><%= users.username%></option>
+                                <% } %> <%})}%>
+                </datalist> 
+             
               <!-- <input type="text" id="newSuper_1" name="supervisor" /> -->
               <input class="addSuper changeBtn" type="button" value="+" />
               <input class="removeSuper changeBtn" type="button" value="-" />
@@ -90,12 +93,13 @@
             <div>
               <label for="student">Students</label>
               <p>:</p>
-              <select name="std" id="addStudent">
-                <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-                users ){ %> <% if (users.userstatus=="student") { %>
-                <option><%= users.username%></option>
-                <% } %> <%})}%>
-              </select>
+              <input list="std" name="std" id="addStudent" style="width: max-content;">
+                <datalist id="std">
+                  <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+                                users ){ %> <% if (users.userstatus=="student") { %>
+                                <option><%= users.username%><%= users.email%></option>
+                                <% } %> <%})}%>
+                </datalist> 
               <!-- <input type="text" id="newStud_1" name="std1"/> -->
               <input class="addStud changeBtn" type="button" value="+" />
               <input class="removeStud changeBtn" type="button" value="-" />

@@ -104,7 +104,7 @@ router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
                     project: project,
                     events: events.reverse(),
                     minutes: minutes.reverse(),
-                    comments: cmt.reverse(),
+                    comments: cmt,
                     title: "Project | Log Tracker",
                     pId: req.params.pId,
                     username: req.user.username,

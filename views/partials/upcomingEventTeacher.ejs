@@ -8,6 +8,15 @@
       function( events ){ %>
       <div class="upcoming-header">
         <h6><%= i%>) <%= events.event%></h6>
+        <div>
+          <label for="completed">Done</label>
+          <% if (!events.isCompleted) { %>
+            <input type="checkbox"  disabled="disabled" /> <% } 
+            else { %>
+              <input type="checkbox" checked="checked" disabled="disabled" />
+              <input type="hidden" name="fieldname" value="fieldvalue" /> 
+          <% }%>
+        </div>
       </div>
       <p>
         <%= events.description%>

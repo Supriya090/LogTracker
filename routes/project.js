@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Project = require("../models/Project");
 var Event = require("../models/Event");
+var { loggedin } = require("../middleware/ensureLogin")
 
 
 router.post("/createteams", function (req, res, next) {
@@ -85,7 +86,24 @@ router.post('/event/save/:pId',(req, res, next) => {
 
 })
 
+router.use('/event/completed/:pId/:id', loggedin, (req, res, next) => {
+  Event.Completed(req.params.id, function (err, events) {
+    if (err) {
+      return next(err)
+    } else {
+      res.redirect("/student/eachProject/"+req.params.pId);
+        }
+      })
+})
 
-
+router.use('/event/remaining/:pId/:id', loggedin, (req, res, next) => {
+  Event.Remaining(req.params.id, function (err, events) {
+    if (err) {
+      return next(err)
+    } else {
+      res.redirect("/student/eachProject/"+req.params.pId);
+        }
+      })
+})
 
 module.exports = router;

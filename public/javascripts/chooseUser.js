@@ -5,7 +5,7 @@ $(document).ready(function (e) {
     var new_supervisor_no = parseInt($("#total_supervisor").val());
     var userSelect = document.getElementById("addSuper");
     // var new_input = userSelect.options[userSelect.selectedIndex].text
-    var new_input = "<input class='button-type' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "' value ='" + userSelect.options[userSelect.selectedIndex].text + "' readonly />"
+    var new_input = "<input class='button-type' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "' value ='" + userSelect.options[userSelect.selectedIndex].text + "' readonly/>"
     new_supervisor_no++;
     //var new_input ="<label type='text' id='newSuper_" + new_supervisor_no + "' name='supervisor" + new_supervisor_no + "></label>";
     $("#new_supervisor").append(new_input);

@@ -11,13 +11,16 @@
     <%- include('partials/teacherheader') %>
 
     <div class="container each-project">
+      
       <div class="texts">
-        <h3> PROJECT'S NAME </h3>
-        <h5> Detailed Logs </h5>  
+        <h3><%= project.projectname%></h3>
+        <p style="color: lightblue; margin-top: 10px; margin-bottom: 20px;">
+        <%= project.description%>
+        </p>
+        <h5> Detailed Logs </h5>   
         <button type="button" class="btn btn-danger shadow-none" id="view-events-btn">View Events</button>
       </div>
-        
-
+      
       <div class="row teacher-log-details"> 
 
         <!-- divided into 2 parts, 8:4-->
@@ -48,8 +51,8 @@
                 <div class="description"><%- minutes.description%></div>
 
                 <% if (minutes.isVerified) { %>
-                    <button type="button" class="btn btn-danger shadow-none">Unverify</button> <% } 
-                    else { %> <button type="button" class="btn btn-success shadow-none">Verify</button>
+                    <a href="/minute/unverify/<%= (project._id).toString() %>/<%= (minutes._id).toString() %>" type="button" class="btn btn-danger shadow-none">Unverify</a> <% } 
+                    else { %> <a href="/minute/verify/<%= (project._id).toString() %>/<%= (minutes._id).toString() %>" type="button" class="btn btn-success shadow-none">Verify</a>
                   <% }%>
               </div>
 
@@ -129,8 +132,8 @@
                 </p>
                 <% if (cmt.commentedBy==username) { %>
                 <a href="/minute/comment/delete/<%= cmt._id.toString()%>"
-                  ><i class="fa fa-trash"></i
-                ></a>
+                  ><i class="fa fa-trash"></i>
+                </a>
 
                 <% } %>
               </div>

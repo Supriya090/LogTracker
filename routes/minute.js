@@ -56,7 +56,8 @@ router.post('/save/:pId', upload.array('uploadedFiles', 10),  (req, res, next) =
     Minute.createMinute(minute, function (err, minutes) {
       //Save to database
       if (err) {
-        res.status(500).send("Database error occured");
+        res.status(500).send(err);
+       // res.status(500).send("Database error occured");
       } else {
         res.redirect("/student/eachProject/"+pId);
       }
@@ -79,25 +80,9 @@ var ID = function () {
 };
 
 router.use('/getall/:pId', loggedin, (req, res, next) => {
-  // Minute.getMinutesbyPid('todo', function (err, minutes) {
-  //   if (err) {
-  //     return next(err)
-  //   } else {
-  //     Comment.find({}, function (err, cmt) {
-  //       if (err) {
-  //         console.log(err);
-  //       } else {
-          // res.render('viewMinutes.ejs', {
-          //   minutes: minutes,
-          //   comments: cmt,
-          //   msg: "Get All Minutes"
-          // });
+
           res.redirect("/student/eachProject/"+req.params.pId);
-        // }
-      // })
-// 
-    // }
-  // })
+        
 })
 
 
@@ -133,12 +118,61 @@ router.get('/download', function (req, res) {
   });
 });
 
-router.use('/verify/:id', loggedin, (req, res, next) => {
+router.post('/edit/:pId/:mId', (req, res, next) => {
+  try {
+    console.log(JSON.stringify(req.body))
+    let errors = [];
+
+    var title = req.body.title
+    var description = req.body.description
+    var pId = req.params.pId
+   
+    if (!title || !description) {
+      errors.push({
+        msg: "Please fill in all fields"
+      });
+    }
+
+    const minute = new Minute()
+    minute.title = title
+    minute.description = description
+    minute.updatedBy = req.user.username
+    console.log(minute)
+
+    Minute.updateMinute(req.params.mId,minute, function (err, minutes) {
+      //Save to database
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.redirect("/student/eachProject/".concat(pId));
+      }
+    }
+    )
+  }
+  catch (err) {
+    res.render(err)
+    // res.redirect("/student/eachProject");
+    // res.render
+
+  }
+})
+
+router.use('/verify/:pId/:id', loggedin, (req, res, next) => {
   Minute.verifyMinute(req.params.id, function (err, minutes) {
     if (err) {
       return next(err)
     } else {
-          res.send(minutes)
+      res.redirect("/teacher/eachProject/"+req.params.pId);
+        }
+      })
+})
+
+router.use('/unverify/:pId/:id', loggedin, (req, res, next) => {
+  Minute.unVerifyMinute(req.params.id, function (err, minutes) {
+    if (err) {
+      return next(err)
+    } else {
+      res.redirect("/teacher/eachProject/"+req.params.pId);
         }
       })
 })

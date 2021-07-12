@@ -66,6 +66,12 @@ module.exports.getProjectsbySV = function (name, callback) {
   };
   Project.find(query, callback);
 };
+module.exports.getProjectsbyCreator = function (name, callback) {
+  let query = {
+    createdBy: name,
+  };
+  Project.find(query, callback);
+};
 
 module.exports.getProjectsbyId = function (projectId, callback) {
   let query = {

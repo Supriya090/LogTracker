@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Project = require("../models/Project");
 var Event = require("../models/Event");
+var { loggedin } = require("../middleware/ensureLogin")
 
 
 router.post("/createteams", function (req, res, next) {
@@ -17,7 +18,7 @@ router.post("/createteams", function (req, res, next) {
     // team=["Ranju G.C.","Rahul Shah","Supriya Khadka","Prabin Paudel"]
     if (!projectname) {
               errors.push({
-                msg: "Please sfill in all fields"
+                msg: "Please fill in all fields"
               });
             }
 
@@ -29,7 +30,6 @@ router.post("/createteams", function (req, res, next) {
             project.createdBy = username
             project.semester = semester
             project.teamname = teamname
-
             Project.createProject(project, function (err, projects) {
               //Save to database
               if (err) {
@@ -49,9 +49,12 @@ router.post('/event/save/:pId',(req, res, next) => {
     let errors = [];
 
     var title = req.body.title
-    var dueDate = req.body.eventDate
+    var dueDate = new Date(req.body.eventDate)
+    dueDate.setHours(23)
+    dueDate.setMinutes(59)
+    dueDate.setSeconds(59)
+    var description = req.body.description
     var pId = req.params.pId
-
     if (!title) {
       errors.push({
         msg: "Add event field cannot be empty!"
@@ -65,15 +68,15 @@ router.post('/event/save/:pId',(req, res, next) => {
     event.event = title
     event.dueDate = dueDate
     event.createdBy = req.user.username
-
+    event.description = description
     console.log(event);
 
     Event.createEvent(event, function (err, events) {
       //Save to database
       if (err) {
-        res.status(500).send("Database error occured");
+        console.log(err)
       } else {
-        res.redirect('/student/eachProject/:pId')
+        res.redirect('/student/eachProject/'.concat(pId))
       }
     }
     )
@@ -86,7 +89,24 @@ router.post('/event/save/:pId',(req, res, next) => {
 
 })
 
+router.use('/event/completed/:pId/:id', loggedin, (req, res, next) => {
+  Event.Completed(req.params.id, function (err, events) {
+    if (err) {
+      return next(err)
+    } else {
+      res.redirect("/student/eachProject/"+req.params.pId);
+        }
+      })
+})
 
-
+router.use('/event/remaining/:pId/:id', loggedin, (req, res, next) => {
+  Event.Remaining(req.params.id, function (err, events) {
+    if (err) {
+      return next(err)
+    } else {
+      res.redirect("/student/eachProject/"+req.params.pId);
+        }
+      })
+})
 
 module.exports = router;

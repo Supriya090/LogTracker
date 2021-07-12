@@ -15,10 +15,13 @@ var EventSchema = new mongoose.Schema({
   },
   createdBy: {
     type: String,
-    //default: Date.now(),
     required: true,
   },
   dueDate: {
+    type: Date,
+    required: true,
+  },
+  description: {
     type: String,
     required: true,
   },
@@ -49,7 +52,54 @@ module.exports.deleteEvent = function (eventid, callback){
     Event.deleteOne({ _id: eventid }, callback)
     
 }
+module.exports.Completed = function (eventId,callback) {
+  let query = {
+      _id: eventId
+  }
 
+  Event.find(query, function (err, e) {
+      if (err) throw err
+
+      //minutes exist in database
+
+      if (e.length > 0) {
+          Event.findOneAndUpdate(query, {
+                  $set: {
+                     isCompleted: true
+                  }
+              }, 
+              {
+                  new: true
+              },
+              callback
+          )
+      }
+  })
+}
+module.exports.Remaining = function (eventId,callback) {
+  let query = {
+      _id: eventId
+  }
+
+  Event.find(query, function (err, e) {
+      if (err) throw err
+
+      //minutes exist in database
+
+      if (e.length > 0) {
+          Event.findOneAndUpdate(query, {
+                  $set: {
+                     isCompleted: false
+                  }
+              }, 
+              {
+                  new: true
+              },
+              callback
+          )
+      }
+  })
+}
 module.exports.getEventsbyPid = function (pId,callback) {
     let query = { 
         projectId:pId

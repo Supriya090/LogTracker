@@ -181,6 +181,35 @@ min-height: 100px;
   position: relative;
 }
 
+.add-events .login-form {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.login-form.add-events-form .form-group input {
+  margin-left: 10px;
+  width: 80%;
+}
+
+.login-form.add-events-form .form-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.login-form.add-events-form .form-group:nth-child(2) {
+  flex-direction: column;
+}
+
+.upcoming-events-div {
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.add-event-text {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
 #view-events-btn {
   display: none;
   position: absolute;
@@ -433,9 +462,9 @@ img.uploaded-images:hover {
     display: none;
   }
 
-  /*#view-events-btn {
+  #view-events-btn {
     display: inline-block;
-  }*/
+  }
 }
 
 /* Teacher Each Project Ends */

@@ -7,9 +7,17 @@
   <body style="background-color: #1f3750">
     <%- include('partials/adminHeader') %>
     <div class="container each-project">
-      <h4>Team Quadruples: Log Tracker</h4>
       <div class="responsive-flex-box" style="margin: 20px 0px 10px 0px">
-        <h5>Detailed Logs</h5>
+        <% if( Array.isArray(project) ) { %> <%project.forEach( function(project
+        ){ %>
+        <div>
+          <h3><%= project.projectname%></h3>
+          <p style="color: lightblue; margin-top: 10px; margin-bottom: 20px">
+            <%= project.description%>
+          </p>
+          <%})}%>
+          <h5>Detailed Logs</h5>
+        </div>
         <button
           class="btn btn-primary logout-btn responsive-btn"
           onclick="openEvents()"
@@ -20,44 +28,48 @@
       </div>
 
       <!-- I have either commented or hardcoded ejs contents, please fix it while you define routing - Supriya -->
-
       <div class="row student-log-details">
         <div class="col-8 minutes-list">
+          <% if( Array.isArray(minutes) ) { %> <%minutes.forEach( function(
+          minutes ){ %>
           <div class="card">
             <div class="minute-header">
               <div>
-                <h5 class="card-title">Meeting 1</h5>
-                <span class="badge badge-secondary"> Verified </span>
+                <h5 class="card-title"><%= minutes.title%></h5>
+                <span class="badge badge-secondary">
+                  <% if (minutes.isVerified) { %> Verified <% } else { %> Not
+                  Verified <% }%>
+                </span>
               </div>
               <div>
-                <h6>8:14:45 PM, Mon Jul 05 2021</h6>
-                <h6>By Ranju G.C.</h6>
+                <h6>
+                  <%=minutes.createdDate.toLocaleTimeString()%>, <%=
+                  minutes.createdDate.toDateString()%>
+                </h6>
+                <h6>By <%= minutes.createdBy%></h6>
               </div>
             </div>
             <hr style="border-top: 1px solid white; margin-top: 0px" />
-            <div>DESCRIPTION</div>
+            <div><%- minutes.description%></div>
             <hr style="border-top: 1px solid white; margin-top: 0px" />
-            <%# if(minutes.attachment.length){%>
+            <%if(minutes.attachment.length){%>
             <h6>Uploaded Files</h6>
-            <%# }%>
+            <%}%>
             <div class="uploaded-images-div">
-              <%# minutes.attachment.forEach(function(file) { %>
+              <% minutes.attachment.forEach(function(file) { %>
               <div>
                 <div class="each-image">
                   <img
-                    id="testImg"
-                    alt="testImg"
-                    src="/assets/alternative.png"
+                    id="<%= file._id%>"
+                    alt="<%= file.name%>"
+                    src="data:file/<%=file.docs.contentType%>;base64,
+                     <%=file.docs.data.toString('base64')%>"
                     class="uploaded-images"
                     onerror="this.src='/assets/alternative.png';"
                   />
-                  <p><%# file.name.substring((file.name).indexOf('-') + 1)%></p>
+                  <p><%= file.name.substring((file.name).indexOf('-') + 1)%></p>
                   <form action="/minute/download" method="GET">
-                    <input
-                      type="hidden"
-                      name="data"
-                      value="<%# file.fileId%>"
-                    />
+                    <input type="hidden" name="data" value="<%=file.fileId%>" />
                     <button
                       class="btn btn-primary logout-btn"
                       name="action"
@@ -80,7 +92,7 @@
                   var modal = document.getElementById("myModal");
 
                   // Get the image and insert it inside the modal - use its "alt" text as a caption
-                  var id = "testImg";
+                  var id = "<%=file._id%>";
                   console.log(id);
                   var img = document.getElementById(id);
                   var modalImg = document.getElementById("img01");
@@ -100,21 +112,10 @@
                   };
                 </script>
               </div>
-              <%# }) %>
+              <% }) %>
             </div>
-            <%# if(minutes.attachment.length){%>
-            <hr style="border-top: 1px solid white" />
-            <%# }%> <%# comments.forEach(function(cmt) { %> <%# if
-            (cmt.minuteId.toString()==minutes._id.toString()) { %>
-            <div class="comment-section">
-              <p class="comment-view">
-                <%# cmt.commentedBy.split(' ').pop().charAt(0)%>.<%#
-                cmt.commentedBy.split(' ')[0]%> <span><%# cmt.comment%></span>
-              </p>
-            </div>
-            <%# } %> <%# }) %>
           </div>
-          <%# })}%>
+          <% })}%>
         </div>
 
         <div class="col-4 events-list">

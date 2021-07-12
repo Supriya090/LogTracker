@@ -2,13 +2,39 @@
   <h4 class="card-subtitle">Upcoming Events</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
   <!-- Add from database -->
-  <div class="upcoming-events-div">No Upcoming Events!</div>
+  <div class="upcoming-events-div">
+    <%var i = 1%> <% if( Array.isArray(events) ) { %> <%events.forEach(
+    function( events ){ %>
+      <% if (!events.isCompleted) { %>
+      <div class="card each-event-card" style="padding-top: 30px;">
+        <div class="upcoming-header">
+          <h6><%= i%>) <%= events.event%></h6>
+        </div>
+        <p>
+          <%= events.description%>
+        </p>
+        <span>Due Date: <%= events.dueDate.toLocaleString()%></span>
+        <%  if (events.dueDate.getTime()<date.getTime()) { %>
+        <span class="badge badge-warning overdue">Overdue</span>
+        <%}%>
+        <% i++ %> </div>
+        <%}%>
+      <%})}%>
+    </div>
   <h4 class="card-subtitle">Supervisor</h4>
-  <hr style="border-top: 1px solid white; margin: 10px 0px" />
-  <p style="margin-bottom: 40px">Mr. Aman Shakya</p>
+    <hr style="border-top: 1px solid white; margin: 10px 0px" />
+    
+    <% if( Array.isArray(project) ) { %>
+    <%project.forEach( function(project ){ %>
+      <% for (var i =0; i <2;  i++ ) { %>
+      <p style="margin-bottom: 10px"><%= project.supervisor[i]%></p>
+      <% } %>
+  <br>
   <h4 class="card-subtitle">Students</h4>
-  <hr style="border-top: 1px solid white; margin: 10px 0px" />
-  <p style="margin-bottom: 40px">
-    Prabin Poudel<br />Rahul Shah<br />Ranju G.C.<br />Supriya Khadka <br />
+  <hr style="border-top: 1px solid white; margin: 10px 0px" /> 
+      <% for (var i =0; i <5;  i++ ) { %>
+      <p style="margin-bottom: 10px"><%= project.team[i]%></p>
+      <% } %>
+    <%})}%>
   </p>
 </div>

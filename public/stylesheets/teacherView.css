@@ -96,6 +96,8 @@ background-color: rgba(0, 0, 0, 0);
 /* Teacher Dashboard Ends */
 
 /* Teacher Each Project Begins */
+
+/*commenting to see if it performs sth or not
 .btn-verify-minutes, .btn-download-minutes {
 width: 200px;
 margin-left: auto;
@@ -110,6 +112,13 @@ margin-top: 1rem;
 .btn-verify-minutes {
 margin-bottom: 2rem;
 }
+
+.btn-verify-minutes, .btn-download-minutes {
+width: 200px;
+margin-left: auto;
+margin-right: auto;
+}
+*/
 
 .events-btn {
   margin-bottom: 2rem;;
@@ -140,12 +149,6 @@ font-weight: 300;
 margin: 30px 0 5px 0;
 }
 
-.btn-verify-minutes, .btn-download-minutes {
-width: 200px;
-margin-left: auto;
-margin-right: auto;
-}
-
 .card-body.members, .card-body.supervisor{
 margin-top: 5px;
 margin-bottom: 0;
@@ -174,6 +177,17 @@ min-height: 100px;
   margin: 0px;
 }
 
+.container.each-project .texts{
+  position: relative;
+}
+
+#view-events-btn {
+  display: none;
+  position: absolute;
+  margin: auto 20px auto 0;
+}
+
+/*project-detail-form to overwrite the padding for add events and description*/
 #project-detail-form {
   padding: 0;
 }
@@ -182,8 +196,7 @@ min-height: 100px;
   margin-bottom: 0;
 }
 
-
-/* Teacher Detailed Log Starts -> inside each project*/
+/* Teacher Each Card Detailed Log -> inside each project*/
 .minute-header {
   display: flex;
   justify-content: space-between;
@@ -208,7 +221,6 @@ min-height: 100px;
 .minute-header div h6 {
   margin-left: 10px;
 }
-
 
 .minuteDescription {
   position: relative;
@@ -410,4 +422,20 @@ img.uploaded-images:hover {
 }
 
 /* Teacher Detailed Log Ends*/
+/* Responsiveness in small scale*/
+@media screen and (max-width: 772px) {
+  .col-8.minutes-list {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .col-4.events-list {
+    display: none;
+  }
+
+  /*#view-events-btn {
+    display: inline-block;
+  }*/
+}
+
 /* Teacher Each Project Ends */

@@ -96,6 +96,8 @@ background-color: rgba(0, 0, 0, 0);
 /* Teacher Dashboard Ends */
 
 /* Teacher Each Project Begins */
+
+/*commenting to see if it performs sth or not
 .btn-verify-minutes, .btn-download-minutes {
 width: 200px;
 margin-left: auto;
@@ -110,6 +112,13 @@ margin-top: 1rem;
 .btn-verify-minutes {
 margin-bottom: 2rem;
 }
+
+.btn-verify-minutes, .btn-download-minutes {
+width: 200px;
+margin-left: auto;
+margin-right: auto;
+}
+*/
 
 .events-btn {
   margin-bottom: 2rem;;
@@ -140,12 +149,6 @@ font-weight: 300;
 margin: 30px 0 5px 0;
 }
 
-.btn-verify-minutes, .btn-download-minutes {
-width: 200px;
-margin-left: auto;
-margin-right: auto;
-}
-
 .card-body.members, .card-body.supervisor{
 margin-top: 5px;
 margin-bottom: 0;
@@ -174,6 +177,46 @@ min-height: 100px;
   margin: 0px;
 }
 
+.container.each-project .texts{
+  position: relative;
+}
+
+.add-events .login-form {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.login-form.add-events-form .form-group input {
+  margin-left: 10px;
+  width: 80%;
+}
+
+.login-form.add-events-form .form-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.login-form.add-events-form .form-group:nth-child(2) {
+  flex-direction: column;
+}
+
+.upcoming-events-div {
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.add-event-text {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+#view-events-btn {
+  display: none;
+  position: absolute;
+  margin: auto 20px auto 0;
+}
+
+/*project-detail-form to overwrite the padding for add events and description*/
 #project-detail-form {
   padding: 0;
 }
@@ -182,8 +225,7 @@ min-height: 100px;
   margin-bottom: 0;
 }
 
-
-/* Teacher Detailed Log Starts -> inside each project*/
+/* Teacher Each Card Detailed Log -> inside each project*/
 .minute-header {
   display: flex;
   justify-content: space-between;
@@ -204,11 +246,13 @@ min-height: 100px;
   margin: 0 10px 15px 10px;
 }
 
+.form-group label {
+  min-width: 38.43px;
+}
 
 .minute-header div h6 {
   margin-left: 10px;
 }
-
 
 .minuteDescription {
   position: relative;
@@ -222,6 +266,34 @@ min-height: 100px;
   position: absolute;
   top: 9px;
   right: 0;
+}
+
+span.badge.overdue {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+}
+
+.card .upcoming-events-div span {
+  font-size: 14px;
+}
+
+.card.each-event-card {
+  background-color: #37464d;
+  padding-top: 45px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.upcoming-header div label {
+  color: #56c051;
+}
+
+.card .upcoming-events-div .upcoming-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .each-image {
@@ -402,6 +474,15 @@ img.uploaded-images:hover {
   border-radius: 15px;
 }
 
+/*
+.responsive-flex-box button{
+  display: none;
+}*/
+
+.responsive-flex-box .view-events{
+  display: none;
+}
+
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px) {
   .modal-content {
@@ -410,4 +491,43 @@ img.uploaded-images:hover {
 }
 
 /* Teacher Detailed Log Ends*/
+/* Responsiveness in small scale*/
+@media screen and (max-width: 992px) {
+  .col-8.minutes-list {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .col-4.events-list {
+    display: none;
+  }
+
+  #view-events-btn {
+    display: inline-block;
+  }
+
+  .responsive-flex-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .responsive-flex-box .view-events{
+    display: inline-block;
+  }
+  /*
+  .responsive-flex-box button{
+    display: inline-block;
+  }
+
+  .card.upcoming-event-card {
+    display: none;
+  }
+
+  /*
+  .btn.btn-primary.logout-btn.responsive-btn {
+    display: inline-block;
+  }*/
+}
+
 /* Teacher Each Project Ends */

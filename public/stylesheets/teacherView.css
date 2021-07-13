@@ -246,6 +246,9 @@ min-height: 100px;
   margin: 0 10px 15px 10px;
 }
 
+.form-group label {
+  min-width: 38.43px;
+}
 
 .minute-header div h6 {
   margin-left: 10px;
@@ -263,6 +266,34 @@ min-height: 100px;
   position: absolute;
   top: 9px;
   right: 0;
+}
+
+span.badge.overdue {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+}
+
+.card .upcoming-events-div span {
+  font-size: 14px;
+}
+
+.card.each-event-card {
+  background-color: #37464d;
+  padding-top: 45px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.upcoming-header div label {
+  color: #56c051;
+}
+
+.card .upcoming-events-div .upcoming-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .each-image {
@@ -443,6 +474,15 @@ img.uploaded-images:hover {
   border-radius: 15px;
 }
 
+/*
+.responsive-flex-box button{
+  display: none;
+}*/
+
+.responsive-flex-box .view-events{
+  display: none;
+}
+
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px) {
   .modal-content {
@@ -452,7 +492,7 @@ img.uploaded-images:hover {
 
 /* Teacher Detailed Log Ends*/
 /* Responsiveness in small scale*/
-@media screen and (max-width: 772px) {
+@media screen and (max-width: 992px) {
   .col-8.minutes-list {
     flex: 0 0 100%;
     max-width: 100%;
@@ -465,6 +505,29 @@ img.uploaded-images:hover {
   #view-events-btn {
     display: inline-block;
   }
+
+  .responsive-flex-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .responsive-flex-box .view-events{
+    display: inline-block;
+  }
+  /*
+  .responsive-flex-box button{
+    display: inline-block;
+  }
+
+  .card.upcoming-event-card {
+    display: none;
+  }
+
+  /*
+  .btn.btn-primary.logout-btn.responsive-btn {
+    display: inline-block;
+  }*/
 }
 
 /* Teacher Each Project Ends */

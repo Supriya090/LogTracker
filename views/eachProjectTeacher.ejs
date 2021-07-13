@@ -11,18 +11,23 @@
     <%- include('partials/teacherheader') %>
 
     <div class="container each-project">
-      
-      <div class="texts">
         <h3><%= project.projectname%></h3>
         <p style="color: lightblue; margin-top: 10px; margin-bottom: 20px;">
         <%= project.description%>
         </p>
-        <h5> Detailed Logs </h5>   
-        <button type="button" class="btn btn-danger shadow-none" id="view-events-btn">View Events</button>
-      </div>
+
+        <div class="responsive-flex-box">
+          <h5>Detailed Logs</h5>
+          <button
+            class="btn btn-primary logout-btn responsive-btn view-events"
+            onclick="openEvents()"
+          >
+            View Upcoming Events
+          </button>
+          <%- include('partials/responsive-snippets/upcomingEvents') %>
+        </div>
       
       <div class="row teacher-log-details"> 
-
         <!-- divided into 2 parts, 8:4-->
         <div class="col-8 minutes-list">   
           <% if( Array.isArray(minutes) ) { %> <%minutes.forEach( function(

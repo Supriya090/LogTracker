@@ -3,10 +3,11 @@ var bcrypt = require('bcrypt-nodejs');   //for encrypting password with hash
 
 //Models
 var UserSchema = new mongoose.Schema({
-  // fullName: {
-  //   type: String,
-  //   required: true,
-  // },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   username: {
     type: String,
     required: true,

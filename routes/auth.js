@@ -23,7 +23,7 @@ module.exports = function (passport) {
       } //mongoose or database error
       else {
         if (doc) {
-          res.status(500).send("Username already exists") //if user with same username already exist
+          res.status(500).send("Email already registered") //if user with same username already exist
         } else {
           //Create new user
           var record = new User()

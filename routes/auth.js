@@ -8,16 +8,16 @@ module.exports = function (passport) {
     let errors = []
 
     var body = req.body,
-      //fullname = body.fullname,
+      email = body.email,
       username = body.username,
       password = body.password,
       status = body.userstatus
 
-      if (!username || !password) {
+      if (!username || !password || !email) {
         errors.push({ msg: "Please fill in all fields" })
       }
 
-    User.findOne({ username: username }, function (err, doc) {
+    User.findOne({ email: email }, function (err, doc) {
       if (err) {
         res.status(500).send("error occured")
       } //mongoose or database error
@@ -27,6 +27,7 @@ module.exports = function (passport) {
         } else {
           //Create new user
           var record = new User()
+          record.email = email
           record.username = username
           record.password = record.hashPassword(password) //access method
           record.userstatus = status

@@ -18,7 +18,7 @@ module.exports = function (passport) {
         //done is used to verify callback
         //Our Strategy goes here (find in database)
         User.findOne({
-          username: username
+          email: username
         }, function (err, doc) {
           if (err) {
             done(err);

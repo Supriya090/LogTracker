@@ -31,9 +31,11 @@ module.exports = function (passport) {
           record.username = username;
           record.password = record.hashPassword(password); //access method
           record.userstatus = status;
+          record.map= new Map([[email.substring(0, email.indexOf(".")), username]])
           record.save(function (err, user) {
             //Save to database
             if (err) {
+              console.log(err)
               res.status(500).send("Database error occured");
             } else {
               // res.render('/admin')

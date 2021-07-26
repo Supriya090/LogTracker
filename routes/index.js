@@ -10,17 +10,19 @@ var { loggedin, ensureAuth } = require("../middleware/ensureLogin");
 /* GET Dashboard. */
 router.get("/dashboard", loggedin, function (req, res, next) {
   user = req.session.user
+  console.log(user.map['075bct064'])
         if (user.userstatus == "student") {
           Project.getProjectsbyUser(
             user.email,
             function (err, projects) {
               if (err) {
                 return next(err);
-              } else {
+              } else{
                 res.render("studentView", {
                   title: "Student View | Log Tracker",
                   projects: projects,
                   userstatus: user.userstatus,
+                  map:user.map,
                   firstname: user.username.split(" ")[0],
                 });
               }

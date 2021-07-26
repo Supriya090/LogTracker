@@ -31,7 +31,6 @@ module.exports = function (passport) {
           record.username = username;
           record.password = record.hashPassword(password); //access method
           record.userstatus = status;
-          record.map= new Map([[email.substring(0, email.indexOf(".")), username]])
           record.save(function (err, user) {
             //Save to database
             if (err) {

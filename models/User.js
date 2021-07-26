@@ -24,11 +24,6 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  map:Map,
-  mapOfString: {
-    type: Map,
-    of: String
-  },
   createdAt: {
     type: Date,
     default: Date.now,

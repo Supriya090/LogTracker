@@ -72,8 +72,8 @@
               <input list="supervisor" name="supervisor" id="addSuper" style="width: max-content;">
                 <datalist id="supervisor">
                   <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-                                users ){ %> <% if (users.userstatus=="teacher") { %>
-                                <option><%= users.username%><%= users.email.split('.')[0] %> </option>
+                                users ){ %> <% if (users.userstatus=="teacher" && users.email) { %>
+                                <option><%= users.username%>:<%= users.email %> </option>
                                 <% } %> <%})}%>
                 </datalist> 
              
@@ -96,8 +96,8 @@
               <input list="std" name="std" id="addStudent" style="width: max-content;">
                 <datalist id="std">
                   <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-                                users ){ %> <% if (users.userstatus=="student") { %>
-                                <option><%= users.username%><%= users.email.split('.')[0]%></option>
+                                users ){ %> <% if (users.userstatus=="student" && users.email) { %>
+                                <option><%= users.username%>:<%= users.email%></option>
                                 <% } %> <%})}%>
                 </datalist> 
               <!-- <input type="text" id="newStud_1" name="std1"/> -->

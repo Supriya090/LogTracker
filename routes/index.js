@@ -13,7 +13,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
   // console.log(user.map['075bct064'])
         if (user.userstatus == "student") {
           Project.getProjectsbyUser(
-            user.email,
+            user.username+':'+user.email,
             function (err, projects) {
               if (err) {
                 return next(err);
@@ -28,7 +28,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
             }
           );
         } else if (user.userstatus == "teacher") {
-          Project.getProjectsbySV(user.email, function (err, projects) {
+          Project.getProjectsbySV(user.username+':'+user.email, function (err, projects) {
             if (err) {
               return next(err);
             } else {

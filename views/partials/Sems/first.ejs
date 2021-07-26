@@ -11,7 +11,7 @@
                 STUDENTS:
                 <% projects.team.forEach(function(team) { %>
                 <% if(team!=null ) { %>
-                    <% team = team.substring(0, team.indexOf("."))%>
+                    <% team = team.split(':')[0]%>
                 <%= team.split(' ').pop().charAt(0)%>.<%=
                                 team.split(' ')[0]%>,<% }}) %><br />
 

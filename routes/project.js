@@ -76,7 +76,11 @@ router.post('/event/save/:pId',(req, res, next) => {
       if (err) {
         console.log(err)
       } else {
-        res.redirect('/student/eachProject/'.concat(pId))
+        if (req.session.user.userstatus == 'student'){
+          res.redirect('/student/eachProject/'.concat(pId))
+        }else if(req.session.user.userstatus == 'teacher'){
+        res.redirect('/teacher/eachProject/'.concat(pId))
+        }
       }
     }
     )
@@ -94,7 +98,11 @@ router.use('/event/completed/:pId/:id', loggedin, (req, res, next) => {
     if (err) {
       return next(err)
     } else {
-      res.redirect("/student/eachProject/"+req.params.pId);
+      if (req.session.user.userstatus == 'student'){
+        res.redirect('/student/eachProject/'.concat(pId))
+      }else if(req.session.user.userstatus == 'teacher'){
+      res.redirect('/teacher/eachProject/'.concat(pId))
+    }
         }
       })
 })
@@ -104,7 +112,11 @@ router.use('/event/remaining/:pId/:id', loggedin, (req, res, next) => {
     if (err) {
       return next(err)
     } else {
-      res.redirect("/student/eachProject/"+req.params.pId);
+      if (req.session.user.userstatus == 'student'){
+        res.redirect('/student/eachProject/'.concat(pId))
+      }else if(req.session.user.userstatus == 'teacher'){
+      res.redirect('/teacher/eachProject/'.concat(pId))
+    }
         }
       })
 })

@@ -18,7 +18,7 @@ var UserSchema = new mongoose.Schema({
   },
   level: {
     type: String,
-    required: true,
+   
   },
   userstatus: {
     type: String,

@@ -7,7 +7,7 @@
     <div class="card ">
         <div class="project-card">
             <h4 class="card-title"><%= projects.projectname%></h4>
-            <p class="card-text">SUPERVISED BY: <%= projects.supervisor%><br />
+            <p class="card-text">SUPERVISED BY: <%= projects.supervisor[0].split(':')[0]%><br />
                 STUDENTS:
                 <% projects.team.forEach(function(team) { %>
                 <% if(team!=null ) { %>

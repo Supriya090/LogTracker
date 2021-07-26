@@ -12,6 +12,7 @@ module.exports = function (passport) {
       username = body.username,
       password = body.password,
       status = body.userstatus;
+      level = body.level
 
     if (!username || !password || !email) {
       errors.push({ msg: "Please fill in all fields" });
@@ -31,6 +32,7 @@ module.exports = function (passport) {
           record.username = username;
           record.password = record.hashPassword(password); //access method
           record.userstatus = status;
+          record.level = level
           record.save(function (err, user) {
             //Save to database
             if (err) {

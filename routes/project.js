@@ -27,7 +27,7 @@ router.post("/createteams", function (req, res, next) {
             project.description = description
             project.supervisor = supervisor
             project.team = team
-            project.createdBy = username
+            project.createdBy = req.session.user.email
             project.semester = semester
             project.teamname = teamname
             Project.createProject(project, function (err, projects) {

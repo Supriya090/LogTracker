@@ -1,101 +1,6 @@
-/* Navbar Begins */
-.navbar.sticky-top {
-  background-color: transparent;
-  padding: 15px 60px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 2px -2px #999;
-}
-
-.navbar.sticky-top a.navbar-brand {
-text-decoration: none;
-color: white;
-font-size: 1.5rem;
-}
-
-.navbar-brand:hover {
-color: white;
-}
-
-.header-avatar img {
-width: 60px;
-height: 60px;
-}
-
-.btn.btn-primary.logout-btn {
-margin-right: 30px;
-background-color: #37464d;
-border: none;
-font-weight: bold;
-color: #04a4e4;
-}
-
-/* Navbar Begins */
-
-/* Teacher Dashboard Begins */
-.teacher-dashboard {
-color: white;
-}
-
-.buttons-div {
-margin-bottom: 20px;
-}
-
-.semBtn {
-margin: 10px 20px;
-border: none;
-background-color: #37464d;
-color: white;
-padding: 15px 20px;
-border-radius: 15px;
-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-}
-
-.semBtn:focus {
-border: none;
-outline: none;
-}
-.activeBtn {
-background-color: #f0f0ed;
-color: #37464d;
-}
-
-.view h5 {
-font-size: 18px;
-font-weight: 500;
-}
-
-.view div.card {
-margin: 20px 0 40px 0;
-}
-
-.project-card {
-display: flex;
-flex-direction: row;
-justify-content: space-around;
-align-items: center;
-}
-
-.project-card h4 {
-font-weight: 500;
-}
-
-.project-card p {
-text-transform: uppercase;
-}
-.stretched-link::after {
-position: absolute;
-top: 0;
-right: 0;
-bottom: 0;
-left: 0;
-z-index: 1;
-pointer-events: auto;
-content: "";
-background-color: rgba(0, 0, 0, 0);
-}
-/* Teacher Dashboard Ends */
-
 /* Teacher Each Project Begins */
+
+/*commenting to see if it performs sth or not
 .btn-verify-minutes, .btn-download-minutes {
 width: 200px;
 margin-left: auto;
@@ -111,61 +16,39 @@ margin-top: 1rem;
 margin-bottom: 2rem;
 }
 
-.events-btn {
-  margin-bottom: 2rem;;
-}
-
-.container .card {
-padding: 30px;
-margin-bottom: 20px;
-background-color: #1a2226;
-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.container.each-project {
-color: white;
-}
-
-.container.each-project h3 {
-text-transform: uppercase;
-margin: 20px 0 5px 0;
-font-weight: 400;
-}
-
-.container.each-project h5 {
-font-weight: 300;
-}
-
-.teacher-log-details {
-margin: 30px 0 5px 0;
-}
-
 .btn-verify-minutes, .btn-download-minutes {
 width: 200px;
 margin-left: auto;
 margin-right: auto;
 }
+*/
 
-.card-body.members, .card-body.supervisor{
-margin-top: 5px;
-margin-bottom: 0;
-padding-top: 0;
+.events-btn {
+  margin-bottom: 2rem;
+}
+
+.card-body.members,
+.card-body.supervisor {
+  margin-top: 5px;
+  margin-bottom: 0;
+  padding-top: 0;
 }
 
 .card-body.members {
-padding-bottom: 0;
+  padding-bottom: 0;
 }
 
-.card-title.members, .card-title.supervisor {
-margin-top: 5px;
-margin-bottom: 5px;
-size: 1.2rem;
+.card-title.members,
+.card-title.supervisor {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  size: 1.2rem;
 }
 
 .card-body.display-events {
-padding-left: 0;
-margin-top: 0;
-min-height: 100px;
+  padding-left: 0;
+  margin-top: 0;
+  min-height: 100px;
 }
 
 .input-title {
@@ -174,41 +57,45 @@ min-height: 100px;
   margin: 0px;
 }
 
+.container.each-project .texts {
+  position: relative;
+}
+
+.add-events .login-form {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.upcoming-events-div {
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.add-event-text {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+#view-events-btn {
+  display: none;
+  position: absolute;
+  margin: auto 20px auto 0;
+}
+
+/*project-detail-form to overwrite the padding for add events and description*/
 #project-detail-form {
   padding: 0;
 }
 
-.form-group.title{
+.form-group.title {
   margin-bottom: 0;
 }
 
+/* Teacher Each Card Detailed Log -> inside each project*/
 
-/* Teacher Detailed Log Starts -> inside each project*/
-.minute-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.form-group label {
+  min-width: 38.43px;
 }
-
-.minute-header div {
-  display: flex;
-  align-items: center;
-}
-
-.minute-header div .card-title {
-  font-weight: 500;
-  max-width: 250px;
-}
-
-.badge.badge-secondary {
-  margin: 0 10px 15px 10px;
-}
-
-
-.minute-header div h6 {
-  margin-left: 10px;
-}
-
 
 .minuteDescription {
   position: relative;
@@ -218,196 +105,21 @@ min-height: 100px;
   max-width: 550px;
 }
 
-.btn.btn-success, .btn.btn-danger {
+.btn.btn-success,
+.btn.btn-danger {
   position: absolute;
   top: 9px;
   right: 0;
 }
 
-.each-image {
-  display: flex;
-  flex-direction: column;
+.upcoming-header div label {
+  color: #56c051;
 }
-
-.each-image p {
-  font-size: 10px;
-  text-align: left;
-  margin-top: 10px;
-}
-
-.uploaded-images-div {
-  display: flex;
-}
-
-img.uploaded-images {
-  max-width: 150px;
-  max-height: 150px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-  margin-top: 10px;
-  margin-right: 20px;
-}
-
-img.uploaded-images:hover {
-  opacity: 0.7;
-}
-
-/* The Modal (background) */
-.modal {
+/*
+.responsive-flex-box button{
   display: none;
-  /* Hidden by default */
-  position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
-  padding-top: 100px;
-  /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%;
-  /* Full width */
-  height: 100%;
-  /* Full height */
-  overflow: auto;
-  /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0);
-  /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.9);
-  /* Black w/ opacity */
+}*/
+
+.responsive-flex-box .view-events {
+  display: none;
 }
-
-/* Modal Content (image) */
-.modal-content {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-}
-
-/* Caption of Modal Image */
-#caption {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: #ccc;
-  padding: 10px 0;
-  height: 150px;
-}
-
-/* Add Animation */
-.modal-content,
-#caption {
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.6s;
-  animation-name: zoom;
-  animation-duration: 0.6s;
-}
-
-@-webkit-keyframes zoom {
-  from {
-    -webkit-transform: scale(0);
-  }
-
-  to {
-    -webkit-transform: scale(1);
-  }
-}
-
-@keyframes zoom {
-  from {
-    transform: scale(0);
-  }
-
-  to {
-    transform: scale(1);
-  }
-}
-
-/* The Close Button */
-.closeBtn {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.closeBtn:hover,
-.closeBtn:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.comment-section {
-  display: flex;
-  align-items: baseline;
-}
-
-.comment-section a {
-  margin-left: 30px;
-  font-size: 14px;
-  text-decoration: none;
-  color: white;
-  background-color: #37464d;
-  padding: 5px 10px;
-  border-radius: 5px;
-  transition: transform 0.2s ease;
-}
-
-.comment-section a:hover {
-  color: white;
-  transform: scale(1.1);
-}
-
-.comment-form div.form-group {
-  display: flex;
-  flex-direction: row;
-  margin-top: 10px;
-}
-
-.comment-form div.form-group input {
-  background-color: #37464d;
-  margin: 0 15px;
-  border-radius: 10px;
-  border: none;
-  color: white;
-}
-
-.comment-form div.form-group input::placeholder {
-  color: white;
-  opacity: 0.5;
-}
-
-.comment-form div.form-group button {
-  border-radius: 10px;
-  padding: 0 20px;
-}
-
-.card p.comment-view {
-  color: #ee9e67;
-  margin: 5px 15px 15px 15px;
-}
-
-.card p.comment-view span {
-  background-color: #37464d;
-  color: white;
-  margin: 0 10px;
-  padding: 5px 15px;
-  border-radius: 15px;
-}
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px) {
-  .modal-content {
-    width: 100%;
-  }
-}
-
-/* Teacher Detailed Log Ends*/
-/* Teacher Each Project Ends */

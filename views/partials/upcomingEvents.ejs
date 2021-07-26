@@ -6,18 +6,45 @@
     <%var i = 1%> <% if( Array.isArray(events) ) { %> <%events.forEach(
     function( events ){ %>
     <% if (!events.isCompleted) { %>
-    <div class="upcoming-header">
-      <h6><%= i%>) <%= events.event%></h6>
-      <div>
-        <label for="completed">Done</label>
-        <% if (!events.isCompleted) { %>
-        <input type="checkbox"
-          onclick='window.location.assign("/project/event/completed/<%= (project._id).toString() %>/<%= (events._id).toString() %>")'
-          name="completed" class="completed-checkbox" /> <% } 
-          else { %> <input
-          onclick='window.location.assign("/project/event/remaining/<%= (project._id).toString() %>/<%= (events._id).toString() %>")'
-          type="checkbox" name="completed" class="completed-checkbox" checked />
+      <div class="card each-event-card">
+      <div class="upcoming-header">
+        <h6><%= i%>) <%= events.event%></h6>
+        <div>
+          <label for="completed">Done</label>
+          <% if (!events.isCompleted) { %>
+          <input type="checkbox"
+            onclick='window.location.assign("/project/event/completed/<%= (project._id).toString() %>/<%= (events._id).toString() %>")'
+            name="completed" class="completed-checkbox" /> <% } 
+            else { %> <input
+            onclick='window.location.assign("/project/event/remaining/<%= (project._id).toString() %>/<%= (events._id).toString() %>")'
+            type="checkbox" name="completed" class="completed-checkbox" checked />
+          <% }%>
+        </div>
+      </div>
+      <p>
+        <%= events.description%>
+      </p>
+      <div class="overdue-section">
+        <span>Due Date: <%= events.dueDate.toLocaleString()%></span>
+        <% function dhm(ms){
+            days = Math.floor(ms / (24*60*60*1000));
+            daysms=ms % (24*60*60*1000);
+            hours = Math.floor((daysms)/(60*60*1000));
+            hoursms=ms % (60*60*1000);
+            minutes = Math.floor((hoursms)/(60*1000));
+            minutesms=ms % (60*1000);
+            sec = Math.floor((minutesms)/(1000));
+            return [days,hours,minutes,sec]
+        }
+        date = new Date()
+        %>
+        <% if (events.dueDate.getTime()<date.getTime()) { %>
+        <span class="badge badge-warning overdue">Overdue</span>
+        <%} else { %>
+        <% d=dhm(events.dueDate.getTime()-date.getTime()) %>
+        <span class="badge badge-info overdue remaining"><%= d[0] %> days <%= d[1] %> hours <%= d[2] %> minutes left </span>
         <% }%>
+        <% i++ %>
       </div>
     </div>
     <p>
@@ -69,7 +96,7 @@
       </button>
     </form>
   </div>
-  <h4 class="card-subtitle">Supervisor</h4>
+  <h4 class="card-subtitle" style="margin-top: 20px;">Supervisor</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
 
   <% project.supervisor.forEach(element => { %>

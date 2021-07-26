@@ -87,6 +87,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0px 20px;
+  position: relative;
 }
 
 .project-card h4 {
@@ -95,7 +96,19 @@
 
 .project-card p {
   text-transform: uppercase;
+  margin-bottom: 0px;
 }
+
+.project-badges {
+  margin: 0px;
+  position: absolute;
+  bottom: -15px;
+}
+
+.project-badges span.badge {
+  margin: 0px;
+}
+
 .stretched-link::after {
   position: absolute;
   top: 0;
@@ -111,6 +124,11 @@
 @media screen and (max-width: 768px) {
   .project-card {
     flex-direction: column;
+    text-align: center;
+  }
+
+  .project-card p {
+    margin-bottom: 20px;
   }
 
   .project-card.admin {
@@ -122,6 +140,66 @@
   }
 }
 /* Student Dashboard Ends */
+
+/* Add Minutes Page Begins */
+body.minute-body {
+  background-color: #1f3750;
+  color: white;
+}
+
+.container h3 {
+  margin: 30px 0;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.container .card {
+  padding: 30px;
+  margin-bottom: 40px;
+  background-color: #1a2226;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.minute-form div.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.minute-form div.form-group:nth-child(1) {
+  flex-direction: row;
+}
+
+.minute-form div label {
+  font-size: 18px;
+  margin: 15px 20px 15px 0px;
+}
+
+.minute-form input {
+  width: 60%;
+}
+
+.minute-form div #cke_description {
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.minute-form div.form-group:nth-child(3) input {
+  border: none;
+  max-width: fit-content;
+}
+
+.minute-form .verification-button {
+  text-align: right;
+}
+/* Add Minutes Page Ends */
+
+/* Add Minutes Responsiveness Begins */
+@media screen and (max-width: 767px) {
+  form.login-form.minute-form {
+    padding: 0px;
+  }
+}
+/* Add Minutes Responsiveness Ends */
 
 /* Student Each Project Begins */
 .container.each-project {
@@ -422,6 +500,14 @@ h4.card-subtitle {
   font-size: 14px;
 }
 
+.card.each-event-card {
+  position: relative;
+  background-color: #37464d;
+  padding-top: 45px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .login-form.add-events-form {
   padding: 0px;
   margin: 0px;
@@ -473,6 +559,10 @@ h4.card-subtitle {
   filter: invert(1);
 }
 
+.upcoming-header div label {
+  color: #56c051;
+}
+
 input[type="checkbox"] {
   position: relative;
   cursor: pointer;
@@ -488,14 +578,14 @@ input[type="checkbox"]:before {
   left: 0;
   border: 1px solid #ccc;
   border-radius: 2px;
-  background-color: #37464d;
+  background-color: #56c051;
 }
 input[type="checkbox"]:checked:after {
   content: "";
   display: block;
   width: 5px;
   height: 10px;
-  border: solid #04a4e4;
+  border: solid #1a2226;
   border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
@@ -503,6 +593,17 @@ input[type="checkbox"]:checked:after {
   position: absolute;
   top: 2px;
   left: 6px;
+}
+
+span.badge.overdue {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+}
+
+.remaining {
+  color: #000;
 }
 /* Upcoming Event Section Ends */
 
@@ -545,63 +646,3 @@ input[type="checkbox"]:checked:after {
   }
 }
 /* Upcoming Event Responsiveness Ends */
-
-/* Add Minutes Page Begins */
-body.minute-body {
-  background-color: #1f3750;
-  color: white;
-}
-
-.container h3 {
-  margin: 30px 0;
-  font-size: 25px;
-  font-weight: 400;
-}
-
-.container .card {
-  padding: 30px;
-  margin-bottom: 40px;
-  background-color: #1a2226;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.minute-form div.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.minute-form div.form-group:nth-child(1) {
-  flex-direction: row;
-}
-
-.minute-form div label {
-  font-size: 18px;
-  margin: 15px 20px 15px 0px;
-}
-
-.minute-form input {
-  width: 60%;
-}
-
-.minute-form div #cke_description {
-  border-radius: 5px;
-  margin-bottom: 30px;
-}
-
-.minute-form div.form-group:nth-child(3) input {
-  border: none;
-  max-width: fit-content;
-}
-
-.minute-form .verification-button {
-  text-align: right;
-}
-/* Add Minutes Page Ends */
-
-/* Add Minutes Responsiveness Begins */
-@media screen and (max-width: 767px) {
-  form.login-form.minute-form {
-    padding: 0px;
-  }
-}
-/* Add Minutes Responsiveness Ends */

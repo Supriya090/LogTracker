@@ -8,14 +8,16 @@
     <%- include('partials/adminHeader') %>
     <div class="container each-project">
       <div class="responsive-flex-box" style="margin: 20px 0px 10px 0px">
-        <% if( Array.isArray(project) ) { %>
-          <%project.forEach( function(project ){ %>
-            <h3><%= project.projectname%></h3>
-            <p style="color: lightblue; margin-top: 10px; margin-bottom: 20px;">
+        <% if( Array.isArray(project) ) { %> <%project.forEach( function(project
+        ){ %>
+        <div>
+          <h3><%= project.projectname%></h3>
+          <p style="color: lightblue; margin-top: 10px; margin-bottom: 20px">
             <%= project.description%>
-            </p>
-        <%})}%>
-        <h5>Detailed Logs</h5>
+          </p>
+          <%})}%>
+          <h5>Detailed Logs</h5>
+        </div>
         <button
           class="btn btn-primary logout-btn responsive-btn"
           onclick="openEvents()"

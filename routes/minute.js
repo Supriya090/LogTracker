@@ -150,8 +150,7 @@ router.post("/edit/:pId/:mId", (req, res, next) => {
     Minute.updateMinute(req.params.mId, minute, function (err, minutes) {
       //Save to database
       if (err) {
-        console.log(err);
-        res.status(500).send("Database error occured");
+        res.status(500).send(err);
       } else {
         res.redirect("/student/eachProject/".concat(pId));
       }

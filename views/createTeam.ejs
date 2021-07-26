@@ -5,6 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title%></title>
+    <style>
+      option{
+        border-color: royalblue;
+        border-width: 2px;
+
+      }
+    </style>
   </head>
   <body style="background-color: #1f3750">
     <%- include('partials/adminHeader') %>
@@ -15,6 +22,7 @@
           action="/project/createteams"
           class="login-form create-team"
           method="post"
+          autocomplete="off"
         >
           <div class="form-group">
             <label for="projectName">Project Name</label>

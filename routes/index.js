@@ -31,7 +31,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
                   title: "Student View | Log Tracker",
                   projects: projects,
                   userstatus: user.userstatus,
-                  firstname: user.username.split(" ")[0],
+                  firstname: userdetail.username.split(" ")[0],
                 });
               }
             }

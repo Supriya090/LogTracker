@@ -49,16 +49,50 @@ module.exports = function (passport) {
   });
 
   //For Login using local strategy
-  router.post(
-    "/login",
-    passport.authenticate("local", {
-      failureRedirect: "/",
-      successRedirect: "/dashboard",
-      failureFlash: true,
-    }),
-    function (req, res) {
-      res.send("Welcome");
+//   router.post(
+//     "/login",
+//     passport.authenticate("local", {
+//       failureRedirect: "/",
+//       successRedirect: "/dashboard",
+//       failureFlash: true,
+//     }),
+//     function (req, res) {
+//       res.send("Welcome");
+//     }
+//   );
+//   return router;
+// };
+
+
+1
+
+router.post('/login', function(req, res){
+
+const user = new User({
+     username: req.body.username,
+     password: req.body.password
+});
+
+
+req.login(user, function(err){
+    if(!err){
+        passport.authenticate("local")(req, res, function(){
+            res.redirect('/dashboard');
+            console.log(user.email);
+            
+        })
+
     }
-  );
-  return router;
-};
+    else{
+        console.log(err);
+    }
+    
+});
+
+    req.session.user = user;
+
+})
+return router;
+}
+
+

@@ -25,11 +25,13 @@ module.exports = function (passport) {
             console.log("Error Logging !!");
           } else {
             if (doc) {
+              global.userdetail = doc
               //document is present
               var valid = doc.comparePassword(password, doc.password);
               // console.log(doc)
               if (valid) {
                 done(null, {
+                  email:doc.email,
                   username: doc.username,
                   password: doc.password,
                   status: doc.userstatus,

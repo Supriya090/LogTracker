@@ -59,6 +59,7 @@ app.use(flash());
 // Global variables
 app.use(function (req, res, next) {
   res.locals.error = req.flash("error");
+  res.locals.sess = req.session;
   next();
 });
 

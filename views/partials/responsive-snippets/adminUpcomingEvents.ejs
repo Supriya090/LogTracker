@@ -39,6 +39,7 @@
           <%= events.description%>
         </p>
         <span>Due Date: <%= events.dueDate.toLocaleString()%></span>
+        <% date = new Date()%>
         <% if (events.dueDate.getTime()<date.getTime()) { %>
         <span class="badge badge-warning overdue">Overdue</span>
         <%}%>

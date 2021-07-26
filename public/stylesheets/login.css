@@ -66,6 +66,23 @@
   color: #fff;
 }
 
+.login-form .form-group.options {
+  margin-bottom: 30px;
+}
+
+.login-form .form-group.options select {
+  margin-left: 17px;
+  width: 140px;
+  padding: 3px 30px 4px 10px;
+  font-size: 15px;
+  height: 30px;
+  background: url("/assets/dropdown.png") 92% / 8% no-repeat #37464d;
+  border-radius: 3px;
+  color: white;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
 .login-form input:focus {
   color: #fff;
   background-color: transparent;

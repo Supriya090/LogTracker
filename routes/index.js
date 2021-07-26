@@ -9,20 +9,10 @@ var { loggedin, ensureAuth } = require("../middleware/ensureLogin");
 
 /* GET Dashboard. */
 router.get("/dashboard", loggedin, function (req, res, next) {
-  //console.log(req.body);
-  // User.getUser(req.user.username)
-  User.findOne(
-    {
-      username: req.user.username,
-    },
-    function (err, user) {
-      console.log(user._id);
-      if (err) {
-        return next(err);
-      } else if (user) {
+  user = req.session.user
         if (user.userstatus == "student") {
           Project.getProjectsbyUser(
-            req.user.username,
+            user.username,
             function (err, projects) {
               if (err) {
                 return next(err);
@@ -31,13 +21,13 @@ router.get("/dashboard", loggedin, function (req, res, next) {
                   title: "Student View | Log Tracker",
                   projects: projects,
                   userstatus: user.userstatus,
-                  firstname: userdetail.username.split(" ")[0],
+                  firstname: user.username.split(" ")[0],
                 });
               }
             }
           );
         } else if (user.userstatus == "teacher") {
-          Project.getProjectsbySV(req.user.username, function (err, projects) {
+          Project.getProjectsbySV(user.username, function (err, projects) {
             if (err) {
               return next(err);
             } else {
@@ -53,7 +43,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
           // res.send(user);
         } else if (user.userstatus == "admin") {
           Project.getProjectsbyCreator(
-            req.user.username,
+            user.username,
             function (err, projects) {
               if (err) {
                 return next(err);
@@ -68,9 +58,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
             }
           );
         }
-      }
-    }
-  );
+   
 });
 
 /* GET home page. */

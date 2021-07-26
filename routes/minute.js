@@ -6,6 +6,7 @@ var path = require("path");
 var fs = require('fs');
 var upload = require("../middleware/multer")
 var { loggedin } = require("../middleware/ensureLogin")
+var stream = require('stream');
 
 var commentRouter = require("./comment")
 
@@ -86,7 +87,7 @@ router.use('/getall/:pId', loggedin, (req, res, next) => {
 
 
 
-router.get('/download', function (req, res) {
+router.get('/download', function (req, response) {
   console.log(req.query)
   Minute.findOne({
     "attachment.fileId": req.query.data
@@ -102,16 +103,20 @@ router.get('/download', function (req, res) {
           let fileData = element.docs.data
 
           var fileContents = Buffer.from(fileData, "base64");
-          DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE, 'Downloads/');
-          fs.mkdir(DOWNLOAD_DIR, err => { 
-            if (err && err.code != 'EEXIST') throw 'up'
-            var savedFilePath = path.join(DOWNLOAD_DIR + fileName)
-            fs.writeFile(savedFilePath, fileContents, function () {
-              res.status(200).download(savedFilePath, fileName);
-            })
-         
-          });
+          var readStream = new stream.PassThrough();
+          readStream.end(fileContents);
+        
+          response.set('Content-disposition', 'attachment; filename=' + fileName);
+          response.set('Content-Type', fileType);
+        
+          readStream.pipe(response);
+            
         }
+        
+           
+         
+        
+      
       })
     }
   });

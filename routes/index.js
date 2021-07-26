@@ -13,7 +13,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
   // console.log(user.map['075bct064'])
         if (user.userstatus == "student") {
           Project.getProjectsbyUser(
-            user.username+':'+user.email,
+            user.email,
             function (err, projects) {
               if (err) {
                 return next(err);

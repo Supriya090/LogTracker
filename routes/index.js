@@ -12,7 +12,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
   user = req.session.user
         if (user.userstatus == "student") {
           Project.getProjectsbyUser(
-            user.username,
+            user.email,
             function (err, projects) {
               if (err) {
                 return next(err);
@@ -27,7 +27,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
             }
           );
         } else if (user.userstatus == "teacher") {
-          Project.getProjectsbySV(user.username, function (err, projects) {
+          Project.getProjectsbySV(user.email, function (err, projects) {
             if (err) {
               return next(err);
             } else {
@@ -43,7 +43,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
           // res.send(user);
         } else if (user.userstatus == "admin") {
           Project.getProjectsbyCreator(
-            user.username,
+            user.email,
             function (err, projects) {
               if (err) {
                 return next(err);

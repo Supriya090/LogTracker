@@ -21,6 +21,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
                 res.render("projectView", {
                   title: "Student View | Log Tracker",
                   projects: projects,
+                  sem: user.level.split(':')[1],
                   userstatus: user.userstatus,
                   firstname: user.username.split(" ")[0],
                 });
@@ -35,6 +36,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
               res.render("projectView", {
                 title: "Teacher View | Log Tracker",
                 projects: projects,
+                // sem: user.level.split(':')[1],
                 userstatus: user.userstatus,
                 firstname: user.username.split(" ")[0],
               });
@@ -53,6 +55,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
                   projects: projects,
                   title: "Admin View | Log Tracker",
                   userstatus: user.userstatus,
+                  // sem: user.level.split(':')[1],
                   firstname: user.username.split(" ")[0],
                 });
               }

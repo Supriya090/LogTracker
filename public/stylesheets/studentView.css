@@ -87,6 +87,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0px 20px;
+  position: relative;
 }
 
 .project-card h4 {
@@ -95,7 +96,19 @@
 
 .project-card p {
   text-transform: uppercase;
+  margin-bottom: 0px;
 }
+
+.project-badges {
+  margin: 0px;
+  position: absolute;
+  bottom: -15px;
+}
+
+.project-badges span.badge {
+  margin: 0px;
+}
+
 .stretched-link::after {
   position: absolute;
   top: 0;
@@ -111,6 +124,11 @@
 @media screen and (max-width: 768px) {
   .project-card {
     flex-direction: column;
+    text-align: center;
+  }
+
+  .project-card p {
+    margin-bottom: 20px;
   }
 
   .project-card.admin {

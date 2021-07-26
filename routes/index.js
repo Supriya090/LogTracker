@@ -16,7 +16,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
       username: req.user.username,
     },
     function (err, user) {
-      console.log(user._id);
+      //console.log(user._id);
       if (err) {
         return next(err);
       } else if (user) {
@@ -27,7 +27,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
               if (err) {
                 return next(err);
               } else {
-                res.render("studentView", {
+                res.render("projectView", {
                   title: "Student View | Log Tracker",
                   projects: projects,
                   userstatus: user.userstatus,
@@ -41,7 +41,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
             if (err) {
               return next(err);
             } else {
-              res.render("teacherView", {
+              res.render("projectView", {
                 title: "Teacher View | Log Tracker",
                 projects: projects,
                 userstatus: user.userstatus,
@@ -58,7 +58,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
               if (err) {
                 return next(err);
               } else {
-                res.render("adminView", {
+                res.render("projectView", {
                   projects: projects,
                   title: "Admin View | Log Tracker",
                   userstatus: user.userstatus,
@@ -137,15 +137,15 @@ router.get(
   "/student/eachProject/editMinutes/:pId/:mId",
   loggedin,
   function (req, res, next) {
-    Minute.findById(req.params.mId, function(err, minute){
+    Minute.findById(req.params.mId, function (err, minute) {
       res.render("editMinutes", {
-        minute:minute,
+        minute: minute,
         title: "Edit Minutes | Log Tracker",
         pId: req.params.pId,
         firstname: req.user.username.split(" ")[0],
       });
     })
-  
+
   }
 );
 

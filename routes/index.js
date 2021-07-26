@@ -10,7 +10,7 @@ var { loggedin, ensureAuth } = require("../middleware/ensureLogin");
 /* GET Dashboard. */
 router.get("/dashboard", loggedin, function (req, res, next) {
   user = req.session.user
-  console.log(user.map['075bct064'])
+  // console.log(user.map['075bct064'])
         if (user.userstatus == "student") {
           Project.getProjectsbyUser(
             user.email,
@@ -22,7 +22,6 @@ router.get("/dashboard", loggedin, function (req, res, next) {
                   title: "Student View | Log Tracker",
                   projects: projects,
                   userstatus: user.userstatus,
-                  map:user.map,
                   firstname: user.username.split(" ")[0],
                 });
               }
@@ -45,7 +44,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
           // res.send(user);
         } else if (user.userstatus == "admin") {
           Project.getProjectsbyCreator(
-            user.email,
+            user.username,
             function (err, projects) {
               if (err) {
                 return next(err);
@@ -187,15 +186,7 @@ router.use("/signup", function (req, res, next) {
 
 /* GET signup page. */
 router.get("/admin/createTeam", loggedin, function (req, res, next) {
-  User.findOne(
-    {
-      username: req.user.username,
-    },
-    function (err, user) {
-      //console.log(user._id);
-      if (err) {
-        return next(err);
-      } else if (user) {
+  user = req.session.user
         if (user.userstatus == "admin") {
           User.find({}, function (err, usr) {
             if (err) {
@@ -211,9 +202,7 @@ router.get("/admin/createTeam", loggedin, function (req, res, next) {
         } else {
           res.redirect("/dashboard");
         }
-      }
-    }
-  );
+    
 });
 
 /* GET Admin Each Project */

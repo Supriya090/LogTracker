@@ -12,8 +12,8 @@
                 <% projects.team.forEach(function(team) { %>
                 <% if(team!=null ) { %>
                     <% team = team.substring(0, team.indexOf("."))%>
-                    <% team = map[team] %> 
-                       <%= team %> 
+                    <%= team.split(' ').pop().charAt(0)%>.<%=
+                    team.split(' ')[0]%>,<% }}) %><br />
                 <br />
                 <% }})%>
                 CREATED ON: <%=projects.createdDate.toLocaleString()%></p>

@@ -19,26 +19,18 @@
       </a>
       <%}%>
       <div class="buttons-div row">
-        <% for( let i = 8; i >= 1; i-- ) { var c =0;%>
-          <% projects.forEach(project => { %>
-            <% if (project.semester == i.toString()) { %>
-              <% c= c+1 %>  
-            <% } %>
-          <% }) %>
-        
-          <% if (c>0) { %>
-            <button
-            id="showProjects<%= i %> Btn"
-            studentData-launch-view="sem<%= i %> "
-            class="col semBtn"
-          >
-            <%= i %>th Sem
-          </button>
-          <% } %>
-        
-        <% } %>
-       
-    
+        <% for( let i = 8; i >= 1; i-- ) { var c =0;%> <%
+        projects.forEach(project => { %> <% if (project.semester ==
+        i.toString()) { %> <% c= c+1 %> <% } %> <% }) %> <% if (c>0) { %>
+        <button
+          id="showProjects<%= i %> Btn"
+          studentData-launch-view="sem<%= i %> "
+          class="col semBtn"
+        >
+          <%= i %>th Sem
+        </button>
+        <% } %> <% } %>
+
         <!-- <button
           id="showProjects8Btn"
           studentData-launch-view="sem8"

@@ -9,7 +9,7 @@
     <% } else if (userstatus=="student" ) { %> <%- include('partials/header') %>
     <% } else { %> <%- include('partials/adminHeader') %> <% } %>
     <div class="student-dashboard container">
-      <%if (userstatus == "admin"){%>
+      <%if (userstatus=="admin" ){%>
       <a
         type="button"
         class="btn btn-primary logout-btn admin"
@@ -19,91 +19,34 @@
       </a>
       <%}%>
       <div class="buttons-div row">
-        <% for( let i = 8; i >= 1; i-- ) { var c =0;%>
-          <% projects.forEach(project => { %>
-            <% if (project.semester == i.toString()) { %>
-              <% c= c+1 %>  
-            <% } %>
-          <% }) %>
-        
-          <% if (c>0) { %>
-            <button
-            id="showProjects<%= i %> Btn"
-            studentData-launch-view="sem<%= i %> "
-            class="col semBtn"
-          >
-            <%= i %>th Sem
-          </button>
-          <% } %>
-        
-        <% } %>
-       
-    
-        <!-- <button
-          id="showProjects8Btn"
-          studentData-launch-view="sem8"
-          class="col semBtn activeBtn"
-        >
-          8th Sem
-        </button>
+        <% var count=0%> <% for( let i=8; i>= 1; i-- ) { var c =0;%> <%
+        projects.forEach(project=> { %> <% if (project.semester==i.toString()) {
+        %> <% count +=1%> <% c=c+1 %> <% } %> <% }) %> <% if (c>0) { %>
         <button
-          id="showProjects7Btn"
-          studentData-launch-view="sem7"
+          id="showProjects<%= i %> Btn"
+          studentData-launch-view="sem<%= i %> "
           class="col semBtn"
         >
-          7th Sem
+          <%= i %>th Sem <% if(count==1){%> <% var current=i%> <%}%>
         </button>
-        <button
-          id="showProjects6Btn"
-          studentData-launch-view="sem6"
-          class="col semBtn"
-        >
-          6th Sem
-        </button>
-        <button
-          id="showProjects5Btn"
-          studentData-launch-view="sem5"
-          class="col semBtn"
-        >
-          5th Sem
-        </button>
-        <button
-          id="showProjects4Btn"
-          studentData-launch-view="sem4"
-          class="col semBtn"
-        >
-          4th Sem
-        </button>
-        <button
-          id="showProjects3Btn"
-          studentData-launch-view="sem3"
-          class="col semBtn"
-        >
-          3rd Sem
-        </button>
-        <button
-          id="showProjects2Btn"
-          studentData-launch-view="sem2"
-          class="col semBtn"
-        >
-          2nd Sem
-        </button>
-        <button
-          id="showProjects1Btn"
-          studentData-launch-view="sem1"
-          class="col semBtn"
-        >
-          1st Sem
-        </button> -->
+        <% } %> <% } %>
+        <h1 style="display: none" id="currentSem"><%= current%></h1>
       </div>
-      <!-- Load content from database -->
-      <!-- Also fix hyperlink after creating each page -->
+
       <%- include('partials/Sems/eighth') %> <%-
       include('partials/Sems/seventh') %> <%- include('partials/Sems/sixth') %>
       <%- include('partials/Sems/fifth') %> <%- include('partials/Sems/fourth')
       %> <%- include('partials/Sems/third') %> <%-
       include('partials/Sems/second') %> <%- include('partials/Sems/first') %>
     </div>
+
+    <script>
+      $(document).ready(function (e) {
+        var currentSem = $("#currentSem").html();
+        $(".semBtn:first").addClass("activeBtn");
+        $("#sem" + currentSem).show();
+      });
+    </script>
 
     <script src="/javascripts/userChange.js"></script>
     <script src="/javascripts/linkActive.js"></script>

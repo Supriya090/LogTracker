@@ -13,12 +13,7 @@ $(document).ready(function (e) {
   $("[studentData-launch-view]").click(function (e) {
     e.preventDefault();
     var viewName = $(this).attr("studentData-launch-view");
-    showView(viewName);
-  });
-
-   $("[teacherData-launch-view]").click(function (e) {
-    e.preventDefault();
-    var viewName = $(this).attr("teacherData-launch-view");
+    console.log(viewName);
     showView(viewName);
   });
 });

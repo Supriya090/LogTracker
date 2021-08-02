@@ -21,7 +21,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
                 res.render("projectView", {
                   title: "Student View | Log Tracker",
                   projects: projects,
-                  sem: user.level.split(':')[1],
+                  // sem: user.level.split(':')[1],
                   userstatus: user.userstatus,
                   firstname: user.username.split(" ")[0],
                 });

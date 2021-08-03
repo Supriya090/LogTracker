@@ -67,25 +67,35 @@ module.exports = function (passport) {
 
   
 
-  router.post("/login", function (req, res) {
-    const user = new User({
-      email: req.body.username,
-      password: req.body.password,
-    });
-    User.findOne({ email: req.body.username }, function (err, user) {
-      req.login(user, function (err) {
-        if (!err) {
-          passport.authenticate("local")(req, res, function () {
-            res.redirect("/dashboard");
-            console.log(user.email);
-          });
-        } else {
+  router.post("/login", 
+  passport.authenticate("local", {
+    failureRedirect: "/",
+    successRedirect: "/dashboard",
+    failureFlash: true,
+  }),
+  function (req, res) {
+    res.send("Welcome");
+  }
+  // function (req, res) {
+  //   const user = new User({
+  //     email: req.body.username,
+  //     password: req.body.password,
+  //   });
+  //   User.findOne({ email: req.body.username }, function (err, user) {
+  //     req.login(user, function (err) {
+  //       if (!err) {
+  //         passport.authenticate("local")(req, res, function () {
+  //           res.redirect("/dashboard");
+  //           console.log(user.email);
+  //         });
+  //       } else {
           
-          res.redirect('/');
-        }
-      });
-      req.session.user = user;
-    });
-  });
+  //         res.redirect('/');
+  //       }
+  //     });
+  //     req.session.user = user;
+  //   });
+  // }
+  );
   return router;
 };

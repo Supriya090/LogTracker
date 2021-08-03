@@ -80,7 +80,6 @@ module.exports = function (passport) {
             console.log(user.email);
           });
         } else {
-          
           res.redirect('/');
         }
       });

@@ -115,6 +115,7 @@ margin-right: auto;
 .upcoming-header div label {
   color: #56c051;
 }
+
 /*
 .responsive-flex-box button{
   display: none;
@@ -126,4 +127,29 @@ margin-right: auto;
 
 .responsive-flex-box{
   margin-bottom: 25px;
+}
+
+.responsive-flex-box .view-events{
+  display: inline-block;
+}
+
+@media screen and (max-width: 992px) {
+  .col-8.minutes-list {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .col-4.events-list {
+    display: none;
+  }
+
+  #view-events-btn {
+    display: inline-block;
+  }
+
+  .responsive-flex-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

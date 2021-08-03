@@ -2,10 +2,21 @@
     <h4 class="card-title">Upcoming Events</h4>
     <!-- <hr style="border-top: 1px solid white; margin-top: 0; margin-bottom: 5px"> -->
     <hr style="border-top: 1px solid white; margin: 10px 0px" />
-
+    <% var upcoming = 0, completed =0 %>
+    <% events.forEach(events => { %>
+    <% if (!events.isCompleted) { %>
+    <%  upcoming = 1 %>
+    <% } %>
+    <% if (events.isCompleted) { %>
+    <%  completed = 1 %>
+    <% } %>
+    <% }) %>
     <div class="upcoming-events-div">
       <%var i = 1%> <% if( Array.isArray(events) ) { %> <%events.forEach(
       function( events ){ %>
+        <% if (!upcoming) { %>
+          <p>No Upcoming events!</p>
+          <% } %>
       <% if (!events.isCompleted) { %>
         <div class="card each-event-card">
         <div class="upcoming-header">
@@ -50,6 +61,18 @@
       </div> 
       <% }%> <%})}%>
     </div>
+    <% if (completed) { %>
+      <h4 class="card-subtitle">Completed Events</h4>
+      <hr style="border-top: 1px solid white; margin: 10px 0px" />
+      <div class="card">
+        <% if( Array.isArray(events) ) { %> <%events.forEach(
+          function( events ){ %>
+        <% if (events.isCompleted) { %>
+        <h6><%= events.event%></h6>
+        <% }%><%})}%>
+      </div>
+    
+      <% } %>
     
     <h4 class="card-subtitle add-event-text">Add Events</h4>
     <hr style="border-top: 1px solid white; margin: 10px 0px" />

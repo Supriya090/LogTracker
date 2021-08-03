@@ -9,6 +9,7 @@ var { loggedin } = require("../middleware/ensureLogin");
 // POST /comment/save
 
 router.post('/save/:mId/:pId',(req, res, next) => {
+  var pId = req.params.pId
   try {
     console.log(JSON.stringify(req.body))
     let errors = [];
@@ -35,7 +36,11 @@ router.post('/save/:mId/:pId',(req, res, next) => {
       if (err) {
         res.status(500).send("Database error occured");
       } else {
-        res.redirect("/student/eachProject/"+req.params.pId);
+        if (req.session.user.userstatus == 'student'){
+          res.redirect('/student/eachProject/'.concat(pId))
+        }else if(req.session.user.userstatus == 'teacher'){
+        res.redirect('/teacher/eachProject/'.concat(pId))
+      }
       }
     }
     )
@@ -59,6 +64,7 @@ router.use('/getall', loggedin, (req, res, next) => {
 })
 
 router.use('/delete/:id/:pId', loggedin, (req, res, next) => {
+  var pId = req.params.pId
   console.log(req.params.id)
   Comment.findById({_id:req.params.id}, function (err, cmt) {
     if (cmt.commentedBy==req.user.username) {
@@ -66,7 +72,11 @@ router.use('/delete/:id/:pId', loggedin, (req, res, next) => {
         if (err) {
           return next(err)
         } else {
-          res.redirect("/student/eachProject/"+req.params.pId);
+          if (req.session.user.userstatus == 'student'){
+            res.redirect('/student/eachProject/'.concat(pId))
+          }else if(req.session.user.userstatus == 'teacher'){
+          res.redirect('/teacher/eachProject/'.concat(pId))
+        }
         }
       })
     } 

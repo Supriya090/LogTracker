@@ -95,6 +95,7 @@ router.post('/event/save/:pId',(req, res, next) => {
 
 router.use('/event/completed/:pId/:id', loggedin, (req, res, next) => {
   Event.Completed(req.params.id, function (err, events) {
+    var pId = req.params.pId
     if (err) {
       return next(err)
     } else {
@@ -109,6 +110,7 @@ router.use('/event/completed/:pId/:id', loggedin, (req, res, next) => {
 
 router.use('/event/remaining/:pId/:id', loggedin, (req, res, next) => {
   Event.Remaining(req.params.id, function (err, events) {
+    var pId = req.params.pId
     if (err) {
       return next(err)
     } else {

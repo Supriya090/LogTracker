@@ -136,7 +136,7 @@
                   cmt.commentedBy.split(' ')[0]%> <span><%= cmt.comment%></span>
                 </p>
                 <% if (cmt.commentedBy==username) { %>
-                <a href="/minute/comment/delete/<%= cmt._id.toString()%>"
+                <a href="/minute/comment/delete/<%= cmt._id.toString()%>/<%= pId %> "
                   ><i class="fa fa-trash"></i>
                 </a>
 
@@ -145,7 +145,7 @@
               <% } %> <% }) %>
               <form
                 class="comment-form"
-                action="/minute/comment/save/<%= minutes._id.toString() %>"
+                action="/minute/comment/save/<%= minutes._id.toString() %>/<%= pId %> "
                 method="POST"
               >
                 <div class="form-group">

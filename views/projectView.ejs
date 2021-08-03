@@ -1,54 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-  </head>
 
-  <body style="background-color: #1f3750">
-    <% if (userstatus=="teacher" ) { %> <%- include('partials/teacherheader') %>
-    <% } else if (userstatus=="student" ) { %> <%- include('partials/header') %>
-    <% } else { %> <%- include('partials/adminHeader') %> <% } %>
-    <div class="student-dashboard container">
-      <%if (userstatus=="admin" ){%>
-      <a
-        type="button"
-        class="btn btn-primary logout-btn admin"
-        href="/admin/createTeam"
-      >
-        Create New Team
-      </a>
-      <%}%>
+<head>
+  <title><%= title %></title>
+</head>
+
+<body style="background-color: #1f3750">
+  <% if (userstatus=="teacher" ) { %> <%- include('partials/teacherheader') %>
+  <% } else if (userstatus=="student" ) { %> <%- include('partials/header') %>
+  <% } else { %> <%- include('partials/adminHeader') %> <% } %>
+  <div class="student-dashboard container">
+    <%if (userstatus=="admin" ){%>
+    <a type="button" class="btn btn-primary logout-btn admin" href="/admin/createTeam">
+      Create New Team
+    </a>
+    <%}%>
       <div class="buttons-div row">
         <% var count=0%> <% for( let i=8; i>= 1; i-- ) { var c =0;%> <%
         projects.forEach(project=> { %> <% if (project.semester==i.toString()) {
         %> <% count +=1%> <% c=c+1 %> <% } %> <% }) %> <% if (c>0) { %>
-        <button
-          id="showProjects<%= i %> Btn"
-          studentData-launch-view="sem<%= i %> "
-          class="col semBtn"
-        >
-          <%= i %>th Sem <% if(count==1){%> <% var current=i%> <%}%>
+    <button id="showProjects<%= i %> Btn" studentData-launch-view="sem<%= i %> " class="col semBtn">
+      <%= i %>th Sem <% if(count==1){%> <% var current=i%> <%}%>
         </button>
         <% } %> <% } %>
-        <h1 style="display: none" id="currentSem"><%= current%></h1>
-      </div>
+      <h1 style="display: none" id="currentSem"><%= current%></h1>
+  </div>
 
-      <%- include('partials/Sems/eighth') %> <%-
+  <%- include('partials/Sems/eighth') %> <%-
       include('partials/Sems/seventh') %> <%- include('partials/Sems/sixth') %>
-      <%- include('partials/Sems/fifth') %> <%- include('partials/Sems/fourth')
+  <%- include('partials/Sems/fifth') %> <%- include('partials/Sems/fourth')
       %> <%- include('partials/Sems/third') %> <%-
       include('partials/Sems/second') %> <%- include('partials/Sems/first') %>
-    </div>
+  </div>
 
-    <script>
-      $(document).ready(function (e) {
-        var currentSem = $("#currentSem").html();
-        $(".semBtn:first").addClass("activeBtn");
-        $("#sem" + currentSem).show();
-      });
-    </script>
+  <script>
+    $(document).ready(function (e) {
+      var currentSem = $("#currentSem").html();
+      $(".semBtn:first").addClass("activeBtn");
+      $("#sem" + currentSem).show();
+    });
+  </script>
 
-    <script src="/javascripts/userChange.js"></script>
-    <script src="/javascripts/linkActive.js"></script>
-  </body>
+  <script src="/javascripts/userChange.js"></script>
+  <script src="/javascripts/linkActive.js"></script>
+</body>
+
 </html>

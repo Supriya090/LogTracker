@@ -24,7 +24,8 @@ module.exports = function (passport) {
       } //mongoose or database error
       else {
         if (doc) {
-          res.status(500).send("Email already registered"); //if user with same username already exist
+          // Window.alert('Email is already Registered!\n Please login to continue!');
+          res.redirect('/signup') //if user with same username already exist
         } else {
           //Create new user
           var record = new User();
@@ -40,6 +41,7 @@ module.exports = function (passport) {
               res.status(500).send("Database error occured");
             } else {
               // res.render('/admin')
+              error = 'Email Already Registered!'
               res.redirect("/");
             }
           });
@@ -63,7 +65,7 @@ module.exports = function (passport) {
   //   return router;
   // };
 
-  1;
+  
 
   router.post("/login", function (req, res) {
     const user = new User({

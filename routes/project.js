@@ -36,7 +36,7 @@ router.post("/createteams", function (req, res, next) {
                 console.log(err)
                 res.status(500).send("Database error occured");
               } else {
-                res.send(projects);
+                res.redirect('/dashboard')
               }
             }
             )

@@ -102,7 +102,7 @@ margin-right: auto;
 }
 
 .minuteDescription .description {
-  max-width: 550px;
+  max-width: 89%;
 }
 
 .btn.btn-success,
@@ -122,4 +122,8 @@ margin-right: auto;
 
 .responsive-flex-box .view-events {
   display: none;
+}
+
+.responsive-flex-box{
+  margin-bottom: 25px;
 }

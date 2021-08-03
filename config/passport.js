@@ -14,12 +14,12 @@ module.exports = function (passport) {
   passport.use(
     new localStrategy(
       //{ usernameField:"", passwordField:"" }
-      function (username, password, done) {
+      function (email, password, done) {
         //done is used to verify callback
         //Our Strategy goes here (find in database)
         User.findOne(
           {
-            email: username,
+            email: email,
           },
           function (err, doc) {
             if (err) {
@@ -28,6 +28,7 @@ module.exports = function (passport) {
             } else {
               if (doc) {
                 global.userdetail = doc;
+                console.log(userdetail)
                 //document is present
                 var valid = doc.comparePassword(password, doc.password);
                 // console.log(doc)

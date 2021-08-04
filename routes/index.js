@@ -11,58 +11,58 @@ var { loggedin, ensureAuth } = require("../middleware/ensureLogin");
 router.get("/dashboard", loggedin, function (req, res, next) {
   user = req.session.user
   // console.log(user.map['075bct064'])
-        if (user.userstatus == "student") {
-          Project.getProjectsbyUser(
-            user.username+':'+user.email,
-            function (err, projects) {
-              if (err) {
-                return next(err);
-              } else {
-                res.render("projectView", {
-                  title: "Student View | Log Tracker",
-                  projects: projects,
-                  // sem: user.level.split(':')[1],
-                  userstatus: user.userstatus,
-                  firstname: user.username.split(" ")[0],
-                });
-              }
-            }
-          );
-        } else if (user.userstatus == "teacher") {
-          Project.getProjectsbySV(user.username+':'+user.email, function (err, projects) {
-            if (err) {
-              return next(err);
-            } else {
-              res.render("projectView", {
-                title: "Teacher View | Log Tracker",
-                projects: projects,
-                // sem: user.level.split(':')[1],
-                userstatus: user.userstatus,
-                firstname: user.username.split(" ")[0],
-              });
-            }
+  if (user.userstatus == "student") {
+    Project.getProjectsbyUser(
+      user.username + ':' + user.email,
+      function (err, projects) {
+        if (err) {
+          return next(err);
+        } else {
+          res.render("projectView", {
+            title: "Student View | Log Tracker",
+            projects: projects,
+            // sem: user.level.split(':')[1],
+            userstatus: user.userstatus,
+            firstname: user.username.split(" ")[0],
           });
-
-          // res.send(user);
-        } else if (user.userstatus == "admin") {
-          Project.getProjectsbyCreator(
-            user.email,
-            function (err, projects) {
-              if (err) {
-                return next(err);
-              } else {
-                res.render("projectView", {
-                  projects: projects,
-                  title: "Admin View | Log Tracker",
-                  userstatus: user.userstatus,
-                  // sem: user.level.split(':')[1],
-                  firstname: user.username.split(" ")[0],
-                });
-              }
-            }
-          );
         }
-   
+      }
+    );
+  } else if (user.userstatus == "teacher") {
+    Project.getProjectsbySV(user.username + ':' + user.email, function (err, projects) {
+      if (err) {
+        return next(err);
+      } else {
+        res.render("projectView", {
+          title: "Teacher View | Log Tracker",
+          projects: projects,
+          // sem: user.level.split(':')[1],
+          userstatus: user.userstatus,
+          firstname: user.username.split(" ")[0],
+        });
+      }
+    });
+
+    // res.send(user);
+  } else if (user.userstatus == "admin") {
+    Project.getProjectsbyCreator(
+      user.email,
+      function (err, projects) {
+        if (err) {
+          return next(err);
+        } else {
+          res.render("projectView", {
+            projects: projects,
+            title: "Admin View | Log Tracker",
+            userstatus: user.userstatus,
+            // sem: user.level.split(':')[1],
+            firstname: user.username.split(" ")[0],
+          });
+        }
+      }
+    );
+  }
+
 });
 
 /* GET home page. */
@@ -75,6 +75,7 @@ router.get("/", ensureAuth, function (req, res, next) {
 /* GET Individual Project */
 router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
   console.log(req.params.pId);
+  user = req.session.user
   Project.findById(req.params.pId, function (err, project) {
     if (err) {
       console.log(err);
@@ -97,10 +98,11 @@ router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
                     events: events.reverse(),
                     minutes: minutes.reverse(),
                     comments: cmt,
-                    title: "Project | Log Tracker",
+                    title: "Student View | Each Project | Log Tracker",
                     pId: req.params.pId,
                     username: req.user.username,
                     firstname: req.user.username.split(" ")[0],
+                    userstatus: user.userstatus
                   });
                 }
               });
@@ -143,6 +145,7 @@ router.get(
 
 /* GET Teacher's Individual Project*/
 router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
+  user = req.session.user
   Project.findById(req.params.pId, function (err, project) {
     if (err) {
       console.log(err);
@@ -160,15 +163,16 @@ router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
                   return next(err);
                 } else {
                   console.log(project)
-                  res.render("eachProjectTeacher", {
+                  res.render("eachProject", {
                     project: project,
                     events: events.reverse(),
                     minutes: minutes.reverse(),
                     comments: cmt.reverse(),
-                    title: "Project | Log Tracker",
+                    title: "Teacher View | Each Project | Log Tracker",
                     pId: req.params.pId,
                     username: req.user.username,
                     firstname: req.user.username.split(" ")[0],
+                    userstatus: user.userstatus
                   });
                 }
               });
@@ -190,27 +194,28 @@ router.use("/signup", function (req, res, next) {
 /* GET signup page. */
 router.get("/admin/createTeam", loggedin, function (req, res, next) {
   user = req.session.user
-        if (user.userstatus == "admin") {
-          User.find({}, function (err, usr) {
-            if (err) {
-              console.log(err);
-            } else {
-              res.render("createTeam", {
-                users: usr,
-                title: "Create Team | Log Tracker",
-                firstname: req.user.username.split(" ")[0],
-              });
-            }
-          });
-        } else {
-          res.redirect("/dashboard");
-        }
-    
+  if (user.userstatus == "admin") {
+    User.find({}, function (err, usr) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("createTeam", {
+          users: usr,
+          title: "Create Team | Log Tracker",
+          firstname: req.user.username.split(" ")[0],
+        });
+      }
+    });
+  } else {
+    res.redirect("/dashboard");
+  }
+
 });
 
 /* GET Admin Each Project */
 /* Todo: Fix Routing */
 router.get("/admin/eachProject/:pId", loggedin, function (req, res, next) {
+  user = req.session.user
   Minute.getMinutesbyPid(req.params.pId, function (err, minutes) {
     if (err) {
       return next(err);
@@ -232,6 +237,7 @@ router.get("/admin/eachProject/:pId", loggedin, function (req, res, next) {
                 pId: req.params.pId,
                 username: req.user.username,
                 firstname: req.user.username.split(" ")[0],
+                userstatus: user.userstatus
               });
             }
           });

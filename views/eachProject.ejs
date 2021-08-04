@@ -6,7 +6,9 @@
 </head>
 
 <body style="background-color: #1f3750">
-  <%- include('partials/header') %>
+  <% if (userstatus=="teacher" ) { %> <%- include('partials/teacherheader') %>
+  <% } else if (userstatus=="student" ) { %> <%- include('partials/header') %>
+  <% } else { %> <%- include('partials/adminHeader') %> <% } %>
   <div class="container each-project">
     <div class="responsive-flex-box">
       <div>
@@ -15,10 +17,12 @@
           <%= project.description%>
         </p>
       </div>
-      <a type="button" class="btn btn-primary logout-btn responsive-btn"
-        href="/student/eachProject/addMinutes/<%= pId%>">
-        Add Minutes
-      </a>
+      <% if(user.userstatus == "student"){%>
+        <a type="button" class="btn btn-primary logout-btn responsive-btn"
+          href="/student/eachProject/addMinutes/<%= pId%>">
+          Add Minutes
+        </a>
+      <%}%>
     </div>
     <div class="responsive-flex-box">
       <h5>Detailed Logs</h5>
@@ -42,20 +46,33 @@
               </span>
             </div>
             <div>
-              <h6>
-                <%=minutes.createdDate.toLocaleTimeString()%>, <%=
-                  minutes.createdDate.toDateString()%>
-              </h6>
-              <h6>By <%= minutes.createdBy%></h6>
+              <h6 class="dateAndTime">
+                <%=minutes.createdDate.toLocaleTimeString([], {timeStyle: 'short'})%>, 
+                <%=minutes.createdDate.toDateString().split(' ').slice(1).join(' ')%>
+              </h6 class="minuteCreator">
+              <h6>- <%= minutes.createdBy%></h6>
             </div>
-            <% if (!minutes.isVerified) { %>
-            <a href="/student/eachProject/editMinutes/<%= pId%>/<%= minutes._id.toString()%> "><span><i
-                  class="fa fa-edit"></i>Edit</span></a>
-            <% } %>
+            <%if(userstatus == "student"){%>
+              <% if (!minutes.isVerified) { %>
+              <a href="/student/eachProject/editMinutes/<%= pId%>/<%= minutes._id.toString()%> "><span><i
+                    class="fa fa-edit"></i>Edit</span></a>
+              <% } %>
+            <%}%>
           </div>
+
+          <div class="minuteDescription">
+            <hr style="border-top: 1px solid white; margin-top: 0px" />
+            <div><%- minutes.description%></div>
+            <% if (userstatus == "teacher"){%>
+              <% if (minutes.isVerified) { %>
+                <a href="/minute/unverify/<%= (project._id).toString() %>/<%= (minutes._id).toString() %>" type="button" class="btn btn-danger shadow-none">Unverify</a> <% } 
+                else { %> <a href="/minute/verify/<%= (project._id).toString() %>/<%= (minutes._id).toString() %>" type="button" class="btn btn-success shadow-none">Verify</a>
+              <% }%>
+            <% } %>
+        </div>
+
           <hr style="border-top: 1px solid white; margin-top: 0px" />
-          <div><%- minutes.description%></div>
-          <hr style="border-top: 1px solid white; margin-top: 0px" />
+        
           <%if(minutes.attachment.length){%>
           <h6>Uploaded Files</h6>
           <%}%>

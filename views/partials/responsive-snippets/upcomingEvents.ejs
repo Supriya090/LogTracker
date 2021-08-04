@@ -44,7 +44,19 @@
 <div class="card event-popup" id="events">
   <h4 class="card-subtitle">Upcoming Events</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
+  <% var upcoming = 0, completed =0 %>
+  <% events.forEach(events => { %>
+  <% if (!events.isCompleted) { %>
+  <%  upcoming = 1 %>
+  <% } %>
+  <% if (events.isCompleted) { %>
+  <%  completed = 1 %>
+  <% } %>
+  <% }) %>
   <div class="upcoming-events-div">
+    <% if (!upcoming) { %>
+      <p>No Upcoming events!</p>
+      <% } %>
     <%var i = 1%> <% if( Array.isArray(events) ) { %> <%events.forEach(
     function( events ){ %>
       <% if (!events.isCompleted) { %>
@@ -157,7 +169,10 @@
       <h4 class="card-subtitle">Supervisor</h4>
       <hr style="border-top: 1px solid white; margin: 10px 0px" />
       <% project.supervisor.forEach(element => { %>
-        <p style="margin-bottom: 10px"><%= element%></p>
+        <% if (element!= null) { %>
+        <p style="margin-bottom: 10px"><%= element.split(':')[0]%></p>
+        <% } %>
+      
         <% }) %>
     </div>
     <button

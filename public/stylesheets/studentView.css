@@ -605,6 +605,14 @@ span.badge.overdue {
 .remaining {
   color: #000;
 }
+
+.completed-events {
+  margin: 10px 0 30px 0;
+}
+
+.completed-events i {
+  margin-right: 10px;
+}
 /* Upcoming Event Section Ends */
 
 /* Upcoming Event Responsiveness Begins */

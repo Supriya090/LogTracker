@@ -1,5 +1,6 @@
-<div class="card upcoming-event-card">
-  <h4 class="card-subtitle">Upcoming Events</h4>
+<div class="card upcomingEventTeach">
+  <h4 class="card-title">Upcoming Events</h4>
+  <!-- <hr style="border-top: 1px solid white; margin-top: 0; margin-bottom: 5px"> -->
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
   <% var upcoming = 0, completed =0 %>
   <% events.forEach(events => { %>
@@ -11,14 +12,13 @@
   <% } %>
   <% }) %>
   <div class="upcoming-events-div">
+    <% if (!upcoming) { %>
+      <p>No Upcoming events!</p>
+      <% } %>
     <%var i = 1%> <% if( Array.isArray(events) ) { %> <%events.forEach(
     function( events ){ %>
-    <% if (!upcoming) { %>
-    <p>No Upcoming events!</p>
-    <% } %>
-
     <% if (!events.isCompleted) { %>
-    <div class="card each-event-card">
+      <div class="card each-event-card">
       <div class="upcoming-header">
         <h6><%= i%>) <%= events.event%></h6>
         <div>
@@ -54,75 +54,101 @@
         <span class="badge badge-warning overdue">Overdue</span>
         <%} else { %>
         <% d=dhm(events.dueDate.getTime()-date.getTime()) %>
-        <span class="badge badge-info overdue remaining"><%= d[0] %> days <%= d[1] %> hours <%= d[2] %> minutes left
-        </span>
+        <span class="badge badge-info overdue remaining"><%= d[0] %> days <%= d[1] %> hours <%= d[2] %> minutes left </span>
         <% }%>
         <% i++ %>
       </div>
-    </div>
-    <% }%><%})}%>
+    </div> 
+    <% }%> <%})}%>
   </div>
-
   <% if (completed) { %>
-  <h4 class="card-subtitle">Completed Events</h4>
+    <h4 class="card-subtitle">Completed Events</h4>
+    <hr style="border-top: 1px solid white; margin: 10px 0px" />
+    <div class="completed-events">
+      <% if( Array.isArray(events) ) { %> <%events.forEach(
+        function( events ){ %>
+      <% if (events.isCompleted) { %>
+      <h6><i class="fa fa-check"></i><%= events.event%></h6>
+      <% }%><%})}%>
+    </div>
+  
+    <% } %>
+  
+  <h4 class="card-subtitle add-event-text">Add Events</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
-  <div class="card">
-    <% if( Array.isArray(events) ) { %> <%events.forEach(
-      function( events ){ %>
-    <% if (events.isCompleted) { %>
-    <h6><%= events.event%></h6>
-    <% }%><%})}%>
-  </div>
-
-  <% } %>
-
-
-  <h4 class="card-subtitle">Add Events</h4>
-  <hr style="border-top: 1px solid white; margin: 10px 0px" />
-  <div>
-    <form method="POST" action="/project/event/save/<%= pId%>" class="login-form add-events-form">
+  <div class="add-events">
+    <form
+      method="POST"
+      action="/project/event/save/<%= pId%>"
+      class="login-form add-events-form"
+    >
       <div class="form-group">
         <label for="name">Title : </label>
-        <input type="text" class="form-control" id="title" name="title" required />
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          required
+        />
       </div>
 
       <div class="form-group">
         <label for="college">Description:</label>
-        <textarea type="string" class="form-control" id="description" name="description">
+        <textarea
+          type="string"
+          class="form-control"
+          id="description"
+          name="description"
+        >
         </textarea>
       </div>
 
       <div class="form-group">
-        <label for="name">Date : </label>
-        <input type="date" class="form-control" id="eventDate" name="eventDate" required />
+        <label for="name" style="min-width:38.45px;">Date : </label>
+        <input
+          type="date"
+          class="form-control"
+          id="eventDate"
+          name="eventDate"
+          required
+        />
       </div>
-      <button class="btn btn-primary logout-btn events-btn" name="action" type="submit" style="width: 30%">
+      <button
+        class="btn btn-primary logout-btn events-btn"
+        name="action"
+        type="submit"
+        style="width: 30%; min-width: 60px;"
+      >
         Add
       </button>
     </form>
   </div>
-  <h4 class="card-subtitle" style="margin-top: 20px;">Supervisor</h4>
+  <h4 class="card-subtitle">Supervisor</h4>
   <hr style="border-top: 1px solid white; margin: 10px 0px" />
-
-  <% project.supervisor.forEach(element => { %>
+  
+<% project.supervisor.forEach(element => { %>
   <% if (element!= null) { %>
-  <p style="margin-bottom: 10px"><%= element.split(':')[0]%></p>
+    <p style="margin-bottom: 10px"><%= element.split(':')[0]%></p>
   <% } %>
+  
+<% }) %>
 
-  <% }) %>
 
+<br>
+<h4 class="card-subtitle">Students</h4>
+<hr style="border-top: 1px solid white; margin: 10px 0px" /> 
+  
+    <% project.team.forEach(element => { %>
+      <% if (element!= null) { %>
+        <p style="margin-bottom: 10px"><%= element.split(':')[0]%></p>
+      <% } %>
+    <% }) %>
 
+    <% if (userstatus == "student"){%>
+      <a type="button" class="btn btn-primary logout-btn events-btn" href="/student/eachProject/addMinutes/<%= pId%>">
+        Add Minutes
+      </a>
+    <%}%>
 
-  <br>
-  <h4 class="card-subtitle">Students</h4>
-  <hr style="border-top: 1px solid white; margin: 10px 0px" />
-
-  <% project.team.forEach(element => { %>
-  <% if (element!= null) { %>
-  <p style="margin-bottom: 10px"><%= element.split(':')[0]%></p>
-  <% } %>
-  <% }) %>
-  <a type="button" class="btn btn-primary logout-btn events-btn" href="/student/eachProject/addMinutes/<%= pId%>">
-    Add Minutes
-  </a>
 </div>

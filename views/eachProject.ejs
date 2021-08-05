@@ -29,7 +29,11 @@
       <button class="btn btn-primary logout-btn responsive-btn" onclick="openEvents()">
         View Upcoming Events
       </button>
-      <%- include('partials/responsive-snippets/upcomingEvents') %>
+      <% if(userstatus == "teacher" || userstatus == "student"){%>
+        <%- include('partials/responsive-snippets/upcomingEvents') %>
+      <%} else {%>
+        <%- include('partials/responsive-snippets/adminUpcomingEvents') %>
+      <%}%>  
     </div>
 
     <div class="row student-log-details">
@@ -37,7 +41,7 @@
         <% if( Array.isArray(minutes) ) { %> <%minutes.forEach( function(
           minutes ){ %>
         <div class="card minute-top collapsible" type="button">
-          <span class="tooltiptext" id="tooltiptext">Click to view details</span>
+          <span class="tooltiptext">Click to view details</span>
           <div class="minute-header">
             <div>
               <h5 class="card-title"><%= minutes.title%></h5>
@@ -129,34 +133,41 @@
             </div>
             <%if(minutes.attachment.length){%>
             <hr style="border-top: 1px solid white" />
-            <%}%> <% comments.forEach(function(cmt) { %> <% if
-                (cmt.minuteId.toString()==minutes._id.toString()) { %>
-              <div class="comment-section">
-                <p class="comment-view">
-                  <%= cmt.commentedBy.split(' ').pop().charAt(0)%>.<%=
-                      cmt.commentedBy.split(' ')[0]%> <span><%= cmt.comment%></span>
-                </p>
-                <% if (cmt.commentedBy==username) { %>
-                  <a href="/minute/comment/delete/<%= cmt._id.toString()%>/<%= pId %> "><i class="fa fa-trash"></i>
-                  </a>
-                <% } %>
-              </div>
-            <% } %> <% }) %>
-            <form class="comment-form" action="/minute/comment/save/<%= minutes._id.toString() %>/<%= pId %> "
-              method="POST">
-              <div class="form-group">
-                <input type="text" class="form-control" id="exampleInputEmail1" name="cmt" placeholder="Add Comments" />
-                <button type="submit" class="btn btn-primary logout-btn">
-                  Post
-                </button>
-              </div>
-            </form>
+            <%}%> 
+            <% if(userstatus == "teacher" || userstatus == "student"){%>
+              <% comments.forEach(function(cmt) { %> <% if
+                  (cmt.minuteId.toString()==minutes._id.toString()) { %>
+                <div class="comment-section">
+                  <p class="comment-view">
+                    <%= cmt.commentedBy.split(' ').pop().charAt(0)%>.<%=
+                        cmt.commentedBy.split(' ')[0]%> <span><%= cmt.comment%></span>
+                  </p>
+                  <% if (cmt.commentedBy==username) { %>
+                    <a href="/minute/comment/delete/<%= cmt._id.toString()%>/<%= pId %> "><i class="fa fa-trash"></i>
+                    </a>
+                  <% } %>
+                </div>
+              <% } %> <% }) %>
+              <form class="comment-form" action="/minute/comment/save/<%= minutes._id.toString() %>/<%= pId %> "
+                method="POST">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="exampleInputEmail1" name="cmt" placeholder="Add Comments" />
+                  <button type="submit" class="btn btn-primary logout-btn">
+                    Post
+                  </button>
+                </div>
+              </form>
+            <%}%>
           </div>
         <%})}%>
       </div>
 
       <div class="col-4 events-list">
-        <%- include('partials/upcomingEvents') %>
+        <% if(userstatus == "teacher" || userstatus == "student"){%>
+          <%- include('partials/upcomingEvents') %>
+        <% } else {%>
+          <%- include('partials/adminUpcomingEvents') %>
+        <% }%>
       </div>
     </div>
   </div>

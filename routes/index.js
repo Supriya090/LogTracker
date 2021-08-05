@@ -228,12 +228,12 @@ router.get("/admin/eachProject/:pId", loggedin, function (req, res, next) {
             if (err) {
               console.log(err);
             } else {
-              res.render("eachProjectAdmin", {
+              res.render("eachProject", {
                 project: project,
                 events: events.reverse(),
                 minutes: minutes.reverse(),
                 //comments: cmt.reverse(),
-                title: "Project | Log Tracker",
+                title: "Admin View | Each Project | Log Tracker",
                 pId: req.params.pId,
                 username: req.user.username,
                 firstname: req.user.username.split(" ")[0],

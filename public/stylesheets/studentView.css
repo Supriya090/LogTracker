@@ -219,6 +219,45 @@ body.minute-body {
   margin: 30px 0 5px 0;
 }
 
+.card.minute-top {
+  padding: 20px 25px 10px 25px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.card.minute-top .tooltiptext {
+  visibility: hidden;
+  width: 180px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.card.minute-top .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.card.minute-top:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
 .minute-header {
   display: flex;
   justify-content: space-between;
@@ -242,23 +281,24 @@ body.minute-body {
   margin-left: 15px;
 }
 
-.minute-header a {
+a.edit-button {
   text-decoration: none;
   color: white;
-  /* transition: transform ease 0.2s; */
+  position: absolute;
+  top: 15px;
+  right: 20px;
 }
 
-.minute-header a:hover {
+a.edit-button:hover {
   text-decoration: none;
   color: white;
   transform: scale(1.02);
 }
 
-.minute-header a span i {
+a span i {
   font-size: 18px;
   margin-right: 5px;
 }
-
 .each-image {
   display: flex;
   flex-direction: column;

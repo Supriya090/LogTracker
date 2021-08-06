@@ -36,11 +36,25 @@ var ProjectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  updatedBy: {
+    type: String,
+    required: true,
+  },
   isCompleted: {
     type: Boolean,
     default: false,
     required: true,
   },
+  midDefence: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+  finalDefence: {
+    type: Boolean,
+    default: false,
+    required: true,
+  }
 });
 
 var Project = (module.exports = mongoose.model(
@@ -104,10 +118,14 @@ module.exports.updateProjectbyId = function (projectId, newProject, callback) {
         },
         {
           $set: {
-            projectId: pid,
-            title: newMinute.title,
-            description: newMinute.description,
-            updatedBy: todo,
+            description: newProject.description,
+            projectname =newproject.projectname,
+            description =  newproject.description,
+            supervisor = newproject.supervisor,
+            team =  newproject.team,
+            createdBy = newproject.createdBy,
+            semester = newproject.semester,
+            teamname =  newproject.teamname,
           },
         },
         {

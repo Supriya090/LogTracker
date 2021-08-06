@@ -45,6 +45,11 @@ var ProjectSchema = new mongoose.Schema({
     default: false,
     required: true,
   },
+  request: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
   midDefence: {
     type: Boolean,
     default: false,
@@ -102,20 +107,8 @@ module.exports.getProjectsbySemester = function (sem, callback) {
 };
 
 module.exports.updateProjectbyId = function (projectId, newProject, callback) {
-  let query = {
-    _id: projectId,
-  };
-
-  Project.find(query, function (err, m) {
-    if (err) throw err;
-
-    //minutes exist in database
-
-    if (m.length > 0) {
-      Project.findOneAndUpdate(
-        {
-          projectname: pid,
-        },
+  
+      Project.findByIdAndUpdate(pid,
         {
           $set: {
             description: newProject.description,
@@ -133,40 +126,66 @@ module.exports.updateProjectbyId = function (projectId, newProject, callback) {
         },
         callback
       );
-    }
-  });
+    
 };
 
-module.exports.verifyMinute = function (pid, minuteId, newMinute, callback) {
-  let query = {
-    projectname: pid,
-  };
+module.exports.requestMidDefence = function (pid, callback) {
 
-  Project.find(query, function (err, m) {
-    if (err) throw err;
+  Project.findByIdAndUpdate(pid,
+   
+    {
+      $set: {
+       request: 1
+      },
+    },
+    {
+      new: true,
+    },
+    callback
+  )  
+};
 
-    //minutes exist in database
+module.exports.requestFinalDefence = function (pid, callback) {
 
-    if (m.length > 0) {
-      Project.findOneAndUpdate(
-        {
-          projectname: pid,
-        },
+Project.findByIdAndUpdate(pid,
+{
+  $set: {
+   request:2
+  },
+},
+{
+  new: true,
+},
+callback
+)  
+};
+
+module.exports.approveMidDefence = function (pid, callback) {
+
+      Project.findByIdAndUpdate(pid,
         {
           $set: {
-            projectId: pid,
-            title: newMinute.title,
-            description: newMinute.description,
-            updatedBy: todo,
+           midDefence: true
           },
         },
         {
           new: true,
         },
         callback
-      );
-    } else {
-      newMinute.save(callback);
-    }
-  });
+      )  
+};
+
+module.exports.approveFinalDefence = function (pid, callback) {
+
+  Project.findByIdAndUpdate(pid,
+    {
+      $set: {
+       finalDefence: true
+      },
+    },
+    {
+      new: true,
+    },
+    callback
+  )  
 };

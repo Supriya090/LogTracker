@@ -17,6 +17,14 @@
           <%= project.description%>
         </p>
       </div>
+
+      <% if(user.userstatus == "admin"){%>
+        <a type="button" class="btn btn-primary logout-btn"
+          href="">
+          Edit Team
+        </a>
+      <%}%>
+      
       <% if(user.userstatus == "student"){%>
         <a type="button" class="btn btn-primary logout-btn responsive-btn"
           href="/student/eachProject/addMinutes/<%= pId%>">

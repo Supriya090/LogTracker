@@ -76,11 +76,12 @@ margin-right: auto;
   padding-top: 10px;
 }
 
+/*
 #view-events-btn {
   display: none;
   position: absolute;
   margin: auto 20px auto 0;
-}
+}*/
 
 /*project-detail-form to overwrite the padding for add events and description*/
 #project-detail-form {
@@ -129,9 +130,10 @@ margin-right: auto;
   margin-bottom: 25px;
 }
 
+/*
 .responsive-flex-box .view-events {
   display: inline-block;
-}
+}*/
 
 @media screen and (max-width: 992px) {
   .col-8.minutes-list {
@@ -143,9 +145,10 @@ margin-right: auto;
     display: none;
   }
 
+  /*
   #view-events-btn {
     display: inline-block;
-  }
+  }*/
 
   .responsive-flex-box {
     display: flex;

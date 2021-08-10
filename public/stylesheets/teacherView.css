@@ -112,6 +112,10 @@ margin-right: auto;
   right: 0;
 }
 
+.btn.btn-success.approval {
+  position: relative;
+}
+
 .upcoming-header div label {
   color: #56c051;
 }

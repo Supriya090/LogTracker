@@ -13,7 +13,8 @@ module.exports = function (passport) {
 
   passport.use(
     new localStrategy(
-      //{ usernameField:"", passwordField:"" }
+      // {passReqToCallback: true,
+      //   session: false},
       function (email, password, done) {
         //done is used to verify callback
         //Our Strategy goes here (find in database)

@@ -66,13 +66,18 @@ router.post(
       Minute.createMinute(minute, function (err, minutes) {
         //Save to database
         if (err) {
-          res.status(500).send(err);
+          // res.status(500).send(err);
+          req.flash('message', "Error Saving Minute")
+          res.redirect("/student/eachProject/" + pId);
         } else {
+          req.flash('message', "Minute Added")
           res.redirect("/student/eachProject/" + pId);
         }
       });
     } catch (err) {
-      res.render(err);
+      req.flash('message', "Unexpected error".concat(err))
+      res.redirect("/student/eachProject/" + pId);
+      // res.render(err);
       // res.redirect("/student/eachProject");
       // res.render
     }
@@ -150,13 +155,18 @@ router.post("/edit/:pId/:mId", (req, res, next) => {
     Minute.updateMinute(req.params.mId, minute, function (err, minutes) {
       //Save to database
       if (err) {
-        res.status(500).send(err);
+        // res.status(500).send(err);
+        req.flash('message', "Error Editing Minute")
+        res.redirect("/student/eachProject/" + pId);
       } else {
+        req.flash('message', "Minute Edited Successfully")
         res.redirect("/student/eachProject/".concat(pId));
       }
     });
   } catch (err) {
-    res.render(err);
+    req.flash('message', "Unexpected error".concat(err))
+    res.redirect("/student/eachProject/" + pId);
+    // res.render(err);
     // res.redirect("/student/eachProject");
     // res.render
   }
@@ -183,3 +193,5 @@ router.use("/unverify/:pId/:id", loggedin, (req, res, next) => {
 });
 
 module.exports = router;
+
+//TO-DO

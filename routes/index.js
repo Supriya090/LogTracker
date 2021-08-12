@@ -20,6 +20,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
         } else {
           res.render("projectView", {
             title: "Student View | Log Tracker",
+            message: req.flash('message'),
             projects: projects,
             // sem: user.level.split(':')[1],
             userstatus: user.userstatus,
@@ -35,6 +36,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
       } else {
         res.render("projectView", {
           title: "Teacher View | Log Tracker",
+          message: req.flash('message'),
           projects: projects,
           // sem: user.level.split(':')[1],
           userstatus: user.userstatus,
@@ -53,6 +55,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
         } else {
           res.render("projectView", {
             projects: projects,
+            message: req.flash('message'),
             title: "Admin View | Log Tracker",
             userstatus: user.userstatus,
             // sem: user.level.split(':')[1],
@@ -69,6 +72,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
 router.get("/", ensureAuth, function (req, res, next) {
   res.render("index", {
     title: "Log Tracker | Login",
+    message: req.flash('message')
   });
 });
 
@@ -94,6 +98,7 @@ router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
                 } else {
                   console.log(project)
                   res.render("eachProject", {
+                    message: req.flash('message'),
                     project: project,
                     events: events.reverse(),
                     minutes: minutes.reverse(),
@@ -121,6 +126,7 @@ router.get(
   function (req, res, next) {
     res.render("addMinutes", {
       title: "Add Minutes | Log Tracker",
+      message: req.flash('message'),
       pId: req.params.pId,
       firstname: req.user.username.split(" ")[0],
     });
@@ -133,6 +139,7 @@ router.get(
   function (req, res, next) {
     Minute.findById(req.params.mId, function (err, minute) {
       res.render("editMinutes", {
+        message: req.flash('message'),
         minute: minute,
         title: "Edit Minutes | Log Tracker",
         pId: req.params.pId,
@@ -164,6 +171,7 @@ router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
                 } else {
                   console.log(project)
                   res.render("eachProject", {
+                    message: req.flash('message'),
                     project: project,
                     events: events.reverse(),
                     minutes: minutes.reverse(),
@@ -185,9 +193,10 @@ router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
 });
 
 /* GET Admin Create Team */
-router.use("/signup", function (req, res, next) {
+router.use("/signup", function (req, res, next) {  //!loggedin, 
   res.render("signup", {
     title: "Log Tracker | Sign Up",
+    message: req.flash('message')
   });
 });
 
@@ -200,6 +209,7 @@ router.get("/admin/createTeam", loggedin, function (req, res, next) {
         console.log(err);
       } else {
         res.render("createTeam", {
+          message: req.flash('message'),
           users: usr,
           title: "Create Team | Log Tracker",
           firstname: req.user.username.split(" ")[0],
@@ -229,6 +239,7 @@ router.get("/admin/eachProject/:pId", loggedin, function (req, res, next) {
               console.log(err);
             } else {
               res.render("eachProject", {
+                message: req.flash('message'),
                 project: project,
                 events: events.reverse(),
                 minutes: minutes.reverse(),
@@ -250,7 +261,12 @@ router.get("/admin/eachProject/:pId", loggedin, function (req, res, next) {
 /* Logout Session. */
 router.get("/logout", loggedin, function (req, res, next) {
   req.logout();
+  req.flash('message', 'Logged Out Successfully')
   res.redirect("/");
+  // res.render("index", {
+  //   title: "Log Tracker | Login",
+  //   message: req.flash('message', 'Logged Out Successfully')
+  // });
 });
 
 module.exports = router;

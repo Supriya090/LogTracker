@@ -34,8 +34,11 @@ router.post("/createteams", function (req, res, next) {
               //Save to database
               if (err) {
                 console.log(err)
-                res.status(500).send("Database error occured");
+                req.flash('message', "Error Creating Teams")
+                res.redirect("/project/createteams")
+                // res.status(500).send("Database error occured");
               } else {
+                req.flash('message', "Team Created")
                 res.redirect('/dashboard')
               }
             }
@@ -75,7 +78,14 @@ router.post('/event/save/:pId',(req, res, next) => {
       //Save to database
       if (err) {
         console.log(err)
+        req.flash('message', "Error Saving Event")
+        if (req.session.user.userstatus == 'student'){
+          res.redirect('/student/eachProject/'.concat(pId))
+        }else if(req.session.user.userstatus == 'teacher'){
+        res.redirect('/teacher/eachProject/'.concat(pId))
+        }   
       } else {
+        req.flash('message', "Event Added")
         if (req.session.user.userstatus == 'student'){
           res.redirect('/student/eachProject/'.concat(pId))
         }else if(req.session.user.userstatus == 'teacher'){
@@ -88,7 +98,12 @@ router.post('/event/save/:pId',(req, res, next) => {
   
   catch (err) {
     console.error(err)
-
+    req.flash('message', "Unexpected error : ".concat(err))
+    if (req.session.user.userstatus == 'student'){
+      res.redirect('/student/eachProject/'.concat(pId))
+    }else if(req.session.user.userstatus == 'teacher'){
+    res.redirect('/teacher/eachProject/'.concat(pId))
+    }
   }
 
 })
@@ -97,8 +112,10 @@ router.use('/event/completed/:pId/:id', loggedin, (req, res, next) => {
   Event.Completed(req.params.id, function (err, events) {
     var pId = req.params.pId
     if (err) {
+      req.flash('message','Cannot Complete task : '.concat(err))
       return next(err)
     } else {
+      req.flash('message','Task Completed')
       if (req.session.user.userstatus == 'student'){
         res.redirect('/student/eachProject/'.concat(pId))
       }else if(req.session.user.userstatus == 'teacher'){
@@ -112,6 +129,7 @@ router.use('/event/remaining/:pId/:id', loggedin, (req, res, next) => {
   Event.Remaining(req.params.id, function (err, events) {
     var pId = req.params.pId
     if (err) {
+      req.flash('message','Cannot Complete task : '.concat(err))
       return next(err)
     } else {
       if (req.session.user.userstatus == 'student'){

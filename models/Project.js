@@ -106,19 +106,19 @@ module.exports.getProjectsbySemester = function (sem, callback) {
   Project.find(query, callback);
 };
 
-module.exports.updateProjectbyId = function (projectId, newProject, callback) {
+module.exports.updateProject = function (projectId, newProject, callback) {
   
-      Project.findByIdAndUpdate(pid,
+      Project.findByIdAndUpdate(projectId,
         {
           $set: {
-            description: newProject.description,
-            projectname =newproject.projectname,
-            description =  newproject.description,
-            supervisor = newproject.supervisor,
-            team =  newproject.team,
-            createdBy = newproject.createdBy,
-            semester = newproject.semester,
-            teamname =  newproject.teamname,
+            // description: newProject.description,
+            // projectname =newproject.projectname,
+            // description =  newproject.description,
+            // supervisor = newproject.supervisor,
+            // team =  newproject.team,
+            // createdBy = newproject.createdBy,
+            // semester = newproject.semester,
+            // teamname =  newproject.teamname,
           },
         },
         {

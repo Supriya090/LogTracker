@@ -3,7 +3,6 @@ var router = express.Router();
 var User = require("../models/User");
 
 module.exports = function (passport) {
-  //RN for Admin Signup but can be later used to create account for students and teacher might use 'isAdmin' later
   router.post("/signup", function (req, res) {
     let errors = [];
 
@@ -20,11 +19,13 @@ module.exports = function (passport) {
 
     User.findOne({ email: email }, function (err, doc) {
       if (err) {
-        res.status(500).send("error occured");
+        // res.status(500).send("error occured");
+        req.flash('message', 'Could Not Add You !! DataBase may be Down !')
+        res.redirect('/signup')
       } //mongoose or database error
       else {
-        if (doc) {
-          // Window.alert('Email is already Registered!\n Please login to continue!');
+        if (doc) {        
+          req.flash('message', 'Email is already Registered!\n Please login to continue!')
           res.redirect('/signup') //if user with same username already exist
         } else {
           //Create new user
@@ -38,10 +39,12 @@ module.exports = function (passport) {
             //Save to database
             if (err) {
               console.log(err)
-              res.status(500).send("Database error occured");
+              req.flash('message', 'Error Occured in adding you')
+              // res.status(500).send("Database error occured");
             } else {
               // res.render('/admin')
               error = 'Email Already Registered!'
+              req.flash('message', error)
               res.redirect("/");
             }
           });
@@ -76,11 +79,12 @@ module.exports = function (passport) {
       req.login(user, function (err) {
         if (!err) {
           passport.authenticate("local")(req, res, function () {
+            req.flash('message', 'Logged in Successfully')
             res.redirect("/dashboard");
             console.log(user.email);
           });
         } else {
-          
+          req.flash('message', 'Incorrect Email or Password')
           res.redirect('/');
         }
       });

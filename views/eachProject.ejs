@@ -13,9 +13,41 @@
     <div class="responsive-flex-box">
       <div>
         <h3><%= project.projectname%></h3>
-        <p style="color: lightblue; margin-top: 10px; margin-bottom: 20px">
+        <p style="color: lightblue; margin-bottom: 10px">
           <%= project.description%>
         </p>
+
+        <% if(userstatus == "student"){%>
+        <div class="defense-buttons">
+          <!-- Disable this button and change content to Completed Mid-Term Defense after mid-term defense has been approved -->
+          <button class="btn btn-success shadow-none" onclick="openApproval()"<% if (project.midDefence.requested==true) { %>
+           
+            disabled<% } %>>Ready for Mid-Term Defence</button>
+
+          <!-- Enable this button after mid term defense has been approved -->
+          <button class="btn btn-success shadow-none" onclick="openApproval()" <% if (project.midDefence.approved!=true) { %>
+           
+            disabled<% } %>>Ready for Final Defence</button>
+          
+          <%- include('partials/defenseApprovals') %>
+        </div>
+        <%}%>
+          <% if(userstatus == "teacher"){%>
+            <div class="defense-buttons">
+              <!-- Disable this button and change content to Completed Mid-Term Defense after mid-term defense has been approved -->
+              <button class="btn btn-success approval" onclick="openApproval()" <% if (project.midDefence.requested!=true || project.midDefence.approved==true) { %>
+           
+                disabled<% } %>>Approval for Mid-Term Defence</button>
+    
+              <!-- Enable this button after mid term defense has been approved -->
+              <button class="btn btn-success approval" onclick="openApproval()" <% if (project.finalDefence.requested!=true) { %>
+           
+                disabled<% } %>>Approval for Final Defence</button>
+              
+              <%- include('partials/defenseApprovals') %>
+            </div>
+            <%}%>
+
       </div>
       <% if(user.userstatus == "student"){%>
         <a type="button" class="btn btn-primary logout-btn responsive-btn"
@@ -170,6 +202,7 @@
         <% }%>
       </div>
     </div>
+    <%- include('./partials/messages') %>
   </div>
   <script src="/javascripts/eachProjectClick.js"></script>
 </body>

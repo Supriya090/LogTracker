@@ -45,21 +45,35 @@ var ProjectSchema = new mongoose.Schema({
     default: false,
     required: true,
   },
-  request: {
-    type: Number,
-    default: 0,
-    required: true,
-  },
   midDefence: {
-    type: Boolean,
-    default: false,
-    required: true,
+    requested: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    approved: {
+      type: Boolean,
+      default: false,
+      required: true,
+    }
   },
   finalDefence: {
-    type: Boolean,
-    default: false,
-    required: true,
-  }
+    requested: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    approved: {
+      type: Boolean,
+      default: false,
+      required: true,
+    }
+  },
+  comments: [
+    {comment : String,
+     option : String,
+    commentedBy: String,}
+  ]
 });
 
 var Project = (module.exports = mongoose.model(
@@ -135,7 +149,7 @@ module.exports.requestMidDefence = function (pid, callback) {
    
     {
       $set: {
-       request: 1
+       "midDefence.requested": true
       },
     },
     {
@@ -150,7 +164,7 @@ module.exports.requestFinalDefence = function (pid, callback) {
 Project.findByIdAndUpdate(pid,
 {
   $set: {
-   request:2
+    "finalDefence.requested":true
   },
 },
 {
@@ -165,7 +179,7 @@ module.exports.approveMidDefence = function (pid, callback) {
       Project.findByIdAndUpdate(pid,
         {
           $set: {
-           midDefence: true
+            "midDefence.approved": true
           },
         },
         {
@@ -180,12 +194,25 @@ module.exports.approveFinalDefence = function (pid, callback) {
   Project.findByIdAndUpdate(pid,
     {
       $set: {
-       finalDefence: true
+        "finalDefence.approved": true
       },
     },
     {
       new: true,
     },
     callback
+  )  
+};
+
+module.exports.comment = function (pid, ncomment, callback) {
+
+  Project.updateOne({_id : pid},
+    {
+      $push: {
+        comments: ncomment
+      },
+      done,
+      callback,
+    }
   )  
 };

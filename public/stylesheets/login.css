@@ -106,7 +106,7 @@
   color: #1a2226;
 }
 
-.alert.alert-danger {
+.alert.alert-primary {
   display: flex;
   margin: auto;
   width: 50%;

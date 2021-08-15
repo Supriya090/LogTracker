@@ -1,0 +1,138 @@
+<!--just a sample-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title%></title>
+    <style>
+      option{
+        border-color: royalblue;
+        border-width: 2px;
+
+      }
+    </style>
+  </head>
+  <body style="background-color: #1f3750">
+    <%- include('partials/adminHeader') %>
+    <div class="container">
+      <h3>Defense Call</h3>
+      <div class="card">
+        <form
+          action=""
+          class="login-form create-team"
+          method="post"
+          autocomplete="off"
+        >
+          <div class="form-group options">
+            <div>
+              <label for="term">Defense Type</label>
+              <p>:</p>
+              <select name="terms" id="terms">
+                <option value="1">Mid-Term Project Defense</option>
+                <option value="2">Final Project Defense</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group options">
+            <div>
+              <label for="sems">Semester</label>
+              <p>:</p>
+              <select name="sems" id="sems">
+                <option value="1">1st</option>
+                <option value="2">2nd</option>
+                <option value="3">3rd</option>
+                <option value="4">4th</option>
+                <option value="5">5th</option>
+                <option value="6">6th</option>
+                <option value="7">7th</option>
+                <option value="8">8th</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group options">
+            <div>
+              <label for="subject">Subject</label>
+              <p>:</p>
+              <select name="subjects" id="subjects">
+                <option value="1">Software Engineering</option>
+                <option value="2">Computer Graphics</option>
+                <option value="2">Instrumentation II</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="name" style="min-width:38.45px;">Date : </label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              id="eventDateTime"
+              name="eventDateTime"
+              value="2021-07-08T19:30"
+              required
+            />
+          </div>
+
+          
+          <!--div class="form-group options">
+            <div>
+              <label for="supervisor">Supervisor</label>
+              <p>:</p>
+              <input list="supervisor" name="supervisor" id="addSuper" style="width: max-content;">
+                <datalist id="supervisor">
+                  <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+                                users ){ %> <% if (users.userstatus=="teacher" && users.email) { %>
+                                <option><%= users.username%>:<%= users.email %> </option>
+                                <% } %> <%})}%>
+                </datalist> 
+             
+              <!-- <input type="text" id="newSuper_1" name="supervisor" /> -->
+              <input class="addSuper changeBtn" type="button" value="+" />
+              <input class="removeSuper changeBtn" type="button" value="-" />
+            </div>
+            <div id="new_supervisor" class="chosen-list"></div>
+            <input
+              type="hidden"
+              value="1"
+              id="total_supervisor"
+              name="total_supervisor"
+            />
+          </div>
+          <div class="form-group options">
+            <div>
+              <label for="student">Students</label>
+              <p>:</p>
+              <input list="std" name="std" id="addStudent" style="width: max-content;">
+                <datalist id="std">
+                  <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+                                users ){ %> <% if (users.userstatus=="student" && users.email) { %>
+                                <option><%= users.username%>:<%= users.email%></option>
+                                <% } %> <%})}%>
+                </datalist> 
+              <!-- <input type="text" id="newStud_1" name="std1"/> -->
+              <input class="addStud changeBtn" type="button" value="+" />
+              <input class="removeStud changeBtn" type="button" value="-" />
+            </div>
+            <div id="new_student" class="chosen-list"></div>
+            <input
+              type="hidden"
+              value="1"
+              id="total_student"
+              name="total_student"
+            />
+          </div-->
+
+
+          <button type="submit" class="btn btn-primary logout-btn">
+            Confirm
+          </button>
+        </form>
+      </div>
+    </div>
+    <script src="/javascripts/chooseUser.js"></script>
+  </body>
+</html>

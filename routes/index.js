@@ -150,6 +150,23 @@ router.get(
   }
 );
 
+router.get(
+  "/:pname/editTeams/:pId",
+  loggedin,
+  function (req, res, next) {
+    Project.findById(req.params.pId, function (err, project) {
+      res.render("editTeam", {
+        message: req.flash('message'),
+        project: project,
+        title: "Edit Team | Log Tracker",
+        pId: req.params.pId,
+        firstname: req.user.username.split(" ")[0],
+      });
+    })
+
+  }
+);
+
 /* GET Teacher's Individual Project*/
 router.get("/teacher/eachProject/:pId", loggedin, function (req, res, next) {
   user = req.session.user

@@ -85,6 +85,14 @@
             
 
       </div>
+
+      <% if(user.userstatus == "admin"){%>
+        <a type="button" class="btn btn-primary logout-btn"
+          href="/<%= project.projectname%>/editTeams/<%= pId%>">
+          Edit Team
+        </a>
+      <%}%>
+      
       <% if(user.userstatus == "student"){%>
         <a type="button" class="btn btn-primary logout-btn responsive-btn"
           href="/student/eachProject/addMinutes/<%= pId%>">
@@ -230,7 +238,10 @@
           <%}%>
           </div>
         <%})}%>
+        <div style="margin-top: 30px;">
+          <%- include('./partials/messages') %>
         </div>
+      </div>
 
         <div class="col-4 events-list">
           <% if(userstatus == "teacher" || userstatus == "student"){%>

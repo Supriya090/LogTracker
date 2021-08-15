@@ -115,6 +115,12 @@
   margin-left: 150px;
 }
 
+.responsive-flex-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .logout-btn.admin {
   margin: 10px 0px 20px 0px;
   text-align: right;

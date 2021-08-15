@@ -9,7 +9,15 @@
 <script>
   $("div.alert .close").on("click", function () {
     console.log("Click");
-    $(this).parent().hide();
+    $(this).parent().remove();
   });
+
+  // Closes automatically after 5 seconds
+  setTimeout(function () {
+    if ($("div.alert").length > 0) {
+      $("div.alert").remove();
+      console.log($(this).parent());
+    }
+  }, 5000);
 </script>
 <% } %>

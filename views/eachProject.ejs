@@ -20,33 +20,69 @@
         <% if(userstatus == "student"){%>
         <div class="defense-buttons">
           <!-- Disable this button and change content to Completed Mid-Term Defense after mid-term defense has been approved -->
-          <button class="btn btn-success shadow-none" onclick="openApproval()"<% if (project.midDefence.requested==true) { %>
-           
-            disabled<% } %>>Ready for Mid-Term Defence</button>
-
+          <% if (project.midDefence.approved==true) { %>
+          <button class="btn btn-success shadow-none" onclick="openApproval()"
+            <% if (project.midDefence.approved==true) { %> disabled<% } %>>Approved for Mid-Term</button>
+          <% } else if(project.midDefence.requested==true) { %>
+          <button class="btn <% if(project.midDefence.requested==true && project.midDefence.approved!=true) { %>
+                  btn-info
+                  <% } else { %>
+                    btn-success
+            <% } %>  shadow-none" onclick="openApproval()" <% if (project.midDefence.approved==true) { %>
+            disabled<% } %>>Approval Pending for Mid-Term
+          </button>
+          <% } else { %>
+          <button class="btn btn-success shadow-none" onclick="openApproval()"
+            <% if (project.midDefence.approved==true) { %> disabled<% } %>>Ready for Mid-Term Defence
+          </button>
+          <% } %>
           <!-- Enable this button after mid term defense has been approved -->
-          <button class="btn btn-success shadow-none" onclick="openApproval()" <% if (project.midDefence.approved!=true || project.finalDefence.requested==true) { %>
-           
-            disabled<% } %>>Ready for Final Defence</button>
-          
+          <button class="btn <% if(project.finalDefence.requested==true && project.finalDefence.approved!=true) { %>
+            btn-info
+            <% } else { %>
+              btn-success
+      <% } %> shadow-none" onclick="openApproval()" <% if (project.finalDefence.approved==true) { %> disabled<% } %>>
+            <% if (project.finalDefence.approved==true) { %>
+            Approved for Final Defence
+            <% } else if(project.finalDefence.requested==true) { %>
+            Approval Pending for Final Defence
+            <% } else { %>
+            Ready for Final Defence
+            <% } %></button>
+
+
           <%- include('partials/defenseApprovals') %>
         </div>
         <%}%>
           <% if(userstatus == "teacher"){%>
-            <div class="defense-buttons">
-              <!-- Disable this button and change content to Completed Mid-Term Defense after mid-term defense has been approved -->
-              <button class="btn btn-success approval" onclick="openApproval()" <% if (project.midDefence.requested!=true || project.midDefence.approved==true) { %>
-           
-                disabled<% } %>>Approval for Mid-Term Defence</button>
-    
-              <!-- Enable this button after mid term defense has been approved -->
-              <button class="btn btn-success approval" onclick="openApproval()" <% if (project.finalDefence.requested!=true || project.finalDefence.approved==true) { %>
-           
-                disabled<% } %>>Approval for Final Defence</button>
-              
-              <%- include('partials/defenseApprovals') %>
-            </div>
-            <%}%>
+        <div class="defense-buttons">
+          <% if (project.midDefence.requested==true) { %>
+          <!-- Disable this button and change content to Completed Mid-Term Defense after mid-term defense has been approved -->
+          <button class="btn btn-success approval" onclick="openApproval()"
+            <% if (project.midDefence.requested!=true || project.midDefence.approved==true) { %> disabled<% } %>>
+            <% if (project.midDefence.approved==true) { %>
+            Approved for Mid-Term Defence
+            <% } else if(project.midDefence.requested==true) { %>
+            Approval for Mid Defence
+            <% } %></button>
+          <% } %>
+
+          <% if (project.finalDefence.requested==true) { %>
+          <!-- Enable this button after mid term defense has been approved -->
+          <button class="btn btn-success approval" onclick="openApproval()"
+            <% if (project.finalDefence.requested!=true || project.finalDefence.approved==true) { %> disabled<% } %>>
+            <% if (project.finalDefence.approved==true) { %>
+            Approved for Final Defence
+            <% } else if(project.finalDefence.requested==true) { %>
+            Approval for Final Defence
+            <% } %></button>
+          <% } %>
+
+
+          <%- include('partials/defenseApprovals') %>
+        </div>
+        <%}%>
+            
 
       </div>
       <% if(user.userstatus == "student"){%>
@@ -54,7 +90,7 @@
           href="/student/eachProject/addMinutes/<%= pId%>">
           Add Minutes
         </a>
-      <%}%>
+        <%}%>
     </div>
     <div class="responsive-flex-box">
       <h5>Detailed Logs</h5>
@@ -63,9 +99,9 @@
       </button>
       <% if(userstatus == "teacher" || userstatus == "student"){%>
         <%- include('partials/responsive-snippets/upcomingEvents') %>
-      <%} else {%>
+        <%} else {%>
         <%- include('partials/responsive-snippets/adminUpcomingEvents') %>
-      <%}%>  
+        <%}%>  
     </div>
 
     <div class="row student-log-details">
@@ -84,7 +120,7 @@
             </div>
             <div>
               <h6 class="dateAndTime">
-                <%=minutes.createdDate.toLocaleTimeString([], {timeStyle: 'short'})%>, 
+                <%=minutes.createdDate.toLocaleTimeString([], {timeStyle: 'short'})%>,
                 <%=minutes.createdDate.toDateString().split(' ').slice(1).join(' ')%>
               </h6>
               <h6 class="minuteCreator">- <%= minutes.createdBy%></h6>
@@ -96,115 +132,117 @@
           <div class="minuteDescription">
             <div style="max-width: 89%;"><%- minutes.description%></div>
             <% if (userstatus == "teacher"){%>
-              <% if (minutes.isVerified) { %>
-                <a href="/minute/unverify/<%= (project._id).toString() %>/<%= (minutes._id).toString() %>" type="button" class="btn btn-danger shadow-none">Unverify</a> <% } 
-                else { %> <a href="/minute/verify/<%= (project._id).toString() %>/<%= (minutes._id).toString() %>" type="button" class="btn btn-success shadow-none">Verify</a>
-              <% }%>
+            <% if (minutes.isVerified) { %>
+            <a href="/minute/unverify/<%= (project._id).toString() %>/<%= (minutes._id).toString() %>" type="button"
+              class="btn btn-danger shadow-none">Unverify</a> <% } 
+                else { %> <a href="/minute/verify/<%= (project._id).toString() %>/<%= (minutes._id).toString() %>"
+              type="button" class="btn btn-success shadow-none">Verify</a>
+            <% }%>
             <% } %>
             <%if(userstatus == "student"){%>
-              <% if (!minutes.isVerified) { %>
-              <a href="/student/eachProject/editMinutes/<%= pId%>/<%= minutes._id.toString()%> " class="edit-button"><span><i
-                    class="fa fa-edit"></i>Edit</span></a>
-              <% } %>
+            <% if (!minutes.isVerified) { %>
+            <a href="/student/eachProject/editMinutes/<%= pId%>/<%= minutes._id.toString()%> "
+              class="edit-button"><span><i class="fa fa-edit"></i>Edit</span></a>
+            <% } %>
             <%}%>
           </div>
           <hr style="border-top: 1px solid white; margin-top: 0px" />
         
           <%if(minutes.attachment.length){%>
-          <h6>Uploaded Files</h6>
-          <%}%>
+            <h6>Uploaded Files</h6>
+            <%}%>
             <div class="uploaded-images-div">
               <% minutes.attachment.forEach(function(file) { %>
-              <div>
-                <div class="each-image">
-                  <img id="<%= file._id%>" alt="<%= file.name%>" src="data:file/<%=file.docs.contentType%>;base64,
+            <div>
+              <div class="each-image">
+                <img id="<%= file._id%>" alt="<%= file.name%>" src="data:file/<%=file.docs.contentType%>;base64,
                         <%=file.docs.data.toString('base64')%>" class="uploaded-images"
-                    onerror="this.src='/assets/alternative.png';" />
-                  <p><%= file.name.substring((file.name).indexOf('-') + 1)%></p>
-                  <form action="/minute/download" method="GET">
-                    <input type="hidden" name="data" value="<%=file.fileId%>" />
-                    <button class="btn btn-primary logout-btn" name="action" type="submit">
-                      Download
-                    </button>
-                  </form>
-                </div>
-                <div>
-                  <div id="myModal" class="modal">
-                    <span class="closeBtn">&times;</span>
-                    <img class="modal-content" id="img01" />
-                    <div id="caption"></div>
-                  </div>
-                </div>
-
-                <script>
-                  // Get the modal
-                  var modal = document.getElementById("myModal");
-
-                  // Get the image and insert it inside the modal - use its "alt" text as a caption
-                  var id = "<%=file._id%>";
-                  console.log(id);
-                  var img = document.getElementById(id);
-                  var modalImg = document.getElementById("img01");
-                  var captionText = document.getElementById("caption");
-                  img.onclick = function () {
-                    modal.style.display = "block";
-                    modalImg.src = this.src;
-                    captionText.innerHTML = this.alt;
-                  };
-
-                  // Get the <span> element that closes the modal
-                  var span = document.getElementsByClassName("closeBtn")[0];
-
-                  // When the user clicks on <span> (x), close the modal
-                  span.onclick = function () {
-                    modal.style.display = "none";
-                  };
-                </script>
-              </div>
-              <% }) %>
-            </div>
-            <%if(minutes.attachment.length){%>
-            <hr style="border-top: 1px solid white" />
-            <%}%> 
-            <% if(userstatus == "teacher" || userstatus == "student"){%>
-              <% comments.forEach(function(cmt) { %> <% if
-                  (cmt.minuteId.toString()==minutes._id.toString()) { %>
-                <div class="comment-section">
-                  <p class="comment-view">
-                    <%= cmt.commentedBy.split(' ').pop().charAt(0)%>.<%=
-                        cmt.commentedBy.split(' ')[0]%> <span><%= cmt.comment%></span>
-                  </p>
-                  <% if (cmt.commentedBy==username) { %>
-                    <a href="/minute/comment/delete/<%= cmt._id.toString()%>/<%= pId %> "><i class="fa fa-trash"></i>
-                    </a>
-                  <% } %>
-                </div>
-              <% } %> <% }) %>
-              <form class="comment-form" action="/minute/comment/save/<%= minutes._id.toString() %>/<%= pId %> "
-                method="POST">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="exampleInputEmail1" name="cmt" placeholder="Add Comments" />
-                  <button type="submit" class="btn btn-primary logout-btn">
-                    Post
+                  onerror="this.src='/assets/alternative.png';" />
+                <p><%= file.name.substring((file.name).indexOf('-') + 1)%></p>
+                <form action="/minute/download" method="GET">
+                  <input type="hidden" name="data" value="<%=file.fileId%>" />
+                  <button class="btn btn-primary logout-btn" name="action" type="submit">
+                    Download
                   </button>
+                </form>
+              </div>
+              <div>
+                <div id="myModal" class="modal">
+                  <span class="closeBtn">&times;</span>
+                  <img class="modal-content" id="img01" />
+                  <div id="caption"></div>
                 </div>
-              </form>
-            <%}%>
+              </div>
+
+              <script>
+                // Get the modal
+                var modal = document.getElementById("myModal");
+
+                // Get the image and insert it inside the modal - use its "alt" text as a caption
+                var id = "<%=file._id%>";
+                console.log(id);
+                var img = document.getElementById(id);
+                var modalImg = document.getElementById("img01");
+                var captionText = document.getElementById("caption");
+                img.onclick = function () {
+                  modal.style.display = "block";
+                  modalImg.src = this.src;
+                  captionText.innerHTML = this.alt;
+                };
+
+                // Get the <span> element that closes the modal
+                var span = document.getElementsByClassName("closeBtn")[0];
+
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function () {
+                  modal.style.display = "none";
+                };
+              </script>
+            </div>
+            <% }) %>
+          </div>
+          <%if(minutes.attachment.length){%>
+          <hr style="border-top: 1px solid white" />
+          <%}%> 
+            <% if(userstatus == "teacher" || userstatus == "student"){%>
+          <% comments.forEach(function(cmt) { %> <% if
+                  (cmt.minuteId.toString()==minutes._id.toString()) { %>
+          <div class="comment-section">
+            <p class="comment-view">
+              <%= cmt.commentedBy.split(' ').pop().charAt(0)%>.<%=
+                        cmt.commentedBy.split(' ')[0]%> <span><%= cmt.comment%></span>
+            </p>
+            <% if (cmt.commentedBy==username) { %>
+            <a href="/minute/comment/delete/<%= cmt._id.toString()%>/<%= pId %> "><i class="fa fa-trash"></i>
+            </a>
+            <% } %>
+          </div>
+          <% } %> <% }) %>
+          <form class="comment-form" action="/minute/comment/save/<%= minutes._id.toString() %>/<%= pId %> "
+            method="POST">
+            <div class="form-group">
+              <input type="text" class="form-control" id="exampleInputEmail1" name="cmt" placeholder="Add Comments" />
+              <button type="submit" class="btn btn-primary logout-btn">
+                Post
+              </button>
+            </div>
+          </form>
+          <%}%>
           </div>
         <%})}%>
-      </div>
+        </div>
 
-      <div class="col-4 events-list">
-        <% if(userstatus == "teacher" || userstatus == "student"){%>
+        <div class="col-4 events-list">
+          <% if(userstatus == "teacher" || userstatus == "student"){%>
           <%- include('partials/upcomingEvents') %>
-        <% } else {%>
+          <% } else {%>
           <%- include('partials/adminUpcomingEvents') %>
-        <% }%>
+          <% }%>
+        </div>
       </div>
+      <%- include('./partials/messages') %>
     </div>
-    <%- include('./partials/messages') %>
-  </div>
-  <script src="/javascripts/eachProjectClick.js"></script>
+    <script src="/javascripts/eachProjectClick.js"></script>
 </body>
 
 </html>

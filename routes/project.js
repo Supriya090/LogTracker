@@ -142,6 +142,53 @@ router.post("/event/save/:pId", (req, res, next) => {
   }
 });
 
+router.post("/defenceComment/:pId", (req, res, next) => {
+  try {
+    console.log(JSON.stringify(req.body));
+    let errors = [];
+
+    var pId = req.params.pId;
+
+    Project.findById(pId, function (err, project) {
+      //Save to database
+      console.log(project)
+      if (err) {
+        console.log(err);
+        res.status(500).send("Database error occured");
+      } else {
+        if(project.midDefence.approved==true){
+          var message ={
+            comment:req.body.cmt,
+            option: "final",
+            commentedBy:req.user.username,
+          }
+        }else{
+          var message ={
+            comment:req.body.cmt,
+            option: "mid",
+            commentedBy:req.user.username,
+          }
+        }
+        Project.comment(pId,message,function (err) {
+          //Save to database
+          if (err) {
+            console.log(err);
+            res.status(500).send("Database error occured");
+          }else{
+            if (req.session.user.userstatus == "student") {
+              res.redirect("/student/eachProject/".concat(pId));
+            } else if (req.session.user.userstatus == "teacher") {
+              res.redirect("/teacher/eachProject/".concat(pId));
+            }
+          }
+        })
+
+      }
+    })
+  } catch (err) {
+    console.error(err);
+  }
+});
 
 router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
   pId = req.params.pId;

@@ -73,7 +73,7 @@ var ProjectSchema = new mongoose.Schema({
     },
    
   },
-  message: [{ comment: String, option: String, commentedBy: String }],
+  defComment: [{ comment: String, option: String, commentedBy: String }],
 });
 
 var Project = (module.exports = mongoose.model(
@@ -207,14 +207,16 @@ module.exports.approveFinalDefence = function (pid, callback) {
 };
 
 module.exports.comment = function (pid, ncomment, callback) {
-  Project.updateOne(
-    { _id: pid },
+  Project.findByIdAndUpdate(
+    pid,
     {
       $push: {
-        message: ncomment,
+        defComment: ncomment,
       },
-      done,
-      callback,
-    }
+    },
+    {
+      new: true,
+    },
+    callback
   );
 };

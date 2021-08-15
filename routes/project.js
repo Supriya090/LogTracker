@@ -79,6 +79,7 @@ router.post("/editteams/:pId", function (req, res, next) {
   project.updatedBy = req.session.user.email;
   project.semester = semester;
   project.teamname = teamname;
+  console.log(project)
   Project.updateProject(pId, project, function (err, projects) {
     //Save to database
     if (err) {

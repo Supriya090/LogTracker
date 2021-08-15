@@ -125,14 +125,14 @@ module.exports.updateProject = function (projectId, newProject, callback) {
     projectId,
     {
       $set: {
-        // description: newProject.description,
-        // projectname =newproject.projectname,
-        // description =  newproject.description,
-        // supervisor = newproject.supervisor,
-        // team =  newproject.team,
-        // createdBy = newproject.createdBy,
-        // semester = newproject.semester,
-        // teamname =  newproject.teamname,
+        description: newProject.description,
+        projectname:newProject.projectname,
+        description :  newProject.description,
+        supervisor : newProject.supervisor,
+        team :  newProject.team,
+        createdBy : newProject.createdBy,
+        semester : newProject.semester,
+        teamname :  newProject.teamname,
       },
     },
     {

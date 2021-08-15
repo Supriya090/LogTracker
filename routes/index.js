@@ -151,19 +151,32 @@ router.get(
 );
 
 router.get(
-  "/:pname/editTeams/:pId",
+  "/admin/editTeam/:pId",
   loggedin,
   function (req, res, next) {
-    Project.findById(req.params.pId, function (err, project) {
-      res.render("editTeam", {
-        message: req.flash('message'),
-        project: project,
-        title: "Edit Team | Log Tracker",
-        pId: req.params.pId,
-        firstname: req.user.username.split(" ")[0],
+    user = req.session.user
+    if (user.userstatus == "admin") {
+      User.find({}, function (err, usr) {
+        if (err) {
+          console.log(err);
+        } else {
+          Project.findById(req.params.pId, function (err, project) {
+            res.render("editTeam", {
+              message: req.flash('message'),
+              users: usr,
+              project: project,
+              title: "Edit Team | Log Tracker",
+              pId: req.params.pId,
+              firstname: req.user.username.split(" ")[0],
+            });
+            });
+        
+        }
       });
-    })
-
+    } else {
+      res.redirect("/dashboard");
+    }
+  
   }
 );
 

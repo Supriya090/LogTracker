@@ -15,10 +15,10 @@
   <body style="background-color: #1f3750">
     <%- include('partials/adminHeader') %>
     <div class="container">
-      <h3>Create Team</h3>
+      <h3>Edit Team</h3>
       <div class="card" style="position: relative">
         <form
-          action="/project/createteams"
+          action="/project/editteams/<%= pId %> "
           class="login-form create-team"
           method="post"
           autocomplete="off"
@@ -31,6 +31,7 @@
               class="form-control"
               id="projectName"
               name="projectname"
+              value = <%= project.projectname %> 
               required
             />
           </div>
@@ -42,6 +43,7 @@
               class="form-control"
               id="teamName"
               name="teamname"
+              value = <%= project.teamname %> 
               required
             />
           </div>
@@ -53,6 +55,7 @@
               class="form-control"
               id="description"
               name="description"
+              value = <%= project.description %> 
             ></textarea>
           </div>
           <div class="form-group options">
@@ -60,14 +63,33 @@
               <label for="sems">Semester</label>
               <p>:</p>
               <select name="sems" id="sems">
-                <option value="1">1st</option>
-                <option value="2">2nd</option>
-                <option value="3">3rd</option>
-                <option value="4">4th</option>
-                <option value="5">5th</option>
-                <option value="6">6th</option>
-                <option value="7">7th</option>
-                <option value="8">8th</option>
+                <% if (project.sem == 1) { %>
+                  selected
+                <% } %>
+                <option value="1"<% if (project.semester == 1) { %>
+                  selected
+                <% } %>>1st</option>
+                <option value="2"<% if (project.semester == 2) { %>
+                  selected
+                <% } %>>2nd</option>
+                <option value="3"<% if (project.semester == 3) { %>
+                  selected
+                <% } %>>3rd</option>
+                <option value="4"<% if (project.semester == 4) { %>
+                  selected
+                <% } %>>4th</option>
+                <option value="5"<% if (project.semester == 5) { %>
+                  selected
+                <% } %>>5th</option>
+                <option value="6"<% if (project.semester == 6) { %>
+                  selected
+                <% } %>>6th</option>
+                <option value="7"<% if (project.semester == 7) { %>
+                  selected
+                <% } %>>7th</option>
+                <option <% if (project.semester == 8) { %>
+                  selected
+                <% } %> value="8">8th</option>
               </select>
             </div>
           </div>
@@ -92,7 +114,14 @@
               <!-- <input type="text" id="newSuper_1" name="supervisor" /> -->
               <input class="addSuper changeBtn" type="button" value="+" />
             </div>
-            <fieldset id="new_supervisor" class="chosen-list"></fieldset>
+            <fieldset id="new_supervisor" class="chosen-list">
+              <% var i=1;project.supervisor.forEach(element => { %>
+                <% if (element!=null) { %>
+                  <input class='button-type' name="supervisor<%= i %>" value ="<%= element %>" readonly /><input type="button" class="remove" value="-" />
+                <% } %>
+              <% i++; }) %>
+      
+            </fieldset>
           </div>
           <div class="form-group options">
             <div>
@@ -114,7 +143,13 @@
               <!-- <input type="text" id="newStud_1" name="std1"/> -->
               <input class="addStud changeBtn" type="button" value="+" />
             </div>
-            <fieldset id="new_student" class="chosen-list"></fieldset>
+            <fieldset id="new_student" class="chosen-list">
+              <% var i=1;project.team.forEach(element => { %>
+                <% if (element!=null) { %>
+                  <input class='button-type' name="std<%= i %>" value ="<%= element %>"  readonly /><input type="button" class="remove" value="-" />
+                <% } %>
+              <% i++; }) %>
+            </fieldset>
           </div>
           <button
             type="submit"

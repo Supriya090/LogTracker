@@ -27,11 +27,11 @@ var ProjectSchema = new mongoose.Schema({
     type: [String],
     required: true,
   },
-  team:{
+  team: {
     type: [String],
     required: true,
   },
-  
+
   createdBy: {
     type: String,
     required: true,
@@ -51,11 +51,13 @@ var ProjectSchema = new mongoose.Schema({
       default: false,
       required: true,
     },
+    message:String,
     approved: {
       type: Boolean,
       default: false,
       required: true,
-    }
+    },
+  
   },
   finalDefence: {
     requested: {
@@ -63,17 +65,15 @@ var ProjectSchema = new mongoose.Schema({
       default: false,
       required: true,
     },
+    message: String,
     approved: {
       type: Boolean,
       default: false,
       required: true,
-    }
+    },
+   
   },
-  comments: [
-    {comment : String,
-     option : String,
-    commentedBy: String,}
-  ]
+  message: [{ comment: String, option: String, commentedBy: String }],
 });
 
 var Project = (module.exports = mongoose.model(
@@ -121,100 +121,100 @@ module.exports.getProjectsbySemester = function (sem, callback) {
 };
 
 module.exports.updateProject = function (projectId, newProject, callback) {
-  
-      Project.findByIdAndUpdate(projectId,
-        {
-          $set: {
-            // description: newProject.description,
-            // projectname =newproject.projectname,
-            // description =  newproject.description,
-            // supervisor = newproject.supervisor,
-            // team =  newproject.team,
-            // createdBy = newproject.createdBy,
-            // semester = newproject.semester,
-            // teamname =  newproject.teamname,
-          },
-        },
-        {
-          new: true,
-        },
-        callback
-      );
-    
-};
-
-module.exports.requestMidDefence = function (pid, callback) {
-
-  Project.findByIdAndUpdate(pid,
-   
+  Project.findByIdAndUpdate(
+    projectId,
     {
       $set: {
-       "midDefence.requested": true
+        // description: newProject.description,
+        // projectname =newproject.projectname,
+        // description =  newproject.description,
+        // supervisor = newproject.supervisor,
+        // team =  newproject.team,
+        // createdBy = newproject.createdBy,
+        // semester = newproject.semester,
+        // teamname =  newproject.teamname,
       },
     },
     {
       new: true,
     },
     callback
-  )  
+  );
 };
 
-module.exports.requestFinalDefence = function (pid, callback) {
+module.exports.requestMidDefence = function (pid,message, callback) {
+  Project.findByIdAndUpdate(
+    pid,
 
-Project.findByIdAndUpdate(pid,
-{
-  $set: {
-    "finalDefence.requested":true
-  },
-},
-{
-  new: true,
-},
-callback
-)  
+    {
+      $set: {
+        "midDefence.requested": true,
+        "midDefence.message": message,
+      },
+    },
+    {
+      new: true,
+    },
+    callback
+  );
+};
+
+module.exports.requestFinalDefence = function (pid,message, callback) {
+  Project.findByIdAndUpdate(
+    pid,
+    {
+      $set: {
+        "finalDefence.requested": true,
+        "finalDefence.message": message,
+      },
+    },
+    {
+      new: true,
+    },
+    callback
+  );
 };
 
 module.exports.approveMidDefence = function (pid, callback) {
+  Project.findByIdAndUpdate(
+    pid,
 
-  Project.findByIdAndUpdate(pid,
-   
     {
       $set: {
-       "midDefence.approved": true
+        "midDefence.approved": true,
       },
     },
     {
       new: true,
     },
     callback
-  )  
+  );
 };
 
-
 module.exports.approveFinalDefence = function (pid, callback) {
-
-  Project.findByIdAndUpdate(pid,
+  Project.findByIdAndUpdate(
+    pid,
     {
       $set: {
-        "finalDefence.approved": true
+        "finalDefence.approved": true,
       },
     },
     {
       new: true,
     },
     callback
-  )  
+  );
 };
 
 module.exports.comment = function (pid, ncomment, callback) {
-
-  Project.updateOne({_id : pid},
+  Project.updateOne(
+    { _id: pid },
     {
       $push: {
-        comments: ncomment
+        message: ncomment,
       },
       done,
       callback,
     }
-  )  
+  );
 };

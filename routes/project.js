@@ -142,10 +142,12 @@ router.post("/event/save/:pId", (req, res, next) => {
   }
 });
 
-router.use("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
+
+router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
   pId = req.params.pId;
   userstatus = req.session.user.userstatus;
   console.log(userstatus);
+  var message =req.body.message
   Project.findById(pId, function (err, project) {
     //Save to database
     console.log(project)
@@ -154,8 +156,9 @@ router.use("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
       res.status(500).send("Database error occured");
     } else {
       if (project.midDefence.approved == true) {
+        
         if ((userstatus == "student")) {
-          Project.requestFinalDefence(pId, function (err, projects) {
+          Project.requestFinalDefence(pId,message, function (err, projects) {
             //Save to database
             if (err) {
               console.log(err);
@@ -175,7 +178,7 @@ router.use("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
       
       }else {
         if ((userstatus == "student")) {
-          Project.requestMidDefence(pId, function (err, projects) {
+          Project.requestMidDefence(pId,message, function (err, projects) {
             //Save to database
             if (err) {
               console.log(err);
@@ -193,7 +196,11 @@ router.use("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
           });
         }
       }
-      res.redirect("/teacher/eachProject/".concat(pId));
+      if (req.session.user.userstatus == "student") {
+        res.redirect("/student/eachProject/".concat(pId));
+      } else if (req.session.user.userstatus == "teacher") {
+        res.redirect("/teacher/eachProject/".concat(pId));
+      }
     }
     
   });

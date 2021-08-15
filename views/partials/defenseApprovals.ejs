@@ -50,36 +50,38 @@
   <%}%>
   <hr style="border-top: 1px solid white; margin: 20px 0px 10px 0px" />
   <div class="message-content">
-    <% if(userstatus === "student"){%>
     <form method="POST" action="/project/requestApproveDefence/<%= pId%>" class="message">
+    <% if(userstatus === "student"){%>
       <div class="form-group">
         <label for="college">Message for Supervisor</label>
         <textarea
           type="string"
           class="form-control"
           id="description"
-          name="description"
+          name="message"
           required
         >
         </textarea>
       </div>
 
-      <a class="btn btn-primary logout-btn" href="/project/requestApproveDefence/<%= pId%>" type="button">
+      <button type="submit" class="btn btn-primary logout-btn" name="action">
         Ask Approval
-      </a>
-    </form>
+      </button>
+      
+    
     <% } else if(userstatus === "teacher"){%>
     <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book.
+      <% if (project.midDefence.approved==true) { %>
+       <%= project.finalDefence.message %> 
+       <% } else { %>
+        <%= project.midDefence.message %> 
+      <% } %>
+       
     </p>
 
-    <a class="btn btn-primary logout-btn" href="/project/requestApproveDefence/<%= pId%>" type="button">
-         Approve
-      </a>
+    <button  type="submit" class="btn btn-success approve-btn" name="action">Approve</button>
     <%}%>
+  </form>
   </div>
 
   <div class="comment-section">

@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title%></title>
     <style>
-      option{
+      option {
         border-color: royalblue;
         border-width: 2px;
-
       }
     </style>
   </head>
@@ -17,7 +16,7 @@
     <%- include('partials/adminHeader') %>
     <div class="container">
       <h3>Create Team</h3>
-      <div class="card">
+      <div class="card" style="position: relative">
         <form
           action="/project/createteams"
           class="login-form create-team"
@@ -73,59 +72,64 @@
             </div>
           </div>
           <div class="form-group options">
- 
             <div>
               <label for="supervisor">Supervisor</label>
               <p>:</p>
-              <input list="supervisor" name="supervisor" id="addSuper" style="width: max-content;">
-                <datalist id="supervisor">
-                  <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-                                users ){ %> <% if (users.userstatus=="teacher" && users.email) { %>
-                                <option><%= users.username%>:<%= users.email %> </option>
-                                <% } %> <%})}%>
-                </datalist> 
-             
+              <input
+                list="supervisor"
+                name="supervisor"
+                id="addSuper"
+                class="team-selection-input"
+              />
+              <datalist id="supervisor">
+                <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+                users ){ %> <% if (users.userstatus=="teacher" && users.email) {
+                %>
+                <option><%= users.username%>: <%= users.email %></option>
+                <% } %> <%})}%>
+              </datalist>
+
               <!-- <input type="text" id="newSuper_1" name="supervisor" /> -->
               <input class="addSuper changeBtn" type="button" value="+" />
-              <input class="removeSuper changeBtn" type="button" value="-" />
             </div>
-            <div id="new_supervisor" class="chosen-list"></div>
-            <input
-              type="hidden"
-              value="1"
-              id="total_supervisor"
-              name="total_supervisor"
-            />
+            <fieldset id="new_supervisor" class="chosen-list"></fieldset>
           </div>
           <div class="form-group options">
             <div>
               <label for="student">Students</label>
               <p>:</p>
-              <input list="std" name="std" id="addStudent" style="width: max-content;">
-                <datalist id="std">
-                  <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-                                users ){ %> <% if (users.userstatus=="student" && users.email) { %>
-                                <option><%= users.username%>:<%= users.email%></option>
-                                <% } %> <%})}%>
-                </datalist> 
+              <input
+                list="std"
+                name="std"
+                id="addStudent"
+                class="team-selection-input"
+              />
+              <datalist id="std">
+                <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+                users ){ %> <% if (users.userstatus=="student" && users.email) {
+                %>
+                <option><%= users.username%>: <%= users.email%></option>
+                <% } %> <%})}%>
+              </datalist>
               <!-- <input type="text" id="newStud_1" name="std1"/> -->
               <input class="addStud changeBtn" type="button" value="+" />
-              <input class="removeStud changeBtn" type="button" value="-" />
             </div>
-            <div id="new_student" class="chosen-list"></div>
-            <input
-              type="hidden"
-              value="1"
-              id="total_student"
-              name="total_student"
-            />
+            <fieldset id="new_student" class="chosen-list"></fieldset>
           </div>
-          <button type="submit" class="btn btn-primary logout-btn">
+          <button
+            type="submit"
+            class="btn btn-primary logout-btn"
+            id="createTeamSubmit"
+            disabled
+            title="Fill all fields to enable"
+          >
             Create
           </button>
         </form>
       </div>
+      <%- include('./partials/messages') %>
     </div>
     <script src="/javascripts/chooseUser.js"></script>
+    <script src="/javascripts/enableButton.js"></script>
   </body>
 </html>

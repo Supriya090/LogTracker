@@ -13,9 +13,33 @@
     <div class="responsive-flex-box">
       <div>
         <h3><%= project.projectname%></h3>
-        <p style="color: lightblue; margin-top: 10px; margin-bottom: 20px">
+        <p style="color: lightblue; margin-bottom: 10px">
           <%= project.description%>
         </p>
+
+        <% if(userstatus == "student"){%>
+        <div class="defense-buttons">
+          <!-- Disable this button and change content to Completed Mid-Term Defense after mid-term defense has been approved -->
+          <button class="btn btn-success shadow-none" onclick="openApproval()">Ready for Mid-Term Defence</button>
+
+          <!-- Enable this button after mid term defense has been approved -->
+          <button class="btn btn-success shadow-none" onclick="openApproval()" disabled>Ready for Final Defence</button>
+          
+          <%- include('partials/defenseApprovals') %>
+        </div>
+        <%}%>
+          <% if(userstatus == "teacher"){%>
+            <div class="defense-buttons">
+              <!-- Disable this button and change content to Completed Mid-Term Defense after mid-term defense has been approved -->
+              <button class="btn btn-success approval" onclick="openApproval()" disabled>Approval for Mid-Term Defence</button>
+    
+              <!-- Enable this button after mid term defense has been approved -->
+              <button class="btn btn-success approval" onclick="openApproval()" disabled>Approval for Final Defence</button>
+              
+              <%- include('partials/defenseApprovals') %>
+            </div>
+            <%}%>
+
       </div>
 
       <% if(user.userstatus == "admin"){%>
@@ -168,6 +192,9 @@
             <%}%>
           </div>
         <%})}%>
+        <div style="margin-top: 30px;">
+          <%- include('./partials/messages') %>
+        </div>
       </div>
 
       <div class="col-4 events-list">

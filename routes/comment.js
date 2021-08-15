@@ -34,8 +34,16 @@ router.post('/save/:mId/:pId',(req, res, next) => {
     Comment.createComment(comment, function (err, comments) {
       //Save to database
       if (err) {
-        res.status(500).send("Database error occured");
+        console.log(err)
+        req.flash('message', "Error Commenting : ".concat(err))
+        if (req.session.user.userstatus == 'student'){
+          res.redirect('/student/eachProject/'.concat(pId))
+        }else if(req.session.user.userstatus == 'teacher'){
+        res.redirect('/teacher/eachProject/'.concat(pId))
+        }
+        // res.status(500).send("Database error occured");
       } else {
+        req.flash('message', "Comment Added")
         if (req.session.user.userstatus == 'student'){
           res.redirect('/student/eachProject/'.concat(pId))
         }else if(req.session.user.userstatus == 'teacher'){
@@ -48,7 +56,12 @@ router.post('/save/:mId/:pId',(req, res, next) => {
   
   catch (err) {
     console.error(err)
-
+    req.flash('message','Cannot Complete task : '.concat(err))
+    if (req.session.user.userstatus == 'student'){
+      res.redirect('/student/eachProject/'.concat(pId))
+    }else if(req.session.user.userstatus == 'teacher'){
+    res.redirect('/teacher/eachProject/'.concat(pId))
+    }
   }
 
 })
@@ -56,6 +69,7 @@ router.post('/save/:mId/:pId',(req, res, next) => {
 router.use('/getall', loggedin, (req, res, next) => {
   Comment.getCommentsbyId('minuteid', function (err, comments) {
     if (err) {
+      req.flash('message','Cannot Complete task : '.concat(err))
       return next(err)
     } else {
       res.send(comments)
@@ -70,8 +84,10 @@ router.use('/delete/:id/:pId', loggedin, (req, res, next) => {
     if (cmt.commentedBy==req.user.username) {
       Comment.deleteComment(req.params.id, function (err) {
         if (err) {
+          req.flash('message','Cannot Delete Comment : '.concat(err))
           return next(err)
         } else {
+          req.flash('message','Comment Deleted')
           if (req.session.user.userstatus == 'student'){
             res.redirect('/student/eachProject/'.concat(pId))
           }else if(req.session.user.userstatus == 'teacher'){

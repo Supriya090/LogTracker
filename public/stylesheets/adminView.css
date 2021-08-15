@@ -72,7 +72,7 @@
 }
 
 .login-form.create-team div.options select {
-  margin-left: 30px;
+  margin-left: 25px;
   width: 160px;
   padding: 5px 35px 5px 15px;
   border-radius: 3px;
@@ -102,8 +102,9 @@
 .login-form.create-team div.options input.button-type {
   font-size: 15px;
   background-color: #37464d;
-  width: 140px;
-  margin: 0px 5px;
+  width: 250px;
+  margin-right: 5px;
+  margin-left: 0px;
   margin-top: 2px;
   padding: 5px 10px;
   border-radius: 2px;
@@ -125,6 +126,26 @@
   text-align: right;
 }
 
+.login-form.create-team div.options input.team-selection-input {
+  margin: -2px 5px 0px 25px;
+  width: 250px;
+  padding: 5px 5px 5px 10px;
+  border-radius: 3px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  color: white;
+  height: 36px;
+}
+
+.login-form.create-team div.options input.changeBtn {
+  height: 32px;
+  width: 28px;
+  margin-top: 0px;
+}
+
+div.fieldwrapper {
+  margin-bottom: 10px;
+}
 /* Responsive Views */
 @media screen and (max-width: 991px) {
   .project-card.admin div h4 {
@@ -197,6 +218,22 @@
     font-size: 13px;
     width: 120px;
   }
+
+  .login-form.create-team div.options input.team-selection-input {
+    margin: -2px 5px 0px 17px;
+    width: 200px;
+    height: 30px;
+  }
+
+  .login-form.create-team div.options input.changeBtn {
+    height: 28px;
+    width: 25px;
+  }
+
+  .login-form.create-team div.options input.button-type {
+    width: 200px;
+    margin-left: 5px;
+  }
 }
 
 @media screen and (max-width: 520px) {
@@ -226,5 +263,15 @@
 
   .login-form.create-team div.options select {
     margin-left: 30px;
+  }
+
+  .login-form.create-team div.options input.team-selection-input {
+    margin-left: 30px;
+    width: 180px;
+  }
+
+  .login-form.create-team div.options input.button-type {
+    margin-left: 5px;
+    width: 180px;
   }
 }

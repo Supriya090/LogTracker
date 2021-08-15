@@ -25,7 +25,7 @@
             disabled<% } %>>Ready for Mid-Term Defence</button>
 
           <!-- Enable this button after mid term defense has been approved -->
-          <button class="btn btn-success shadow-none" onclick="openApproval()" <% if (project.midDefence.approved!=true) { %>
+          <button class="btn btn-success shadow-none" onclick="openApproval()" <% if (project.midDefence.approved!=true || project.finalDefence.requested==true) { %>
            
             disabled<% } %>>Ready for Final Defence</button>
           
@@ -40,7 +40,7 @@
                 disabled<% } %>>Approval for Mid-Term Defence</button>
     
               <!-- Enable this button after mid term defense has been approved -->
-              <button class="btn btn-success approval" onclick="openApproval()" <% if (project.finalDefence.requested!=true) { %>
+              <button class="btn btn-success approval" onclick="openApproval()" <% if (project.finalDefence.requested!=true || project.finalDefence.approved==true) { %>
            
                 disabled<% } %>>Approval for Final Defence</button>
               

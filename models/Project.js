@@ -176,18 +176,20 @@ callback
 
 module.exports.approveMidDefence = function (pid, callback) {
 
-      Project.findByIdAndUpdate(pid,
-        {
-          $set: {
-            "midDefence.approved": true
-          },
-        },
-        {
-          new: true,
-        },
-        callback
-      )  
+  Project.findByIdAndUpdate(pid,
+   
+    {
+      $set: {
+       "midDefence.approved": true
+      },
+    },
+    {
+      new: true,
+    },
+    callback
+  )  
 };
+
 
 module.exports.approveFinalDefence = function (pid, callback) {
 

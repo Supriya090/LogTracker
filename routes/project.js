@@ -47,8 +47,6 @@ router.post("/createteams", function (req, res, next) {
   });
 });
 
-
-
 router.post("/editteams/:pId", function (req, res, next) {
   pId = req.params.pId;
   var projectname = req.body.projectname;
@@ -123,114 +121,108 @@ router.post("/event/save/:pId", (req, res, next) => {
     Event.createEvent(event, function (err, events) {
       //Save to database
       if (err) {
-        console.log(err)
-        req.flash('message', "Error Saving Event")
-        if (req.session.user.userstatus == 'student'){
-          res.redirect('/student/eachProject/'.concat(pId))
-        }else if(req.session.user.userstatus == 'teacher'){
-        res.redirect('/teacher/eachProject/'.concat(pId))
-        }   
+        console.log(err);
+        req.flash("message", "Error Saving Event");
+        if (req.session.user.userstatus == "student") {
+          res.redirect("/student/eachProject/".concat(pId));
+        } else if (req.session.user.userstatus == "teacher") {
+          res.redirect("/teacher/eachProject/".concat(pId));
+        }
       } else {
-        req.flash('message', "Event Added")
-        if (req.session.user.userstatus == 'student'){
-          res.redirect('/student/eachProject/'.concat(pId))
-        }else if(req.session.user.userstatus == 'teacher'){
-        res.redirect('/teacher/eachProject/'.concat(pId))
+        req.flash("message", "Event Added");
+        if (req.session.user.userstatus == "student") {
+          res.redirect("/student/eachProject/".concat(pId));
+        } else if (req.session.user.userstatus == "teacher") {
+          res.redirect("/teacher/eachProject/".concat(pId));
         }
       }
     });
   } catch (err) {
     console.error(err);
   }
-  
-  }
-
-)
+});
 
 router.use("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
- pId = req.params.pId
- userstatus = req.session.user.userstatus
- if(userstatus = "student"){
-  Project.requestMidDefence(pId, function (err, projects) {
+  pId = req.params.pId;
+  userstatus = req.session.user.userstatus;
+  console.log(userstatus);
+  Project.findById(pId, function (err, project) {
     //Save to database
+    console.log(project)
     if (err) {
       console.log(err);
       res.status(500).send("Database error occured");
     } else {
-      res.redirect("/dashboard");
-    }
-  });
-}
-  else if (userstatus = "teacher"){
-    console.log(123456)
-    Project.approveMidDefence(pId, function (err, projects) {
-      //Save to database
-      if (err) {
-        console.log(err);
-        res.status(500).send("Database error occured");
-      } else {
-        res.redirect("/dashboard");
+      if (project.midDefence.approved == true) {
+        if ((userstatus == "student")) {
+          Project.requestFinalDefence(pId, function (err, projects) {
+            //Save to database
+            if (err) {
+              console.log(err);
+              res.status(500).send("Database error occured");
+            }
+          });
+        }
+        else if ((userstatus == "teacher")) {
+          Project.approveFinalDefence(pId, function (err, projects) {
+            //Save to database
+            if (err) {
+              console.log(err);
+              res.status(500).send("Database error occured");
+            }
+          });
+        }
+      
+      }else {
+        if ((userstatus == "student")) {
+          Project.requestMidDefence(pId, function (err, projects) {
+            //Save to database
+            if (err) {
+              console.log(err);
+              res.status(500).send("Database error occured");
+            }
+          });
+        }
+        else if ((userstatus == "teacher")) {
+          Project.approveMidDefence(pId, function (err, projects) {
+            //Save to database
+            if (err) {
+              console.log(err);
+              res.status(500).send("Database error occured");
+            }
+          });
+        }
       }
-    });
-  }
-
-})
-
-router.post("/requestfinalDefence/:pId", loggedin, (req, res, next) => {
- pId = req.params.pId
- Project.requestFinalDefence(pId, function (err, projects) {
-  //Save to database
-  if (err) {
-    console.log(err);
-    res.status(500).send("Database error occured");
-  } else {
-    res.redirect("/dashboard");
-  }
+      res.redirect("/teacher/eachProject/".concat(pId));
+    }
+    
+  });
 });
 
-})
-
-router.post("/approvemidDefence/:pId", loggedin, (req, res, next) => {
-  pId = req.params.pId
-  Project.approveFinalDefence(pId, function (err, projects) {
-   //Save to database
-   if (err) {
-     console.log(err);
-     res.status(500).send("Database error occured");
-   } else {
-     res.redirect("/dashboard");
-   }
- });
- 
- })
 
 router.use("/event/completed/:pId/:id", loggedin, (req, res, next) => {
- 
-Event.Completed(req.params.id, function (err, events) {
-  var pId = req.params.pId;
-  if (err) {
-    req.flash('message','Cannot Complete task : '.concat(err))
-    return next(err)
-  } else {
-    req.flash('message','Task Completed')
-    if (req.session.user.userstatus == 'student'){
-      res.redirect('/student/eachProject/'.concat(pId))
-    }else if(req.session.user.userstatus == 'teacher'){
-    res.redirect('/teacher/eachProject/'.concat(pId))
-  }
-  }
+  Event.Completed(req.params.id, function (err, events) {
+    var pId = req.params.pId;
+    if (err) {
+      req.flash("message", "Cannot Complete task : ".concat(err));
+      return next(err);
+    } else {
+      req.flash("message", "Task Completed");
+      if (req.session.user.userstatus == "student") {
+        res.redirect("/student/eachProject/".concat(pId));
+      } else if (req.session.user.userstatus == "teacher") {
+        res.redirect("/teacher/eachProject/".concat(pId));
+      }
+    }
+  });
 });
-});
-
-
-
 
 router.use("/event/remaining/:pId/:id", loggedin, (req, res, next) => {
   Event.Remaining(req.params.id, function (err, events) {
     var pId = req.params.pId;
     if (err) {
-      req.flash('message','Cannot Complete task : '.concat(err))
-      return next(err)
+      req.flash("message", "Cannot Complete task : ".concat(err));
+      return next(err);
     } else {
       if (req.session.user.userstatus == "student") {
         res.redirect("/student/eachProject/".concat(pId));

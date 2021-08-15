@@ -15,11 +15,13 @@ $(document).ready(function (e) {
     );
     removeButton.click(function () {
       $(this).parent().remove();
+      enableButton();
     });
     fieldWrapper.append(new_input);
     fieldWrapper.append(removeButton);
     $("#new_supervisor").append(fieldWrapper);
     $("#addSuper").val("");
+    enableButton();
   }
 
 
@@ -38,10 +40,12 @@ $(document).ready(function (e) {
     );
     removeButton.click(function () {
       $(this).parent().remove();
+      enableButton()
     });
     fieldWrapper.append(new_input);
     fieldWrapper.append(removeButton);
     $("#new_student").append(fieldWrapper);
     $("#addStudent").val("");
+    enableButton();
   }
 })

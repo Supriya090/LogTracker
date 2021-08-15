@@ -233,7 +233,7 @@ body.minute-body {
   position: relative;
 }
 
-.card.minute-top .tooltiptext {
+span.tooltiptext {
   visibility: hidden;
   width: 180px;
   background-color: black;
@@ -250,7 +250,7 @@ body.minute-body {
   transition: opacity 1s;
 }
 
-.card.minute-top .tooltiptext::after {
+span.tooltiptext::after {
   content: "";
   position: absolute;
   bottom: 100%;

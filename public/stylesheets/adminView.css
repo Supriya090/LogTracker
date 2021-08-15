@@ -212,6 +212,22 @@ div.fieldwrapper {
     font-size: 13px;
     width: 120px;
   }
+
+  .login-form.create-team div.options input.team-selection-input {
+    margin: -2px 5px 0px 17px;
+    width: 200px;
+    height: 30px;
+  }
+
+  .login-form.create-team div.options input.changeBtn {
+    height: 28px;
+    width: 25px;
+  }
+
+  .login-form.create-team div.options input.button-type {
+    width: 200px;
+    margin-left: 5px;
+  }
 }
 
 @media screen and (max-width: 520px) {
@@ -241,5 +257,15 @@ div.fieldwrapper {
 
   .login-form.create-team div.options select {
     margin-left: 30px;
+  }
+
+  .login-form.create-team div.options input.team-selection-input {
+    margin-left: 30px;
+    width: 180px;
+  }
+
+  .login-form.create-team div.options input.button-type {
+    margin-left: 5px;
+    width: 180px;
   }
 }

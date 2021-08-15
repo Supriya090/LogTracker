@@ -16,7 +16,7 @@
     <%- include('partials/adminHeader') %>
     <div class="container">
       <h3>Create Team</h3>
-      <div class="card">
+      <div class="card" style="position: relative">
         <form
           action="/project/createteams"
           class="login-form create-team"
@@ -116,7 +116,13 @@
             </div>
             <fieldset id="new_student" class="chosen-list"></fieldset>
           </div>
-          <button type="submit" class="btn btn-primary logout-btn">
+          <button
+            type="submit"
+            class="btn btn-primary logout-btn"
+            id="createTeamSubmit"
+            disabled
+            title="Fill all fields to enable"
+          >
             Create
           </button>
         </form>
@@ -124,5 +130,6 @@
       <%- include('./partials/messages') %>
     </div>
     <script src="/javascripts/chooseUser.js"></script>
+    <script src="/javascripts/enableButton.js"></script>
   </body>
 </html>

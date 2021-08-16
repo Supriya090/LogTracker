@@ -57,6 +57,15 @@ var ProjectSchema = new mongoose.Schema({
       default: false,
       required: true,
     },
+    called: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
   
   },
   finalDefence: {
@@ -69,6 +78,15 @@ var ProjectSchema = new mongoose.Schema({
     approved: {
       type: Boolean,
       default: false,
+      required: true,
+    },
+    called: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    date: {
+      type: Date,
       required: true,
     },
    
@@ -166,6 +184,38 @@ module.exports.requestFinalDefence = function (pid,message, callback) {
       $set: {
         "finalDefence.requested": true,
         "finalDefence.message": message,
+      },
+    },
+    {
+      new: true,
+    },
+    callback
+  );
+};
+
+module.exports.callFinalDefence = function (pid,date, callback) {
+  Project.findByIdAndUpdate(
+    pid,
+    {
+      $set: {
+        "finalDefence.called": true,
+        "finalDefence.date": date,
+      },
+    },
+    {
+      new: true,
+    },
+    callback
+  );
+};
+
+module.exports.callMidDefence = function (pid,date, callback) {
+  Project.findByIdAndUpdate(
+    pid,
+    {
+      $set: {
+        "finalDefence.called": true,
+        "finalDefence.date": date,
       },
     },
     {

@@ -5,10 +5,10 @@ $(document).ready(function (e) {
   console.log(superPastChildren);
 
   function addSuper() {
+    var superValue = $("#addSuper").val();
+    if (superValue === "") return;
     var lastField = $("#new_supervisor div:last");
-    console.log(lastField.data("idx"))
     var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
-    console.log(intId);
     var userSelect = document.getElementById("addSuper");
     var fieldWrapper = $(
       '<div class="fieldwrapper" id="field' + (intId + superPastChildren) + '"/>'
@@ -32,6 +32,8 @@ $(document).ready(function (e) {
 
   $(".addStud").on("click", addStud);
   function addStud() {
+    var studValue = $("#addStudent").val();
+    if (studValue === "") return;
     var lastField = $("#new_student div:last");
     var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
     var userSelect = document.getElementById("addStudent");

@@ -109,13 +109,13 @@
 .alert.alert-primary {
   display: flex;
   margin: auto;
-  width: 50%;
+  width: fit-content;
   justify-content: space-evenly;
   align-items: center;
-  padding: 10px;
+  padding: 10px 50px 10px 30px;
 }
 
-.close {
+button.close {
   background-color: transparent;
   border: none;
   font-size: 20px;

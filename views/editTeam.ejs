@@ -117,7 +117,9 @@
             <fieldset id="new_supervisor" class="chosen-list">
               <% var i=1;project.supervisor.forEach(element => { %>
                 <% if (element!=null) { %>
-                  <input class='button-type' name="supervisor<%= i %>" value ="<%= element %>" readonly /><input type="button" class="remove" value="-" />
+                  <div class="fieldwrapper" id="field<%=i%>">
+                    <input class='button-type' name="supervisor<%= i %>" value ="<%= element %>" readonly /><input type="button" class="remove" value="-" />
+                  </div>
                 <% } %>
               <% i++; }) %>
       
@@ -146,7 +148,9 @@
             <fieldset id="new_student" class="chosen-list">
               <% var i=1;project.team.forEach(element => { %>
                 <% if (element!=null) { %>
-                  <input class='button-type' name="std<%= i %>" value ="<%= element %>"  readonly /><input type="button" class="remove" value="-" />
+                  <div class="fieldwrapper" id="studField<%=i%>">
+                    <input class='button-type' name="std<%= i %>" value ="<%= element %>"  readonly /><input type="button" class="remove" value="-" />
+                  </div>
                 <% } %>
               <% i++; }) %>
             </fieldset>
@@ -155,10 +159,8 @@
             type="submit"
             class="btn btn-primary logout-btn"
             id="createTeamSubmit"
-            disabled
-            title="Fill all fields to enable"
           >
-            Create
+            Update
           </button>
         </form>
       </div>
@@ -166,5 +168,12 @@
     </div>
     <script src="/javascripts/chooseUser.js"></script>
     <script src="/javascripts/enableButton.js"></script>
+    <script>
+      $(".remove").on("click", function () {
+        //console.log("Click")
+        $(this).parent().remove();
+        enableButton();
+      });
+    </script>
   </body>
 </html>

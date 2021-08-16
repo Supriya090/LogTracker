@@ -150,6 +150,8 @@ router.get(
   }
 );
 
+
+
 router.get(
   "/admin/editTeam/:pId",
   loggedin,
@@ -176,6 +178,24 @@ router.get(
     } else {
       res.redirect("/dashboard");
     }
+  
+  }
+);
+
+router.get(
+  "/admin/defenseCall",
+  loggedin,
+  function (req, res, next) {
+    user = req.session.user
+   
+            res.render("defenseCall", {
+              message: req.flash('message'),
+              users: user,
+              title: "Defence Call | Log Tracker",
+              pId: req.params.pId,
+              firstname: req.user.username.split(" ")[0],
+            });
+   
   
   }
 );

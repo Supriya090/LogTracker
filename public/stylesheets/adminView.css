@@ -73,7 +73,7 @@
 
 .login-form.create-team div.options select {
   margin-left: 25px;
-  width: 160px;
+  width: 210px;
   padding: 5px 35px 5px 15px;
   border-radius: 3px;
   font-size: 15px;
@@ -83,7 +83,7 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: url("/assets/dropdown.png") 92% / 10% no-repeat #37464d;
+  background: url("/assets/dropdown.png") 95% / 6% no-repeat #37464d;
 }
 
 .login-form.create-team div.options input {

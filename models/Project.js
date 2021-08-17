@@ -23,6 +23,10 @@ var ProjectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  subject: {
+    type: String,
+    required: true,
+  },
   supervisor: {
     type: [String],
     required: true,
@@ -66,6 +70,10 @@ var ProjectSchema = new mongoose.Schema({
       type: Date,
       required: true,
     },
+    time: {
+      type: Date,
+      required: true,
+    },
   
   },
   finalDefence: {
@@ -86,6 +94,10 @@ var ProjectSchema = new mongoose.Schema({
       required: true,
     },
     date: {
+      type: Date,
+      required: true,
+    },
+    time: {
       type: Date,
       required: true,
     },

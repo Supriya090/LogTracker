@@ -61,7 +61,7 @@
               <p>:</p>
               <select name="faculty" id="faculty">
                 <% faculty.forEach(element => { %>
-                  <option value="<%= element.name %> "><%= element.name%></option>
+                  <option value="<%= element.name %>"><%= element.name%></option>
                 <% }) %>
               </select>
             </div>
@@ -90,7 +90,7 @@
                 <% faculty.forEach(faculty => { %>
                   <% faculty.courses.forEach(course => { %>
                    <% course.subjects.forEach(subject => { %>
-                    <option value="<%= subject %> "><%= subject%></option>
+                    <option value="<%= subject %>"><%= subject%></option>
                    <% }) %>
                   <% }) %>
  

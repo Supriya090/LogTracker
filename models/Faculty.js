@@ -7,10 +7,10 @@ var FacultySchema = new mongoose.Schema({
     required: true,
   },
   courses: [{
-    semester:Number,
+    semester: Number,
     subjects: [String]
   }],
- 
+
 });
 
 var Faculty = (module.exports = mongoose.model(

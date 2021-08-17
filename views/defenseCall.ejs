@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title%></title>
     <style>
-      option{
+      option {
         border-color: royalblue;
         border-width: 2px;
-
       }
     </style>
   </head>
@@ -26,9 +25,9 @@
         >
           <div class="form-group options">
             <div>
-              <label for="term"  style="min-width:101px;">Defense Type</label>
+              <label for="term" style="min-width: 101px">Defense Type</label>
               <p>:</p>
-              <select name="terms" id="terms" style="min-width:240px;">
+              <select name="terms" id="terms" style="min-width: 240px">
                 <option value="mid">Mid-Term Project Defense</option>
                 <option value="final">Final Project Defense</option>
               </select>
@@ -41,7 +40,7 @@
               <p>:</p>
               <select type="text" name="faculty" id="faculty">
                 <% faculty.forEach(element => { %>
-                  <option value="<%= element.name %>"><%= element.name%></option>
+                <option value="<%= element.name %>"><%= element.name%></option>
                 <% }) %>
               </select>
             </div>
@@ -68,39 +67,38 @@
             <div>
               <label for="subject">Subject</label>
               <p>:</p>
-              <select name="subject" id="subjects" style="min-width:200px;">
-                <% faculty.forEach(faculty => { %>
-                  <% faculty.courses.forEach(course => { %>
-                   <% course.subjects.forEach(subject => { %>
-                    <option value="<%= subject %>"><%= subject%></option>
-                   <% }) %>
-                  <% }) %>
- 
-                <% }) %>
+              <select name="subject" id="subjects" style="min-width: 200px">
+                <% faculty.forEach(faculty => { %> <%
+                faculty.courses.forEach(course => { %> <%
+                course.subjects.forEach(subject => { %>
+                <option value="<%= subject %>"><%= subject%></option>
+                <% }) %> <% }) %> <% }) %>
               </select>
             </div>
           </div>
 
-          <div class=" form-group dateAndTime">
-            <label for="name" style="min-width:150px;">Date and Time &ensp;: </label>
+          <div class="form-group dateAndTime">
+            <label for="name" style="min-width: 150px"
+              >Date and Time &ensp;:
+            </label>
             <input
               type="date"
               class="form-control"
               id="defenseDate"
               name="defenseDate"
-              style="min-width:170px; margin-right: 20px;"
+              style="min-width: 170px; margin-right: 20px"
               required
-            >
+            />
 
             <input
-            type="time"
-            class="form-control"
-            id="defenseTime"
-            name="defenseTime"
-            style="min-width:137px;"
-            value="12:30"
-            required
-            >
+              type="time"
+              class="form-control"
+              id="defenseTime"
+              name="defenseTime"
+              style="min-width: 137px"
+              value="12:30"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="college">Description:</label>

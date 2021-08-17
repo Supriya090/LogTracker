@@ -8,37 +8,36 @@ var Faculty = require("../models/Faculty");
 router.use(
   "/save",
   (req, res, next) => {
-    //console.log("save")
     try {
+      console.log("save")
       console.log(JSON.stringify(req.body));
 
-
       const faculty = new Faculty();
-      faculty.name = "Mechanical Engineering";
+      faculty.name = "Aerospace Engineering";
       faculty.courses = [{
-      //   semester: 1,
-      //   subjects: ["Mathematics I", "Computer Programming", "Engineering Drawing I", "Engineering Physics", "Applied Mechanics", "Basic Electrical Engineering"]
-      // }, {
-      //   semester: 2,
-      //   subjects: ["Mathematics II", "Engineering Drawing II", "Fundamental of Thermodynamics", "Engineering Chemistry", "Basic Electronics Engineering", "Workshop Technology"]
-      // }, {
-      //   semester: 3,
-      //   subjects: ["Mathematics III", "Object Oriented Programming", "Theory of Computation", "Electric Circuit Theory", "Electronics Devices and Circuit", "Digital Logic", "Electromagnetics"]
-      // }, {
-      //   semester: 4,
-      //   subjects: ["Electrical Machine", "Numerical Method", "Applied Mathematics", "Instrumentation I", "Data Structure and Algorithm", "Microprocessor", "Discrete Structure"]
-      // }, {
-      //   semester: 5,
-      //   subjects: ["Communication English", "Probability and Statistics", "Software Engineering", "Instrumentation II", "Computer organization and Architecture", "Computer Graphics", "Data Communication"]
-      // }, {
-      //   semester: 6,
-      //   subjects: ["Engineering Economics", "Embedded System", "Artificial Intelligence", "Database Managrement System", "Object Oriented Analysis & Design", "Operating System", "Minor Project"]
-      // }, {
-      //   semester: 7,
-      //   subjects: ["Project Management", "Organization and Management", "Energy Enviroment and Society", "Computer Network", "Distributed System", "Digital Signal Analysis & Processing", "Elective I", "Final Project"]
-      // }, {
-      //   semester: 8,
-      //   subjects: ["Engineeering Professional Practice", "Information Systems", "Simulation and Modeling", "Internet and Intranet", "Elective II", "Elective III", "Final Project"]
+        semester: 1,
+        subjects: ["Mathematics I", "Applied Mechanics", "Engineering Drawing", "Engineering Physics", "Basic Electrical Engineering", "Workshop Technology"]
+      }, {
+        semester: 2,
+        subjects: ["Mathematics II", "Engineering Drawing II", "Basic Electronics Engineering", "Engineering Chemistry", "C Programming", "Fundamental of Thermodynamics & Heat Transfer"]
+      }, {
+        semester: 3,
+        subjects: ["Applied Thermodynamics and Heat Transfer", "Computer Aided Design and Manufacturing", "Engineering Mechanics", "Fluid Mechanics", "Fundamental of Aerospace Engineering", "Engineering Mathemathics III"]
+      }, {
+        semester: 4,
+        subjects: ["Theory of Mechanism and Machine I", "Aerodynamics", "Aerospace Materials", "Control System", "Probabillity and Statistics", "Strength of Materials"]
+      }, {
+        semester: 5,
+        subjects: ["Aircraft Manufacturing Process", "Aircraft Propulsion", "Continuum Mechanics", "Fault Monitoring and Diagnosis", "Numerical Methods", "Theory of Vibration"]
+      }, {
+        semester: 6,
+        subjects: ["Avionics", "Finite Element Method", "Aircraft Maintenance Engineering", "Aircraft Environment Control System", "Flight Dynamics", "Unmanned Air Vehicle Synthesis"]
+      }, {
+        semester: 7,
+        subjects: ["Aircraft Preliminary Design", "Computational Fluid Dynamics", "Air Traffic Management", "Aircraft Structures", "Embedded Systems in Avionics", "Project(Part I)", "Elective I"]
+      }, {
+        semester: 8,
+        subjects: ["Internship", "Aviation Professional Practices", "Factor in Aviation", "Elective II", "Elective III", "Project(Part II)"]
       },]
 
       Faculty.addFaculty(faculty, function (err, faculty) {
@@ -48,7 +47,7 @@ router.use(
           req.flash('message', "Error Saving Minute")
           // res.redirect("/student/eachProject/" + pId);
         } else {
-          req.flash('message', "Minute Added")
+          req.flash('message', "Subjects Added")
           // res.redirect("/student/eachProject/" + pId);
           res.send(faculty)
         }

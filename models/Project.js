@@ -59,7 +59,7 @@ var ProjectSchema = new mongoose.Schema({
       default: false,
       required: true,
     },
-    message:String,
+    message: String,
     approved: {
       type: Boolean,
       default: false,
@@ -72,13 +72,13 @@ var ProjectSchema = new mongoose.Schema({
     },
     date: {
       type: Date,
-    
+
     },
     time: {
       type: String,
-      
+
     },
-  
+
   },
   finalDefence: {
     requested: {
@@ -99,13 +99,13 @@ var ProjectSchema = new mongoose.Schema({
     },
     date: {
       type: Date,
-    
+
     },
     time: {
       type: String,
-     
+
     },
-   
+
   },
   defComment: [{ comment: String, option: String, commentedBy: String }],
 });
@@ -160,13 +160,13 @@ module.exports.updateProject = function (projectId, newProject, callback) {
     {
       $set: {
         description: newProject.description,
-        projectname:newProject.projectname,
-        description :  newProject.description,
-        supervisor : newProject.supervisor,
-        team :  newProject.team,
-        createdBy : newProject.createdBy,
-        semester : newProject.semester,
-        teamname :  newProject.teamname,
+        projectname: newProject.projectname,
+        description: newProject.description,
+        supervisor: newProject.supervisor,
+        team: newProject.team,
+        createdBy: newProject.createdBy,
+        semester: newProject.semester,
+        teamname: newProject.teamname,
       },
     },
     {
@@ -176,7 +176,7 @@ module.exports.updateProject = function (projectId, newProject, callback) {
   );
 };
 
-module.exports.requestMidDefence = function (pid,message, callback) {
+module.exports.requestMidDefence = function (pid, message, callback) {
   Project.findByIdAndUpdate(
     pid,
 
@@ -193,7 +193,7 @@ module.exports.requestMidDefence = function (pid,message, callback) {
   );
 };
 
-module.exports.requestFinalDefence = function (pid,message, callback) {
+module.exports.requestFinalDefence = function (pid, message, callback) {
   Project.findByIdAndUpdate(
     pid,
     {
@@ -209,14 +209,14 @@ module.exports.requestFinalDefence = function (pid,message, callback) {
   );
 };
 
-module.exports.callFinalDefence = function (pid,defence, callback) {
+module.exports.callFinalDefence = function (pid, defence, callback) {
   Project.findByIdAndUpdate(
     pid,
     {
       $set: {
         "finalDefence.called": true,
         "finalDefence.date": defence.date,
-        "finalDefence.time":defence.time,
+        "finalDefence.time": defence.time,
       },
     },
     {
@@ -226,14 +226,14 @@ module.exports.callFinalDefence = function (pid,defence, callback) {
   );
 };
 
-module.exports.callMidDefence = function (pid,defence, callback) {
+module.exports.callMidDefence = function (pid, defence, callback) {
   Project.findByIdAndUpdate(
     pid,
     {
       $set: {
         "midDefence.called": true,
         "midDefence.date": defence.date,
-        "midDefence.time":defence.time,
+        "midDefence.time": defence.time,
       },
     },
     {

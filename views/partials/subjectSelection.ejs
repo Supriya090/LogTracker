@@ -1,0 +1,45 @@
+<% var allSubs = []%> <% var subsArr = []%> <%for (var i = 0; i <
+faculty.length; i++){%> <%for (var j = 0; j < 8; j++){%>
+<%subsArr.push(faculty[i].courses[j].subjects);%> <%}%>
+<%allSubs.push(subsArr)%> <%subsArr = []%> <%}%>
+<script>
+  function valChange() {
+    currSem = document.getElementById("sems").value;
+    currFaculty = document
+      .getElementById("faculty")
+      .options[document.getElementById("faculty").selectedIndex].getAttribute(
+        "code"
+      );
+    if (currSem !== "0" && currFaculty !== "null") {
+      var selectSubs = document.getElementById("subjects");
+      var length = selectSubs.options.length;
+      for (i = length - 1; i >= 0; i--) {
+        selectSubs.options[i] = null;
+      }
+      var all = "<%=allSubs%>";
+      var allArray = all.split(",");
+      var subjects = [];
+      var semSubs = [];
+      var semCount = 0;
+      for (i = 0, j = allArray.length; i < j; i += 8) {
+        semCount += 1;
+        eachSemSub = allArray.slice(i, i + 8);
+        subjects.push(eachSemSub);
+        if (semCount % 8 == 0) {
+          semSubs.push(subjects);
+          subjects = [];
+        }
+      }
+      console.log(semSubs[currFaculty - 1][currSem - 1]);
+
+      var currentSubs = semSubs[currFaculty - 1][currSem - 1];
+      for (var i = 0; i < currentSubs.length; i++) {
+        var option = document.createElement("option");
+        option.text = currentSubs[i];
+        if (option.text !== "") {
+          selectSubs.add(option);
+        }
+      }
+    }
+  }
+</script>

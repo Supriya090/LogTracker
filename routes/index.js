@@ -159,24 +159,27 @@ router.get(
   function (req, res, next) {
     user = req.session.user
     if (user.userstatus == "admin") {
-      Faculty.find({}, function (err, faculty) {
-        if (err) {
-          console.log(err);
-        } else {
-          Project.findById(req.params.pId, function (err, project) {
-            res.render("editTeam", {
-              message: req.flash('message'),
-              users: user,
-              faculty: faculty,
-              project: project,
-              title: "Edit Team | Log Tracker",
-              pId: req.params.pId,
-              firstname: req.user.username.split(" ")[0],
-            });
-            });
-        
-        }
-      });
+      User.find({},function(err, usr){
+        Faculty.find({}, function (err, faculty) {
+          if (err) {
+            console.log(err);
+          } else {
+            Project.findById(req.params.pId, function (err, project) {
+              res.render("editTeam", {
+                message: req.flash('message'),
+                users: usr,
+                faculty: faculty,
+                project: project,
+                title: "Edit Team | Log Tracker",
+                pId: req.params.pId,
+                firstname: req.user.username.split(" ")[0],
+              });
+              });
+          
+          }
+        });
+      })
+      
     } else {
       res.redirect("/dashboard");
     }
@@ -264,19 +267,22 @@ router.use("/signup", function (req, res, next) {  //!loggedin,
 router.get("/admin/createTeam", loggedin, function (req, res, next) {
   user = req.session.user
   if (user.userstatus == "admin") {
-    Faculty.find({}, function (err, faculty) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("createTeam", {
-          message: req.flash('message'),
-          users: user,
-          faculty: faculty,
-          title: "Create Team | Log Tracker",
-          firstname: req.user.username.split(" ")[0],
-        });
-      }
-    });
+    User.find({},function(err, usr){
+      Faculty.find({}, function (err, faculty) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("createTeam", {
+            message: req.flash('message'),
+            users: usr,
+            faculty: faculty,
+            title: "Create Team | Log Tracker",
+            firstname: req.user.username.split(" ")[0],
+          });
+        }
+      });
+    })
+  
   } else {
     res.redirect("/dashboard");
   }

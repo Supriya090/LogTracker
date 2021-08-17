@@ -12,6 +12,8 @@ router.post("/createteams", function (req, res, next) {
   var teamname = req.body.teamname;
   var semester = req.body.sems;
   var username = req.user.username;
+  var faculty = req.body.faculty;
+  var subject = req.body.subject;
   (supervisor = [req.body.supervisor1, req.body.supervisor2]),
     (team = [
       req.body.std1,

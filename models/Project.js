@@ -72,11 +72,11 @@ var ProjectSchema = new mongoose.Schema({
     },
     date: {
       type: Date,
-      required: true,
+    
     },
     time: {
       type: String,
-      required: true,
+      
     },
   
   },
@@ -99,11 +99,11 @@ var ProjectSchema = new mongoose.Schema({
     },
     date: {
       type: Date,
-      required: true,
+    
     },
     time: {
       type: String,
-      required: true,
+     
     },
    
   },

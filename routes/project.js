@@ -286,30 +286,17 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
               res.status(500).send("Database error occured");
             }
           })
-          const event = new Event();
-          event.projectId = project._id;
-          event.event = "Mid-Term Defense";
-          event.dueDate = defense.date;
-          event.createdBy = "Co-ordinator";
-          event.description = req.body.description;
-          Event.findOneAndUpdate({ event: "Mid-Term Defense" }, {
-            $set: {
-              projectId: project._id,
-              event: "Mid-Term Defense",
-              dueDate: defense.date,
-              createdBy: "Co-ordinator",
-              description: req.body.description
-            }
-
-          },
-            {
-              new: true,
-            }, function (err, events) {
-              if (err) {
-                Event.createEvent(event, function (err, events) {
-                });
-              }
-            });
+          var query = {event:"Mid-Term Defense",projectId:project._id},
+          update = { 
+            event: "Mid-Term Defense",
+            dueDate: defense.date,
+            createdBy: "Co-ordinator",
+            description: req.body.description},
+          options = { upsert: true, new: true, setDefaultsOnInsert: true };
+          Event.findOneAndUpdate(query, update, options, function (error, result) {
+            console.log(result)
+            if (error) console.log(error);
+          });
         } else if (defense.term == "final") {
           Project.callFinalDefence(project._id, defense, function (err, projects) {
             //Save to database
@@ -319,7 +306,7 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
             }
           })
           
-          var query = {event:"Final Defence",projectId:project._id},
+          var query = {event:"Final Defense",projectId:project._id},
             update = { 
               event: "Final Defense",
               dueDate: defense.date,

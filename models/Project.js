@@ -75,7 +75,7 @@ var ProjectSchema = new mongoose.Schema({
       required: true,
     },
     time: {
-      type: Date,
+      type: String,
       required: true,
     },
   
@@ -102,7 +102,7 @@ var ProjectSchema = new mongoose.Schema({
       required: true,
     },
     time: {
-      type: Date,
+      type: String,
       required: true,
     },
    
@@ -211,13 +211,14 @@ module.exports.requestFinalDefence = function (pid,message, callback) {
   );
 };
 
-module.exports.callFinalDefence = function (pid,date, callback) {
+module.exports.callFinalDefence = function (pid,defence, callback) {
   Project.findByIdAndUpdate(
     pid,
     {
       $set: {
         "finalDefence.called": true,
-        "finalDefence.date": date,
+        "finalDefence.date": defence.date,
+        "finalDefence.time":defence.time,
       },
     },
     {
@@ -227,13 +228,14 @@ module.exports.callFinalDefence = function (pid,date, callback) {
   );
 };
 
-module.exports.callMidDefence = function (pid,date, callback) {
+module.exports.callMidDefence = function (pid,defence, callback) {
   Project.findByIdAndUpdate(
     pid,
     {
       $set: {
-        "finalDefence.called": true,
-        "finalDefence.date": date,
+        "midDefence.called": true,
+        "midDefence.date": defence.date,
+        "midDefence.time":defence.time,
       },
     },
     {

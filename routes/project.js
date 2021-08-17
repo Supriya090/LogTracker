@@ -258,6 +258,48 @@ router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
   });
 });
 
+router.post("/defenseCall", loggedin, (req, res, next) => {
+  userstatus = req.session.user.userstatus;
+  console.log(req.body);
+
+  var defense ={
+    date:new Date(req.body.defenseDate),
+    time:req.body.defenseTime,
+    term:req.body.terms,
+  }
+
+  Project.find({faculty: req.body.faculty, subject: req.body.subject, semester: req.body.sems}, function (err, projects) {
+    //Save to database
+    console.log(projects)
+    if (err) {
+      console.log(err);
+      res.status(500).send("Database error occured");
+    } else {
+      projects.forEach(project => {
+        if (defense.term == "mid") {
+          Project.callMidDefence(project._id,defense,function (err, projects) {
+            //Save to database
+            if (err) {
+              console.log(err);
+              res.status(500).send("Database error occured");
+            }
+          })
+        } else if (defense.term == "final") {
+          Project.callFinalDefence(project._id,defense,function (err, projects) {
+            //Save to database
+            if (err) {
+              console.log(err);
+              res.status(500).send("Database error occured");
+            }
+          })
+        }
+      });
+        res.redirect("/dashboard")
+    }
+    
+  });
+});
+
 
 router.use("/event/completed/:pId/:id", loggedin, (req, res, next) => {
   Event.Completed(req.params.id, function (err, events) {

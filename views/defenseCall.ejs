@@ -19,7 +19,7 @@
       <h3>Defense Call</h3>
       <div class="card">
         <form
-          action=""
+          action="/project/defenseCall"
           class="login-form create-team"
           method="post"
           autocomplete="off"
@@ -29,8 +29,8 @@
               <label for="term"  style="min-width:101px;">Defense Type</label>
               <p>:</p>
               <select name="terms" id="terms" style="min-width:240px;">
-                <option value="1">Mid-Term Project Defense</option>
-                <option value="2">Final Project Defense</option>
+                <option value="mid">Mid-Term Project Defense</option>
+                <option value="final">Final Project Defense</option>
               </select>
             </div>
           </div>
@@ -39,9 +39,9 @@
             <div>
               <label for="faculty">Faculty</label>
               <p>:</p>
-              <select name="faculty" id="faculty">
+              <select type="text" name="faculty" id="faculty">
                 <% faculty.forEach(element => { %>
-                  <option value="<%= element.name %> "><%= element.name%></option>
+                  <option value="<%= element.name %>"><%= element.name%></option>
                 <% }) %>
               </select>
             </div>
@@ -52,14 +52,14 @@
               <label for="sems">Semester</label>
               <p>:</p>
               <select name="sems" id="sems">
-                <option value="1">8th</option>
-                <option value="2">7th</option>
-                <option value="3">6th</option>
-                <option value="4">5th</option>
-                <option value="5">4th</option>
-                <option value="6">3rd</option>
-                <option value="7">2nd</option>
-                <option value="8">1st</option>
+                <option value="8">8th</option>
+                <option value="7">7th</option>
+                <option value="6">6th</option>
+                <option value="5">5th</option>
+                <option value="4">4th</option>
+                <option value="3">3rd</option>
+                <option value="2">2nd</option>
+                <option value="1">1st</option>
               </select>
             </div>
           </div>
@@ -68,11 +68,11 @@
             <div>
               <label for="subject">Subject</label>
               <p>:</p>
-              <select name="subjects" id="subjects" style="min-width:200px;">
+              <select name="subject" id="subjects" style="min-width:200px;">
                 <% faculty.forEach(faculty => { %>
                   <% faculty.courses.forEach(course => { %>
                    <% course.subjects.forEach(subject => { %>
-                    <option value="<%= subject %> "><%= subject%></option>
+                    <option value="<%= subject %>"><%= subject%></option>
                    <% }) %>
                   <% }) %>
  

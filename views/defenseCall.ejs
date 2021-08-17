@@ -38,10 +38,18 @@
             <div>
               <label for="faculty">Faculty</label>
               <p>:</p>
-              <select type="text" name="faculty" id="faculty">
-                <% faculty.forEach(element => { %>
-                <option value="<%= element.name %>"><%= element.name%></option>
-                <% }) %>
+              <select
+                type="text"
+                name="faculty"
+                id="faculty"
+                onchange="valChange()"
+              >
+                <option value="unselected" class="0">Select Faculty</option>
+                <% var count = 1%> <% faculty.forEach(element => { %>
+                <option value="<%= element.name %>" code="<%=count%>">
+                  <%= element.name%>
+                </option>
+                <% count += 1%> <% }) %>
               </select>
             </div>
           </div>
@@ -50,7 +58,8 @@
             <div>
               <label for="sems">Semester</label>
               <p>:</p>
-              <select name="sems" id="sems">
+              <select name="sems" id="sems" onchange="valChange()">
+                <option value="0">Select Semester</option>
                 <option value="8">8th</option>
                 <option value="7">7th</option>
                 <option value="6">6th</option>
@@ -67,13 +76,11 @@
             <div>
               <label for="subject">Subject</label>
               <p>:</p>
-              <select name="subject" id="subjects" style="min-width: 200px">
-                <% faculty.forEach(faculty => { %> <%
-                faculty.courses.forEach(course => { %> <%
-                course.subjects.forEach(subject => { %>
-                <option value="<%= subject %>"><%= subject%></option>
-                <% }) %> <% }) %> <% }) %>
-              </select>
+              <select
+                name="subject"
+                id="subjects"
+                style="min-width: 200px"
+              ></select>
             </div>
           </div>
 
@@ -117,6 +124,7 @@
         </form>
       </div>
     </div>
+    <%- include('./partials/subjectSelection') %>
     <script src="/javascripts/chooseUser.js"></script>
   </body>
 </html>

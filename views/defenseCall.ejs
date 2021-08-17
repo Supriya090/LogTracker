@@ -37,6 +37,18 @@
 
           <div class="form-group options">
             <div>
+              <label for="faculty">Faculty</label>
+              <p>:</p>
+              <select name="faculty" id="faculty">
+                <% faculty.forEach(element => { %>
+                  <option value="<%= element.name %> "><%= element.name%></option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group options">
+            <div>
               <label for="sems">Semester</label>
               <p>:</p>
               <select name="sems" id="sems">
@@ -57,9 +69,14 @@
               <label for="subject">Subject</label>
               <p>:</p>
               <select name="subjects" id="subjects" style="min-width:200px;">
-                <option value="1">Software Engineering</option>
-                <option value="2">Computer Graphics</option>
-                <option value="2">Instrumentation II</option>
+                <% faculty.forEach(faculty => { %>
+                  <% faculty.courses.forEach(course => { %>
+                   <% course.subjects.forEach(subject => { %>
+                    <option value="<%= subject %> "><%= subject%></option>
+                   <% }) %>
+                  <% }) %>
+ 
+                <% }) %>
               </select>
             </div>
           </div>

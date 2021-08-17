@@ -13,7 +13,6 @@ router.use(
       console.log(JSON.stringify(req.body));
 
 
-
       const faculty = new Faculty();
       faculty.name = "Mechanical Engineering";
       faculty.courses = [{

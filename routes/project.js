@@ -163,25 +163,25 @@ router.post("/defenceComment/:pId", (req, res, next) => {
         console.log(err);
         res.status(500).send("Database error occured");
       } else {
-        if(project.midDefence.approved==true){
-          var message ={
-            comment:req.body.cmt,
+        if (project.midDefence.approved == true) {
+          var message = {
+            comment: req.body.cmt,
             option: "final",
-            commentedBy:req.user.username,
+            commentedBy: req.user.username,
           }
-        }else{
-          var message ={
-            comment:req.body.cmt,
+        } else {
+          var message = {
+            comment: req.body.cmt,
             option: "mid",
-            commentedBy:req.user.username,
+            commentedBy: req.user.username,
           }
         }
-        Project.comment(pId,message,function (err) {
+        Project.comment(pId, message, function (err) {
           //Save to database
           if (err) {
             console.log(err);
             res.status(500).send("Database error occured");
-          }else{
+          } else {
             if (req.session.user.userstatus == "student") {
               res.redirect("/student/eachProject/".concat(pId));
             } else if (req.session.user.userstatus == "teacher") {
@@ -201,7 +201,7 @@ router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
   pId = req.params.pId;
   userstatus = req.session.user.userstatus;
   console.log(userstatus);
-  var message =req.body.message
+  var message = req.body.message
   Project.findById(pId, function (err, project) {
     //Save to database
     console.log(project)
@@ -210,9 +210,9 @@ router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
       res.status(500).send("Database error occured");
     } else {
       if (project.midDefence.approved == true) {
-        
+
         if ((userstatus == "student")) {
-          Project.requestFinalDefence(pId,message, function (err, projects) {
+          Project.requestFinalDefence(pId, message, function (err, projects) {
             //Save to database
             if (err) {
               console.log(err);
@@ -229,10 +229,10 @@ router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
             }
           });
         }
-      
-      }else {
+
+      } else {
         if ((userstatus == "student")) {
-          Project.requestMidDefence(pId,message, function (err, projects) {
+          Project.requestMidDefence(pId, message, function (err, projects) {
             //Save to database
             if (err) {
               console.log(err);
@@ -256,7 +256,7 @@ router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
         res.redirect("/teacher/eachProject/".concat(pId));
       }
     }
-    
+
   });
 });
 
@@ -264,13 +264,13 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
   userstatus = req.session.user.userstatus;
   console.log(req.body);
 
-  var defense ={
-    date:new Date(req.body.defenseDate),
-    time:req.body.defenseTime,
-    term:req.body.terms,
+  var defense = {
+    date: new Date(req.body.defenseDate),
+    time: req.body.defenseTime,
+    term: req.body.terms,
   }
 
-  Project.find({faculty: req.body.faculty, subject: req.body.subject, semester: req.body.sems}, function (err, projects) {
+  Project.find({ faculty: req.body.faculty, subject: req.body.subject, semester: req.body.sems }, function (err, projects) {
     //Save to database
     console.log(projects)
     if (err) {
@@ -279,7 +279,7 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
     } else {
       projects.forEach(project => {
         if (defense.term == "mid") {
-          Project.callMidDefence(project._id,defense,function (err, projects) {
+          Project.callMidDefence(project._id, defense, function (err, projects) {
             //Save to database
             if (err) {
               console.log(err);
@@ -292,55 +292,51 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
           event.dueDate = defense.date;
           event.createdBy = "Co-ordinator";
           event.description = req.body.description;
-          Event.findOneAndUpdate({event:"Mid-Term Defense"},{
+          Event.findOneAndUpdate({ event: "Mid-Term Defense" }, {
             $set: {
-              projectId : project._id,
-              event : "Mid-Term Defense",
-              dueDate : defense.date,
-              createdBy : "Co-ordinator",
-              description : req.body.description
+              projectId: project._id,
+              event: "Mid-Term Defense",
+              dueDate: defense.date,
+              createdBy: "Co-ordinator",
+              description: req.body.description
             }
 
-          }, function (err, events) {
-            if (err) {
-              Event.createEvent(event, function (err, events) {
-              });
-            }
-          });
+          },
+            {
+              new: true,
+            }, function (err, events) {
+              if (err) {
+                Event.createEvent(event, function (err, events) {
+                });
+              }
+            });
         } else if (defense.term == "final") {
-          Project.callFinalDefence(project._id,defense,function (err, projects) {
+          Project.callFinalDefence(project._id, defense, function (err, projects) {
             //Save to database
             if (err) {
               console.log(err);
               res.status(500).send("Database error occured");
             }
           })
-          const event = new Event();
-          event.projectId = project._id;
-          event.event = "Final Defense";
-          event.dueDate = defense.date;
-          event.createdBy = "Co-ordinator";
-          event.description = req.body.description;
-          Event.findOneAndUpdate({event:"Final Defense"},{
-            $set: {
-              projectId : project._id,
-              event : "Final Defense",
-              dueDate : defense.date,
-              createdBy : "Co-ordinator",
-              description : req.body.description
-            }
+          
+          var query = {event:"Final Defence",projectId:project._id},
+            update = { 
+              event: "Final Defense",
+              dueDate: defense.date,
+              createdBy: "Co-ordinator",
+              description: req.body.description},
+            options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-          }, function (err, events) {
-            if (err) {
-              Event.createEvent(event, function (err, events) {
-              });
-            }
+          // Find the document
+          Event.findOneAndUpdate(query, update, options, function (error, result) {
+            console.log(result)
+            if (error) console.log(error);
           });
         }
       });
-        res.redirect("/dashboard")
+      res.redirect("/dashboard")
     }
-    
+
   });
 });
 

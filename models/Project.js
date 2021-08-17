@@ -19,6 +19,10 @@ var ProjectSchema = new mongoose.Schema({
     type: String,
     // required: true,
   },
+  faculty: {
+    type: String,
+    required: true,
+  },
   semester: {
     type: String,
     required: true,
@@ -161,7 +165,9 @@ module.exports.updateProject = function (projectId, newProject, callback) {
         supervisor : newProject.supervisor,
         team :  newProject.team,
         createdBy : newProject.createdBy,
+        faculty : newProject.faculty,
         semester : newProject.semester,
+        subject : newProject.subject,
         teamname :  newProject.teamname,
       },
     },

@@ -5,6 +5,7 @@ var Minute = require("../models/Minute");
 var Comment = require("../models/Comment");
 var Project = require("../models/Project");
 var Event = require("../models/Event");
+var Faculty = require("../models/Faculty");
 var { loggedin, ensureAuth } = require("../middleware/ensureLogin");
 
 /* GET Dashboard. */
@@ -158,14 +159,15 @@ router.get(
   function (req, res, next) {
     user = req.session.user
     if (user.userstatus == "admin") {
-      User.find({}, function (err, usr) {
+      Faculty.find({}, function (err, faculty) {
         if (err) {
           console.log(err);
         } else {
           Project.findById(req.params.pId, function (err, project) {
             res.render("editTeam", {
               message: req.flash('message'),
-              users: usr,
+              users: user,
+              faculty: faculty,
               project: project,
               title: "Edit Team | Log Tracker",
               pId: req.params.pId,
@@ -187,15 +189,23 @@ router.get(
   loggedin,
   function (req, res, next) {
     user = req.session.user
+    Faculty.find({}, function (err, faculty) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("defenseCall", {
+          message: req.flash('message'),
+          users: user,
+          faculty: faculty,
+          title: "Defence Call | Log Tracker",
+          pId: req.params.pId,
+          firstname: req.user.username.split(" ")[0],
+        });
+
+      }
+    });
    
-            res.render("defenseCall", {
-              message: req.flash('message'),
-              users: user,
-              title: "Defence Call | Log Tracker",
-              pId: req.params.pId,
-              firstname: req.user.username.split(" ")[0],
-            });
-   
+           
   
   }
 );
@@ -254,13 +264,14 @@ router.use("/signup", function (req, res, next) {  //!loggedin,
 router.get("/admin/createTeam", loggedin, function (req, res, next) {
   user = req.session.user
   if (user.userstatus == "admin") {
-    User.find({}, function (err, usr) {
+    Faculty.find({}, function (err, faculty) {
       if (err) {
         console.log(err);
       } else {
         res.render("createTeam", {
           message: req.flash('message'),
-          users: usr,
+          users: user,
+          faculty: faculty,
           title: "Create Team | Log Tracker",
           firstname: req.user.username.split(" ")[0],
         });

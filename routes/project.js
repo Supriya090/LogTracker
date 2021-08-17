@@ -284,6 +284,14 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
               res.status(500).send("Database error occured");
             }
           })
+          const event = new Event();
+          event.projectId = project._id;
+          event.event = "Mid-Term Defense";
+          event.dueDate = defense.date;
+          event.createdBy = "Co-ordinator";
+          event.description = req.body.description;
+          Event.createEvent(event, function (err, events) {
+          });
         } else if (defense.term == "final") {
           Project.callFinalDefence(project._id,defense,function (err, projects) {
             //Save to database
@@ -292,6 +300,14 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
               res.status(500).send("Database error occured");
             }
           })
+          const event = new Event();
+          event.projectId = project._id;
+          event.event = "Final Defense";
+          event.dueDate = defense.date;
+          event.createdBy = "Co-ordinator";
+          event.description = req.body.description;
+          Event.createEvent(event, function (err, events) {
+          });
         }
       });
         res.redirect("/dashboard")

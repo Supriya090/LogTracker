@@ -112,7 +112,7 @@
                 <% if( Array.isArray(users) ) { %> <%users.forEach( function(
                 users ){ %> <% if (users.userstatus=="teacher" && users.email) {
                 %>
-                <option><%= users.username%>: <%= users.email %></option>
+                <option><%= users.username%>:<%= users.email %></option>
                 <% } %> <%})}%>
               </datalist>
 
@@ -135,7 +135,7 @@
                 <% if( Array.isArray(users) ) { %> <%users.forEach( function(
                 users ){ %> <% if (users.userstatus=="student" && users.email) {
                 %>
-                <option><%= users.username%>: <%= users.email%></option>
+                <option><%= users.username%>:<%= users.email%></option>
                 <% } %> <%})}%>
               </datalist>
               <!-- <input type="text" id="newStud_1" name="std1"/> -->

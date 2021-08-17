@@ -79,9 +79,9 @@ router.post("/editteams/:pId", function (req, res, next) {
   project.team = team;
   project.createdBy = req.session.user.email;
   project.updatedBy = req.session.user.email;
-  project.faculty = faculty;
+  // project.faculty = faculty;
   project.semester = semester;
-  project.subject = subject;
+  // project.subject = subject;
   project.teamname = teamname;
   console.log(project)
   Project.updateProject(pId, project, function (err, projects) {

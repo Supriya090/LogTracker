@@ -290,7 +290,20 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
           event.dueDate = defense.date;
           event.createdBy = "Co-ordinator";
           event.description = req.body.description;
-          Event.createEvent(event, function (err, events) {
+          Event.findOneAndUpdate({event:"Mid-Term Defense"},{
+            $set: {
+              projectId : project._id,
+              event : "Mid-Term Defense",
+              dueDate : defense.date,
+              createdBy : "Co-ordinator",
+              description : req.body.description
+            }
+
+          }, function (err, events) {
+            if (err) {
+              Event.createEvent(event, function (err, events) {
+              });
+            }
           });
         } else if (defense.term == "final") {
           Project.callFinalDefence(project._id,defense,function (err, projects) {
@@ -306,7 +319,20 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
           event.dueDate = defense.date;
           event.createdBy = "Co-ordinator";
           event.description = req.body.description;
-          Event.createEvent(event, function (err, events) {
+          Event.findOneAndUpdate({event:"Final Defense"},{
+            $set: {
+              projectId : project._id,
+              event : "Final Defense",
+              dueDate : defense.date,
+              createdBy : "Co-ordinator",
+              description : req.body.description
+            }
+
+          }, function (err, events) {
+            if (err) {
+              Event.createEvent(event, function (err, events) {
+              });
+            }
           });
         }
       });

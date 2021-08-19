@@ -25,6 +25,7 @@ var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth")(passport);
 var minuteRouter = require("./routes/minute")
 var projectRouter = require("./routes/project")
+var facultyRouter = require("./routes/faculty")
 
 var app = express();
 
@@ -78,6 +79,7 @@ app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/minute", minuteRouter);
 app.use("/project", projectRouter);
+app.use("/faculty", facultyRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -12,6 +12,8 @@ router.post("/createteams", function (req, res, next) {
   var teamname = req.body.teamname;
   var semester = req.body.sems;
   var username = req.user.username;
+  var faculty = req.body.faculty;
+  var subject = req.body.subject;
   (supervisor = [req.body.supervisor1, req.body.supervisor2]),
     (team = [
       req.body.std1,
@@ -32,9 +34,11 @@ router.post("/createteams", function (req, res, next) {
   project.description = description;
   project.supervisor = supervisor;
   project.team = team;
-  project.createdBy = req.session.user.email;
-  project.updatedBy = req.session.user.email;
+  project.createdBy = req.user.email;
+  project.updatedBy = req.user.email;
+  project.faculty = faculty;
   project.semester = semester;
+  project.subject = subject;
   project.teamname = teamname;
   Project.createProject(project, function (err, projects) {
     //Save to database
@@ -75,9 +79,11 @@ router.post("/editteams/:pId", function (req, res, next) {
   project.description = description;
   project.supervisor = supervisor;
   project.team = team;
-  project.createdBy = req.session.user.email;
-  project.updatedBy = req.session.user.email;
+  project.createdBy = req.user.email;
+  project.updatedBy = req.user.email;
+  // project.faculty = faculty;
   project.semester = semester;
+  // project.subject = subject;
   project.teamname = teamname;
   console.log(project)
   Project.updateProject(pId, project, function (err, projects) {
@@ -124,16 +130,16 @@ router.post("/event/save/:pId", (req, res, next) => {
       if (err) {
         console.log(err);
         req.flash("message", "Error Saving Event");
-        if (req.session.user.userstatus == "student") {
+        if (req.user.userstatus == "student") {
           res.redirect("/student/eachProject/".concat(pId));
-        } else if (req.session.user.userstatus == "teacher") {
+        } else if (req.user.userstatus == "teacher") {
           res.redirect("/teacher/eachProject/".concat(pId));
         }
       } else {
         req.flash("message", "Event Added");
-        if (req.session.user.userstatus == "student") {
+        if (req.user.userstatus == "student") {
           res.redirect("/student/eachProject/".concat(pId));
-        } else if (req.session.user.userstatus == "teacher") {
+        } else if (req.user.userstatus == "teacher") {
           res.redirect("/teacher/eachProject/".concat(pId));
         }
       }
@@ -157,28 +163,28 @@ router.post("/defenceComment/:pId", (req, res, next) => {
         console.log(err);
         res.status(500).send("Database error occured");
       } else {
-        if(project.midDefence.approved==true){
-          var message ={
-            comment:req.body.cmt,
+        if (project.midDefence.approved == true) {
+          var message = {
+            comment: req.body.cmt,
             option: "final",
-            commentedBy:req.user.username,
+            commentedBy: req.user.username,
           }
-        }else{
-          var message ={
-            comment:req.body.cmt,
+        } else {
+          var message = {
+            comment: req.body.cmt,
             option: "mid",
-            commentedBy:req.user.username,
+            commentedBy: req.user.username,
           }
         }
-        Project.comment(pId,message,function (err) {
+        Project.comment(pId, message, function (err) {
           //Save to database
           if (err) {
             console.log(err);
             res.status(500).send("Database error occured");
-          }else{
-            if (req.session.user.userstatus == "student") {
+          } else {
+            if (req.user.userstatus == "student") {
               res.redirect("/student/eachProject/".concat(pId));
-            } else if (req.session.user.userstatus == "teacher") {
+            } else if (req.user.userstatus == "teacher") {
               res.redirect("/teacher/eachProject/".concat(pId));
             }
           }
@@ -193,9 +199,9 @@ router.post("/defenceComment/:pId", (req, res, next) => {
 
 router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
   pId = req.params.pId;
-  userstatus = req.session.user.userstatus;
+  userstatus = req.user.userstatus;
   console.log(userstatus);
-  var message =req.body.message
+  var message = req.body.message
   Project.findById(pId, function (err, project) {
     //Save to database
     console.log(project)
@@ -204,9 +210,9 @@ router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
       res.status(500).send("Database error occured");
     } else {
       if (project.midDefence.approved == true) {
-        
+
         if ((userstatus == "student")) {
-          Project.requestFinalDefence(pId,message, function (err, projects) {
+          Project.requestFinalDefence(pId, message, function (err, projects) {
             //Save to database
             if (err) {
               console.log(err);
@@ -223,10 +229,10 @@ router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
             }
           });
         }
-      
-      }else {
+
+      } else {
         if ((userstatus == "student")) {
-          Project.requestMidDefence(pId,message, function (err, projects) {
+          Project.requestMidDefence(pId, message, function (err, projects) {
             //Save to database
             if (err) {
               console.log(err);
@@ -244,28 +250,99 @@ router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
           });
         }
       }
-      if (req.session.user.userstatus == "student") {
+      if (req.user.userstatus == "student") {
         res.redirect("/student/eachProject/".concat(pId));
-      } else if (req.session.user.userstatus == "teacher") {
+      } else if (req.user.userstatus == "teacher") {
         res.redirect("/teacher/eachProject/".concat(pId));
       }
     }
-    
+
+  });
+});
+
+router.post("/defenseCall", loggedin, (req, res, next) => {
+  userstatus = req.user.userstatus;
+  console.log(req.body);
+
+  var defense = {
+    date: new Date(req.body.defenseDate),
+    time: req.body.defenseTime,
+    term: req.body.terms,
+  }
+
+  Project.find({ faculty: req.body.faculty, subject: req.body.subject, semester: req.body.sems }, function (err, projects) {
+    //Save to database
+    console.log(projects)
+    if (err) {
+      console.log(err);
+      res.status(500).send("Database error occured");
+    } else {
+      projects.forEach(project => {
+        if (defense.term == "mid") {
+          Project.callMidDefence(project._id, defense, function (err, projects) {
+            //Save to database
+            if (err) {
+              console.log(err);
+              res.status(500).send("Database error occured");
+            }
+          })
+          var query = {event:"Mid-Term Defense",projectId:project._id},
+          update = { 
+            event: "Mid-Term Defense",
+            dueDate: defense.date,
+            createdBy: "Co-ordinator",
+            description: req.body.description},
+          options = { upsert: true, new: true, setDefaultsOnInsert: true };
+          Event.findOneAndUpdate(query, update, options, function (error, result) {
+            console.log(result)
+            if (error) console.log(error);
+          });
+        } else if (defense.term == "final") {
+          Project.callFinalDefence(project._id, defense, function (err, projects) {
+            //Save to database
+            if (err) {
+              console.log(err);
+              res.status(500).send("Database error occured");
+            }
+          })
+          
+          var query = {event:"Final Defense",projectId:project._id},
+            update = { 
+              event: "Final Defense",
+              dueDate: defense.date,
+              createdBy: "Co-ordinator",
+              description: req.body.description},
+            options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+          // Find the document
+          Event.findOneAndUpdate(query, update, options, function (error, result) {
+            console.log(result)
+            if (error) console.log(error);
+          });
+        }
+      });
+      res.redirect("/dashboard")
+    }
+
   });
 });
 
 
-router.use("/event/completed/:pId/:id", loggedin, (req, res, next) => {
+router.use("/event/completed/:pId/:id/:title", loggedin, (req, res, next) => {
   Event.Completed(req.params.id, function (err, events) {
     var pId = req.params.pId;
+    if(req.params.title == "Final Defense")
+    {
+      Project.completeProject(pId,function(err){})
+    }
     if (err) {
       req.flash("message", "Cannot Complete task : ".concat(err));
       return next(err);
     } else {
       req.flash("message", "Task Completed");
-      if (req.session.user.userstatus == "student") {
+      if (req.user.userstatus == "student") {
         res.redirect("/student/eachProject/".concat(pId));
-      } else if (req.session.user.userstatus == "teacher") {
+      } else if (req.user.userstatus == "teacher") {
         res.redirect("/teacher/eachProject/".concat(pId));
       }
     }
@@ -279,9 +356,9 @@ router.use("/event/remaining/:pId/:id", loggedin, (req, res, next) => {
       req.flash("message", "Cannot Complete task : ".concat(err));
       return next(err);
     } else {
-      if (req.session.user.userstatus == "student") {
+      if (req.user.userstatus == "student") {
         res.redirect("/student/eachProject/".concat(pId));
-      } else if (req.session.user.userstatus == "teacher") {
+      } else if (req.user.userstatus == "teacher") {
         res.redirect("/teacher/eachProject/".concat(pId));
       }
     }

@@ -25,7 +25,7 @@
           <label for="completed">Done</label>
           <% if (!events.isCompleted) { %>
           <input type="checkbox"
-            onclick='window.location.assign("/project/event/completed/<%= (project._id).toString() %>/<%= (events._id).toString() %>")'
+            onclick='window.location.assign("/project/event/completed/<%= (project._id).toString() %>/<%= (events._id).toString() %>/<%= (events.event).toString()%>")'
             name="completed" class="completed-checkbox" /> <% } 
             else { %> <input
             onclick='window.location.assign("/project/event/remaining/<%= (project._id).toString() %>/<%= (events._id).toString() %>")'

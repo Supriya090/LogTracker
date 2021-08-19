@@ -86,7 +86,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 20px 10px 20px;
+  padding: 0px 20px 20px 20px;
   position: relative;
 }
 
@@ -102,7 +102,7 @@
 .project-badges {
   margin: 0px;
   position: absolute;
-  bottom: -15px;
+  bottom: -20px;
 }
 
 .project-badges span.badge {

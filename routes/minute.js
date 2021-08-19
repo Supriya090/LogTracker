@@ -156,7 +156,7 @@ router.post("/edit/:pId/:mId", (req, res, next) => {
       //Save to database
       if (err) {
         // res.status(500).send(err);
-        req.flash('message', "Error Editing Minute")
+        req.flash('message', "Error Editing Minute :".concat(err))
         res.redirect("/student/eachProject/" + pId);
       } else {
         req.flash('message', "Minute Edited Successfully")

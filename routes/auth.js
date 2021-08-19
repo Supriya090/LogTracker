@@ -53,43 +53,40 @@ module.exports = function (passport) {
     });
   });
 
-  //For Login using local strategy
-  //   router.post(
-  //     "/login",
-  //     passport.authenticate("local", {
-  //       failureRedirect: "/",
-  //       successRedirect: "/dashboard",
-  //       failureFlash: true,
-  //     }),
-  //     function (req, res) {
-  //       res.send("Welcome");
-  //     }
-  //   );
-  //   return router;
-  // };
+  // For Login using local strategy
+    router.post(
+      "/login",
+      passport.authenticate("local", {
+        failureRedirect: "/",
+        successRedirect: "/dashboard",
+        failureFlash: true,
+      })
+    );
+    return router;
+  };
 
   
 
-  router.post("/login", function (req, res) {
-    const user = new User({
-      email: req.body.username,
-      password: req.body.password,
-    });
-    User.findOne({ email: req.body.username }, function (err, user) {
-      req.login(user, function (err) {
-        if (!err) {
-          passport.authenticate("local")(req, res, function () {
-            req.flash('message', 'Logged in Successfully')
-            res.redirect("/dashboard");
-            console.log(user.email);
-          });
-        } else {
-          req.flash('message', 'Incorrect Email or Password')
-          res.redirect('/');
-        }
-      });
-      req.session.user = user;
-    });
-  });
-  return router;
-};
+//   router.post("/login", function (req, res) {
+//     const user = new User({
+//       email: req.body.username,
+//       password: req.body.password,
+//     });
+//     User.findOne({ email: req.body.username }, function (err, user) {
+//       req.login(user, function (err) {
+//         if (!err) {
+//           passport.authenticate("local")(req, res, function () {
+//             req.flash('message', 'Logged in Successfully')
+//             res.redirect("/dashboard");
+//             console.log(user.email);
+//           });
+//         } else {
+//           req.flash('message', 'Incorrect Email or Password')
+//           res.redirect('/');
+//         }
+//       });
+//       req.session.user = user;
+//     });
+//   });
+//   return router;
+// };

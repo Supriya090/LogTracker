@@ -34,8 +34,8 @@ router.post("/createteams", function (req, res, next) {
   project.description = description;
   project.supervisor = supervisor;
   project.team = team;
-  project.createdBy = req.session.user.email;
-  project.updatedBy = req.session.user.email;
+  project.createdBy = req.user.email;
+  project.updatedBy = req.user.email;
   project.faculty = faculty;
   project.semester = semester;
   project.subject = subject;
@@ -79,8 +79,8 @@ router.post("/editteams/:pId", function (req, res, next) {
   project.description = description;
   project.supervisor = supervisor;
   project.team = team;
-  project.createdBy = req.session.user.email;
-  project.updatedBy = req.session.user.email;
+  project.createdBy = req.user.email;
+  project.updatedBy = req.user.email;
   // project.faculty = faculty;
   project.semester = semester;
   // project.subject = subject;
@@ -130,16 +130,16 @@ router.post("/event/save/:pId", (req, res, next) => {
       if (err) {
         console.log(err);
         req.flash("message", "Error Saving Event");
-        if (req.session.user.userstatus == "student") {
+        if (req.user.userstatus == "student") {
           res.redirect("/student/eachProject/".concat(pId));
-        } else if (req.session.user.userstatus == "teacher") {
+        } else if (req.user.userstatus == "teacher") {
           res.redirect("/teacher/eachProject/".concat(pId));
         }
       } else {
         req.flash("message", "Event Added");
-        if (req.session.user.userstatus == "student") {
+        if (req.user.userstatus == "student") {
           res.redirect("/student/eachProject/".concat(pId));
-        } else if (req.session.user.userstatus == "teacher") {
+        } else if (req.user.userstatus == "teacher") {
           res.redirect("/teacher/eachProject/".concat(pId));
         }
       }
@@ -182,9 +182,9 @@ router.post("/defenceComment/:pId", (req, res, next) => {
             console.log(err);
             res.status(500).send("Database error occured");
           } else {
-            if (req.session.user.userstatus == "student") {
+            if (req.user.userstatus == "student") {
               res.redirect("/student/eachProject/".concat(pId));
-            } else if (req.session.user.userstatus == "teacher") {
+            } else if (req.user.userstatus == "teacher") {
               res.redirect("/teacher/eachProject/".concat(pId));
             }
           }
@@ -199,7 +199,7 @@ router.post("/defenceComment/:pId", (req, res, next) => {
 
 router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
   pId = req.params.pId;
-  userstatus = req.session.user.userstatus;
+  userstatus = req.user.userstatus;
   console.log(userstatus);
   var message = req.body.message
   Project.findById(pId, function (err, project) {
@@ -250,9 +250,9 @@ router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
           });
         }
       }
-      if (req.session.user.userstatus == "student") {
+      if (req.user.userstatus == "student") {
         res.redirect("/student/eachProject/".concat(pId));
-      } else if (req.session.user.userstatus == "teacher") {
+      } else if (req.user.userstatus == "teacher") {
         res.redirect("/teacher/eachProject/".concat(pId));
       }
     }
@@ -261,7 +261,7 @@ router.post("/requestApproveDefence/:pId", loggedin, (req, res, next) => {
 });
 
 router.post("/defenseCall", loggedin, (req, res, next) => {
-  userstatus = req.session.user.userstatus;
+  userstatus = req.user.userstatus;
   console.log(req.body);
 
   var defense = {
@@ -336,9 +336,9 @@ router.use("/event/completed/:pId/:id", loggedin, (req, res, next) => {
       return next(err);
     } else {
       req.flash("message", "Task Completed");
-      if (req.session.user.userstatus == "student") {
+      if (req.user.userstatus == "student") {
         res.redirect("/student/eachProject/".concat(pId));
-      } else if (req.session.user.userstatus == "teacher") {
+      } else if (req.user.userstatus == "teacher") {
         res.redirect("/teacher/eachProject/".concat(pId));
       }
     }
@@ -352,9 +352,9 @@ router.use("/event/remaining/:pId/:id", loggedin, (req, res, next) => {
       req.flash("message", "Cannot Complete task : ".concat(err));
       return next(err);
     } else {
-      if (req.session.user.userstatus == "student") {
+      if (req.user.userstatus == "student") {
         res.redirect("/student/eachProject/".concat(pId));
-      } else if (req.session.user.userstatus == "teacher") {
+      } else if (req.user.userstatus == "teacher") {
         res.redirect("/teacher/eachProject/".concat(pId));
       }
     }

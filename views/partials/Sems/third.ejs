@@ -38,6 +38,11 @@
                         <%}else if(projects.finalDefence.approved === true){%>
                             <span class="badge badge-info">Final Defence Approval Pending</span>
                         <%}%>
+                        <%if(projects.finalDefence.called === true){%>
+                            <span class="badge badge-info">Final Defence Called</span>
+                        <%}else if(projects.midDefence.called === true){%>
+                            <span class="badge badge-success">Mid Defence Called</span>
+                        <%}%>
                     </div>
     
                 </div>

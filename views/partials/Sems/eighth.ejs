@@ -40,7 +40,14 @@
                 <%}else if(projects.finalDefence.approved === true){%>
                     <span class="badge badge-info">Final Defence Approval Pending</span>
                 <%}%>
+                <%if(projects.finalDefence.called === true){%>
+                    <span class="badge badge-success">Final Defence Called</span>
+                <%}else if(projects.midDefence.called === true){%>
+                    <span class="badge badge-success">Mid Defence Called</span>
+                <%}%>
             </div>
+
+      
         </div>
           <% if (userstatus == "teacher") { %>
               <a href="/teacher/eachProject/<%= projects._id.toString()%>" class="stretched-link"></a>

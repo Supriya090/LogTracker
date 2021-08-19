@@ -176,6 +176,21 @@ module.exports.updateProject = function (projectId, newProject, callback) {
   );
 };
 
+module.exports.completeProject = function (pid, callback) {
+  Project.findByIdAndUpdate(
+    pid,
+    {
+      $set: {
+        isCompleted: true,
+      },
+    },
+    {
+      new: true,
+    },
+    callback
+  );
+};
+
 module.exports.requestMidDefence = function (pid, message, callback) {
   Project.findByIdAndUpdate(
     pid,

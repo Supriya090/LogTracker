@@ -28,6 +28,11 @@
                                     <div class="project-badges">
                                         <span class="badge badge-secondary"><%=projects.subject%></span>
                                         <span class="badge badge-secondary"><%=projects.faculty%></span>
+                                        <%if(projects.finalDefence.called === true){%>
+                                            <span class="badge badge-info">Final Defence Called</span>
+                                        <%}else if(projects.midDefence.called === true){%>
+                                            <span class="badge badge-info">Mid Defence Called</span>
+                                            <%}%>
                                         <%if(projects.midDefence.approved === true){%>
                                             <span class="badge badge-success">Mid Defence Approved</span>
                                         <%}else if(projects.midDefence.approved === true){%>
@@ -38,11 +43,6 @@
                                         <%}else if(projects.finalDefence.approved === true){%>
                                             <span class="badge badge-info">Final Defence Approval Pending</span>
                                         <%}%>
-                                        <%if(projects.finalDefence.called === true){%>
-                                            <span class="badge badge-success">Final Defence Called</span>
-                                        <%}else if(projects.midDefence.called === true){%>
-                                            <span class="badge badge-success">Mid Defence Called</span>
-                                            <%}%>
                                     </div>
                   
                 </div>

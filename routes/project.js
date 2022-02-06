@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Project = require("../models/Project");
 var Event = require("../models/Event");
+var File = require("../models/Repository")
 var { loggedin } = require("../middleware/ensureLogin");
 
 router.post("/createteams", function (req, res, next) {
@@ -87,6 +88,25 @@ router.post("/editteams/:pId", function (req, res, next) {
   project.teamname = teamname;
   console.log(project)
   Project.updateProject(pId, project, function (err, projects) {
+    //Save to database
+    if (err) {
+      console.log(err);
+      res.status(500).send("Database error occured");
+    } else {
+      res.redirect("/dashboard");
+    }
+  });
+});
+
+router.post("/uploadFiles/:projectId", function (req, res, next) {
+  //console.log(teamname)
+
+  const file = new File()
+  file.projectId = req.params.projectId
+  file.title = req.body.title
+  file.attachment = uploadedFile
+
+  File.addFile(files, function (err, projects) {
     //Save to database
     if (err) {
       console.log(err);

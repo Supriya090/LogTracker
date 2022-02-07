@@ -19,7 +19,7 @@
     "express-session": "^1.17.2",
     "file-to-array-buffer": "^1.0.0",
     "http-errors": "~1.6.3",
-    "ipfs-api": "^26.1.2",
+    "ipfs-api": "^19.0.0",
     "ipfs-http-client": "^50.1.2",
     "mongoose": "^5.12.14",
     "morgan": "~1.9.1",

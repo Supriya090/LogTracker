@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+
+  <body class="minute-body" style="background-color: #1f3750; color: white">
+    <%- include('partials/header') %>
+    <div class="container">
+      <h3>Add Approved Files</h3>
+      <div class="card text-center">
+        <form
+          method="POST"
+          action="/minute/save/<%=pId%>"
+          class="login-form minute-form"
+          enctype="multipart/form-data"
+        >
+          <div class="form-group">
+            <label for="name">Title : </label>
+            <input
+              type=""
+              class="form-control"
+              id="title"
+              name="title"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="college">Description:</label>
+            <textarea
+              type="string"
+              class="form-control"
+              id="description"
+              name="description"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="college">Add Attachments</label>
+            <input
+              type="file"
+              name="uploadedFiles"
+              value="uploading_files"
+              multiple
+              style="border: none"
+            />
+            <!-- <input type="submit" value="uploading_img"> -->
+          </div>
+          <div class="verification-button">
+            <button
+              class="btn btn-primary logout-btn"
+              name="action"
+              type="submit"
+            >
+              Add Files
+            </button>
+          </div>
+          <%- include('partials/messages') %>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

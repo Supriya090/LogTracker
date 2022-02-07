@@ -137,6 +137,32 @@ router.get(
 );
 
 router.get(
+  "/student/eachProject/addProjectRepo/:pId",
+  loggedin,
+  function (req, res, next) {
+    res.render("addFiles", {
+      title: "Add Approved Files | Log Tracker",
+      message: req.flash('message'),
+      pId: req.params.pId,
+      firstname: req.user.username.split(" ")[0],
+    });
+  }
+);
+
+router.get(
+  "/student/eachProject/projectRepo/:pId",
+  loggedin,
+  function (req, res, next) {
+    res.render("projectFiles", {
+      title: "Approved Files | Log Tracker",
+      message: req.flash('message'),
+      pId: req.params.pId,
+      firstname: req.user.username.split(" ")[0],
+    });
+  }
+);
+
+router.get(
   "/student/eachProject/editMinutes/:pId/:mId",
   loggedin,
   function (req, res, next) {
@@ -161,7 +187,7 @@ router.get(
   function (req, res, next) {
     user = req.user
     if (user.userstatus == "admin") {
-      User.find({},function(err, usr){
+      User.find({}, function (err, usr) {
         Faculty.find({}, function (err, faculty) {
           if (err) {
             console.log(err);
@@ -176,16 +202,16 @@ router.get(
                 pId: req.params.pId,
                 firstname: req.user.username.split(" ")[0],
               });
-              });
-          
+            });
+
           }
         });
       })
-      
+
     } else {
       res.redirect("/dashboard");
     }
-  
+
   }
 );
 
@@ -209,9 +235,9 @@ router.get(
 
       }
     });
-   
-           
-  
+
+
+
   }
 );
 
@@ -269,7 +295,7 @@ router.use("/signup", function (req, res, next) {  //!loggedin,
 router.get("/admin/createTeam", loggedin, function (req, res, next) {
   user = req.user
   if (user.userstatus == "admin") {
-    User.find({},function(err, usr){
+    User.find({}, function (err, usr) {
       Faculty.find({}, function (err, faculty) {
         if (err) {
           console.log(err);
@@ -284,7 +310,7 @@ router.get("/admin/createTeam", loggedin, function (req, res, next) {
         }
       });
     })
-  
+
   } else {
     res.redirect("/dashboard");
   }

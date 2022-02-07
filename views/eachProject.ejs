@@ -12,10 +12,26 @@
   <div class="container each-project">
     <div class="responsive-flex-box">
       <div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
         <h3><%= project.projectname%></h3>
         <p style="color: lightblue; margin-bottom: 10px">
           <%= project.description%>
         </p>
+      </div>
+      <div>
+        <% if(user.userstatus == "student"){%>
+          <a type="button" class="btn btn-primary logout-btn"
+            href="/student/eachProject/addProjectRepo/<%= pId%>">
+            Add Approved Files
+          </a>
+          <%}%>
+            <a type="button" class="btn btn-primary logout-btn"
+              href="/student/eachProject/projectRepo/<%= pId%>">
+              View Approved Files
+            </a>
+          </div>
+        </div>
 
         <% if(userstatus == "student"){%>
         <div class="defense-buttons">
@@ -77,8 +93,6 @@
             Approval for Final Defence
             <% } %></button>
           <% } %>
-
-
           <%- include('partials/defenseApprovals') %>
         </div>
         <%}%>
@@ -92,7 +106,6 @@
           Edit Team
         </a>
       <%}%>
-      
       <% if(user.userstatus == "student"){%>
         <a type="button" class="btn btn-primary logout-btn responsive-btn"
           href="/student/eachProject/addMinutes/<%= pId%>">

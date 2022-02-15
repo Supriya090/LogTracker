@@ -34,43 +34,48 @@
         </div>
 
         <% if(userstatus == "student"){%>
-        <div class="defense-buttons">
-          <!-- Disable this button and change content to Completed Mid-Term Defense after mid-term defense has been approved -->
-          <% if (project.midDefence.approved==true) { %>
-          <button class="btn btn-success shadow-none" onclick="openApproval()"
-            <% if (project.midDefence.approved==true) { %> disabled<% } %>>Approved for Mid-Term</button>
-          <% } else if(project.midDefence.requested==true) { %>
-          <button class="btn <% if(project.midDefence.requested==true && project.midDefence.approved!=true) { %>
-                  btn-info
-                  <% } else { %>
-                    btn-success
-            <% } %>  shadow-none" onclick="openApproval()" <% if (project.midDefence.approved==true) { %>
-            disabled<% } %>>Approval Pending for Mid-Term
-          </button>
-          <% } else { %>
-          <button class="btn btn-success shadow-none" onclick="openApproval()"
-            <% if (project.midDefence.approved==true) { %> disabled<% } %>>Ready for Mid-Term Defence
-          </button>
-          <% } %>
-          <!-- Enable this button after mid term defense has been approved -->
-          <button class="btn <% if(project.finalDefence.requested==true && project.finalDefence.approved!=true) { %>
-            btn-info
-            <% } else { %>
-              btn-success
-      <% } %> shadow-none" onclick="openApproval()" <% if (project.finalDefence.approved==true) { %> disabled<% } %>>
-            <% if (project.finalDefence.approved==true) { %>
-            Approved for Final Defence
-            <% } else if(project.finalDefence.requested==true) { %>
-            Approval Pending for Final Defence
-            <% } else { %>
-            Ready for Final Defence
-            <% } %></button>
+          <div class="defense-buttons">
+            <!-- Disable this button and change content to Completed Mid-Term Defense after mid-term defense has been approved -->
+            <% if (project.midDefence.called == true) {%>
+              <% 
+                if (project.midDefence.approved == true) {%>
+                  <button class="btn btn-success shadow-none" onclick="openApproval()"
+                    <% { %> disabled <% } %>> Approved for Mid-Term
+                  </button> <%}
+                else if (project.midDefence.requested == true) {%>
+                  <button class="btn btn-info shadow-none" onclick="openApproval()" > 
+                    Approval Pending for Mid-Term
+                  </button> <%}
+                else {%>
+                  <button class="btn btn-success shadow-none" onclick="openApproval()" > 
+                    Ready for Mid-Term
+                  </button> <%}
+              %>
+            <%}%>
+            
+            <% if (project.finalDefence.called == true) {%>
+                  <% 
+                    if (project.finalDefence.approved == true) {%>
+                      <button class="btn btn-success shadow-none" onclick="openApproval()"
+                        <% { %> disabled <% } %>> Approved for Final Defence
+                      </button> <%}
+                    else if (project.finalDefence.requested == true) {%>
+                      <button class="btn btn-info shadow-none" onclick="openApproval()" > 
+                        Approval Pending for Final Defence
+                      </button> <%}
+                    else {%>
+                      <button class="btn btn-success shadow-none" onclick="openApproval()" > 
+                        Ready for Final Defence
+                      </button> <%} 
+                  %>
+              <%}%>
 
 
-          <%- include('partials/defenseApprovals') %>
-        </div>
+            <%- include('partials/defenseApprovals') %>
+          </div>
         <%}%>
-          <% if(userstatus == "teacher"){%>
+
+        <% if(userstatus == "teacher"){%>
         <div class="defense-buttons">
           <% if (project.midDefence.requested==true) { %>
           <!-- Disable this button and change content to Completed Mid-Term Defense after mid-term defense has been approved -->

@@ -26,18 +26,19 @@
       </a>
       <%}%>
       <div class="buttons-div row">
-        <% var count=0%> <% for( let i=8; i>= 1; i-- ) { var c =0;%> <%
+        <%var elements = []%> <% for( let i=8; i>= 1; i-- ) { var c =0;%> <%
         projects.forEach(project=> { %> <% if (project.semester==i.toString()) {
-        %> <% count +=1%> <% c=c+1 %> <% } %> <% }) %> <% if (c>0) { %>
+        %><% c=c+1 %> <% } %> <% }) %> <% if (c>0) { %>
         <button
           id="showProjects<%= i %> Btn"
           studentData-launch-view="sem<%= i %> "
           class="col semBtn"
         >
-          Sem <%= i %> <% if(count==1){%> <% var current=i%> <%}%>
+          <% elements.push(i)%> Sem <%= i %> <% console.log(elements)%> <%var
+          current = Math.max(...elements)%>
         </button>
         <% } %> <% } %>
-        <h1 style="display: none" id="currentSem"><%= current%></h1>
+        <h1 id="currentSem" style="display: none"><%= current%></h1>
       </div>
 
       <%- include('partials/Sems/eighth') %> <%-
@@ -51,6 +52,7 @@
     <script>
       $(document).ready(function (e) {
         var currentSem = $("#currentSem").html();
+        console.log(currentSem);
         $(".semBtn:first").addClass("activeBtn");
         $("#sem" + currentSem).show();
       });

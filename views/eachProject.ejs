@@ -14,23 +14,20 @@
       <div>
         <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
-        <h3><%= project.projectname%></h3>
-        <p style="color: lightblue; margin-bottom: 10px">
-          <%= project.description%>
-        </p>
+        <% if (userstatus=="admin" ) { %>
+          <h3><%= project[0].projectname%></h3>
+        <%}else{%>
+          <h3><%= project.projectname%></h3>
+        <%}%>
+        
+          <p style="color: lightblue; margin-bottom: 10px">
+            <% if (userstatus=="admin" ) { %>
+              <%= project[0].description%>
+            <%}else{%>
+              <%= project.description%>
+            <%}%>
+          </p>
       </div>
-      <div>
-        <% if(user.userstatus == "student"){%>
-          <a type="button" class="btn btn-primary logout-btn"
-            href="/student/eachProject/addProjectRepo/<%= pId%>">
-            Add Approved Files
-          </a>
-          <%}%>
-            <a type="button" class="btn btn-primary logout-btn"
-              href="/student/eachProject/projectRepo/<%= pId%>">
-              View Approved Files
-            </a>
-          </div>
         </div>
 
         <% if(userstatus == "student"){%>
@@ -104,23 +101,34 @@
             
 
       </div>
-
-      <% if(user.userstatus == "admin"){%>
-        <a type="button" class="btn btn-primary logout-btn"
-          href="/admin/editTeam/<%= pId%>">
-          Edit Team
-        </a>
-      <%}%>
-      <% if(user.userstatus == "student"){%>
-        <a type="button" class="btn btn-primary logout-btn responsive-btn"
-          href="/student/eachProject/addMinutes/<%= pId%>">
-          Add Minutes
-        </a>
+      <div class="user-buttons">
+        <% if(user.userstatus == "admin"){%>
+          <a type="button" class="btn btn-primary logout-btn"
+            href="/admin/editTeam/<%= pId%>">
+            Edit Team
+          </a>
         <%}%>
+        <% if(user.userstatus == "student"){%>
+          <a type="button" class="btn btn-primary logout-btn"
+            href="/student/eachProject/addProjectRepo/<%= pId%>">
+            Add Approved Files
+          </a>
+        <%}%>
+        <a type="button" class="btn btn-primary logout-btn"
+          href="/student/eachProject/projectRepo/<%= pId%>">
+          View Approved Files
+        </a>
+        <% if(user.userstatus == "student"){%>
+          <a type="button" class="btn btn-primary logout-btn responsive-btn"
+            href="/student/eachProject/addMinutes/<%= pId%>">
+            Add Minutes
+          </a>
+          <%}%>
+      </div>
     </div>
     <div class="responsive-flex-box">
-      <h5>Detailed Logs</h5>
-      <button class="btn btn-primary logout-btn responsive-btn" onclick="openEvents()">
+      <h5 style="margin-top: 20px;">Detailed Logs</h5>
+      <button class="btn btn-primary logout-btn responsive-btn" onclick="openEvents()" style="margin-right:0px;">
         View Upcoming Events
       </button>
       <% if(userstatus == "teacher" || userstatus == "student"){%>

@@ -1,8 +1,23 @@
-<div class="card upcoming-event-card">
-  <h4 class="card-subtitle">Upcoming Events</h4>
-  <hr style="border-top: 1px solid white; margin: 10px 0px" />
+<div class="upcoming-event-card">
+  <div class="card minute-top collapsible" type="button">
+    <span class="tooltiptext">Click to view details</span>
+    <h4 class="card-subtitle">Upcoming Events</h4>
+  </div>
+  <!-- <hr style="border-top: 1px solid white; margin: 10px 0px" /> -->
   <!-- Add from database -->
-  <div class="upcoming-events-div">
+  <% var upcoming = 0, completed =0 %>
+  <% events.forEach(events => { %>
+  <% if (!events.isCompleted) { %>
+  <%  upcoming = 1 %>
+  <% } %>
+  <% if (events.isCompleted) { %>
+  <%  completed = 1 %>
+  <% } %>
+  <% }) %>
+  <div class="card upcoming-events-div" style="display: none;">
+    <% if (!upcoming) { %>
+      <p style="font-size: 16px; font-weight: 500;">No Upcoming Events!</p>
+      <% } %>
     <%var i = 1%> <% if( Array.isArray(events) ) { %> <%events.forEach(
     function( events ){ %>
       <% if (!events.isCompleted) { %>
@@ -22,6 +37,28 @@
         <%}%>
       <%})}%>
     </div>
+
+  <% if (completed) { %>
+    <div class="card minute-top collapsible" type="button">
+      <span class="tooltiptext">Click to view details</span>
+      <h4 class="card-subtitle">Completed Events</h4>
+    </div>
+    <div class="card completed-events" style="display: none;">
+      <!-- <hr style="border-top: 1px solid white; margin: 10px 0px" /> -->
+      <% if( Array.isArray(events) ) { %> <%events.forEach(
+        function( events ){ %>
+      <% if (events.isCompleted) { %>
+      <h6><i class="fa fa-check"></i><%= events.event%></h6>
+      <% }%><%})}%>
+    </div>
+  
+    <% } %>
+
+  <div class="card minute-top collapsible" type="button">
+    <span class="tooltiptext">Click to view details</span>
+    <h4 class="card-subtitle add-event-text">Member Details</h4>
+  </div>
+  <div class="card" style="display: none;">
   <h4 class="card-subtitle">Supervisor</h4>
     <hr style="border-top: 1px solid white; margin: 10px 0px" />
     
@@ -44,4 +81,5 @@
     <% } %>
   <% }) %>
     <%})}%>
+  </div>
 </div>

@@ -11,7 +11,8 @@ module.exports = function (passport) {
       username = body.username,
       password = body.password,
       status = body.userstatus;
-      level = body.level
+    level = body.level
+    console.log(body)
 
     if (!username || !password || !email) {
       errors.push({ msg: "Please fill in all fields" });
@@ -24,7 +25,7 @@ module.exports = function (passport) {
         res.redirect('/signup')
       } //mongoose or database error
       else {
-        if (doc) {        
+        if (doc) {
           req.flash('message', 'Email is already Registered!\n Please login to continue!')
           res.redirect('/signup') //if user with same username already exist
         } else {
@@ -39,7 +40,7 @@ module.exports = function (passport) {
             //Save to database
             if (err) {
               console.log(err)
-              req.flash('message', 'Error Occured in adding you')
+              req.flash('message', 'Error Occured while adding you')
               // res.status(500).send("Database error occured");
             } else {
               // res.render('/admin')
@@ -54,15 +55,14 @@ module.exports = function (passport) {
   });
 
   // For Login using local strategy
-    router.post(
-      "/login",
-      passport.authenticate("local", {
-        failureRedirect: "/",
-        successRedirect: "/dashboard",
-        failureFlash: true,
-      })
-    );
-    return router;
-  };
+  router.post(
+    "/login",
+    passport.authenticate("local", {
+      failureRedirect: "/",
+      successRedirect: "/dashboard",
+      failureFlash: true,
+    })
+  );
+  return router;
+};
 
-  

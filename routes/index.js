@@ -6,6 +6,7 @@ var Comment = require("../models/Comment");
 var Project = require("../models/Project");
 var Event = require("../models/Event");
 var Faculty = require("../models/Faculty");
+var File = require("../models/File")
 var { loggedin, ensureAuth } = require("../middleware/ensureLogin");
 
 /* GET Dashboard. */
@@ -122,6 +123,8 @@ router.get("/student/eachProject/:pId", loggedin, function (req, res, next) {
   });
 });
 
+
+
 /* GET Student Minutes */
 router.get(
   "/student/eachProject/addMinutes/:pId",
@@ -146,6 +149,8 @@ router.get(
       pId: req.params.pId,
       firstname: req.user.username.split(" ")[0],
     });
+   
+   
   }
 );
 
@@ -153,12 +158,17 @@ router.get(
   "/student/eachProject/projectRepo/:pId",
   loggedin,
   function (req, res, next) {
-    res.render("projectFiles", {
-      title: "Approved Files | Log Tracker",
-      message: req.flash('message'),
-      pId: req.params.pId,
-      firstname: req.user.username.split(" ")[0],
+    File.getFilesbyProjectId(req.params.pId, function (err, files) {
+      console.log("............",files)
+      res.render("projectFiles", {
+        files: files,
+        title: "Approved Files | Log Tracker",
+        message: req.flash('message'),
+        pId: req.params.pId,
+        firstname: req.user.username.split(" ")[0],
+      });
     });
+  
   }
 );
 

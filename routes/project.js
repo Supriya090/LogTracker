@@ -2,8 +2,13 @@ var express = require("express");
 var router = express.Router();
 var Project = require("../models/Project");
 var Event = require("../models/Event");
-var File = require("../models/Repository")
+var File = require("../models/File")
 var { loggedin } = require("../middleware/ensureLogin");
+var upload = require("../middleware/multer");
+var fs = require("fs");
+var path = require("path");
+var stream = require("stream");
+
 
 router.post("/createteams", function (req, res, next) {
   //console.log(teamname)
@@ -98,23 +103,98 @@ router.post("/editteams/:pId", function (req, res, next) {
   });
 });
 
-router.post("/uploadFiles/:projectId", function (req, res, next) {
+router.post("/uploadFiles/:projectId", upload.array("uploadedFiles", 10), (req, res, next)=> {
   //console.log(teamname)
+  var pId = req.params.projectId
+  try {
+    console.log(JSON.stringify(req.body));
+    let errors = [];
 
-  const file = new File()
-  file.projectId = req.params.projectId
-  file.title = req.body.title
-  file.attachment = uploadedFile
-
-  File.addFile(files, function (err, projects) {
-    //Save to database
-    if (err) {
-      console.log(err);
-      res.status(500).send("Database error occured");
-    } else {
-      res.redirect("/dashboard");
+    var uploadedFile = new Array()
+    for (let i = 0; i < req.files.length; i++) {
+      var data = {
+        name: req.files[i].filename,
+        fileId: ID(),
+        docs: {
+          data: fs.readFileSync(
+            path.join(
+              __dirname,
+              ".." + "/public/uploads/" + req.files[i].filename
+            )
+          ),
+          contentType: req.files[i].mimetype,
+        },
+      };
+      uploadedFile.push(data);
     }
-  });
+
+    const file = new File()
+    file.projectId = req.params.projectId
+    file.title = req.body.title
+    file.description = req.body.description
+    file.attachment = uploadedFile
+  
+    File.addFile(file, function (err, projects) {
+      //Save to database
+      if (err) {
+        console.log(err);
+        res.status(500).send("Database error occured");
+      } else {
+        res.redirect("/dashboard");
+      }
+    });
+  } catch (err) {
+    req.flash('message', "Unexpected error".concat(err))
+    // res.redirect("/student/eachProject/" + pId);
+    res.render(err);
+    // res.redirect("/student/eachProject");
+    // res.render
+  }
+ 
+});
+
+var ID = function () {
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return "_" + Math.random().toString(36).substr(2, 9);
+};
+
+router.get("/files/download", function (req, response) {
+  console.log(req.query);
+  File.findOne(
+    {
+      "attachment.fileId": req.query.data,
+    },
+    function (err, file) {
+      console.log(file)
+      if (err) {
+        return next(err);
+      } else {
+        file.attachment.forEach((element) => {
+          if (element.fileId == req.query.data) {
+            let fileType = element.docs.contentType;
+            let fileName = element.name.substring(
+              element.name.indexOf("-") + 1
+            );
+            let fileData = element.docs.data;
+
+            var fileContents = Buffer.from(fileData, "base64");
+            var readStream = new stream.PassThrough();
+            readStream.end(fileContents);
+
+            response.set(
+              "Content-disposition",
+              "attachment; filename=" + fileName
+            );
+            response.set("Content-Type", fileType);
+
+            readStream.pipe(response);
+          }
+        });
+      }
+    }
+  );
 });
 
 router.post("/event/save/:pId", (req, res, next) => {

@@ -4,12 +4,19 @@ faculty.length; i++){%> <%for (var j = 0; j < 8; j++){%>
 <%allSubs.push(subsArr)%> <%subsArr = []%> <%}%>
 <script>
   function valChange() {
+    currLevel = document.getElementById("level").value;
     currSem = document.getElementById("sems").value;
     currFaculty = document
       .getElementById("faculty")
       .options[document.getElementById("faculty").selectedIndex].getAttribute(
         "code"
       );
+    console.log(currLevel);
+    if (currLevel === "masters") {
+      document.getElementById("faculty-select").style.display = "none";
+      document.getElementById("sems-select").style.display = "none";
+      document.getElementById("subject-select").style.display = "none";
+    }
     if (currSem !== "0" && currFaculty !== "null") {
       var selectSubs = document.getElementById("subjects");
       var length = selectSubs.options.length;

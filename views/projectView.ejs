@@ -9,6 +9,7 @@
     <% } else if (userstatus=="student" ) { %> <%- include('partials/header') %>
     <% } else { %> <%- include('partials/adminHeader') %> <% } %>
     <div class="student-dashboard container">
+      <!--admin lai team create garna ra defense call garna-->
       <%if (userstatus=="admin" ){%>
       <a
         type="button"
@@ -25,27 +26,62 @@
         Defense Call
       </a>
       <%}%>
+
+      <!-- ADMIN ra teacher lai masters bachelors button dekhauna-->
+      <%if (userstatus=="admin" || userstatus=="teacher" ){%>
+        <div class="buttons-div row">
+          <button
+            id="MastersBtn"
+            level-launch-view="masters"
+            class="col semBtn"
+          >Masters</button>
+
+          <button
+            id="BachelorsBtn"
+            level-launch-view="bachelors"
+            class="col semBtn"
+          >Bachelors</button>
+        </div>
+      <%}%>
+
+      <!--for generating sem buttons-->
       <div class="buttons-div row">
-        <% var count=0%> <% for( let i=8; i>= 1; i-- ) { var c =0;%> <%
-        projects.forEach(project=> { %> <% if (project.semester==i.toString()) {
-        %> <% count +=1%> <% c=c+1 %> <% } %> <% }) %> <% if (c>0) { %>
-        <button
-          id="showProjects<%= i %> Btn"
-          studentData-launch-view="sem<%= i %> "
-          class="col semBtn"
-        >
-          Sem <%= i %> <% if(count==1){%> <% var current=i%> <%}%>
-        </button>
-        <% } %> <% } %>
+        <% var count=0 %> 
+        <% for( let i=8; i>= 1; i-- ) 
+          { var c =0; %> 
+            <% projects.forEach(project=> 
+              {%> <% if (project.semester==i.toString()) 
+                {%> 
+                  <% count +=1 %> 
+                  <% c=c+1 %> 
+                <%} 
+              %> <%}
+            )%> 
+            
+            <% if (c>0) {%>
+              <button
+                id="showProjects<%= i %> Btn"
+                studentData-launch-view="sem<%= i %> "
+                class="col semBtn bachBtn"
+              >
+                Sem <%= i %> <% if(count==1){%> <% var current=i %> <%} %>
+            </button><% }%> 
+          <%}
+        %>
         <h1 style="display: none" id="currentSem"><%= current%></h1>
       </div>
 
-      <%- include('partials/Sems/eighth') %> <%-
-      include('partials/Sems/seventh') %> <%- include('partials/Sems/sixth') %>
-      <%- include('partials/Sems/fifth') %> <%- include('partials/Sems/fourth')
-      %> <%- include('partials/Sems/third') %> <%-
-      include('partials/Sems/second') %> <%- include('partials/Sems/first') %>
-      <div><%- include('./partials/messages') %></div>
+      <%- include('partials/Sems/thesis') %>
+      <%- include('partials/Sems/eighth') %> 
+      <%- include('partials/Sems/seventh') %> 
+      <%- include('partials/Sems/sixth') %>
+      <%- include('partials/Sems/fifth') %> 
+      <%- include('partials/Sems/fourth') %> 
+      <%- include('partials/Sems/third') %> 
+      <%- include('partials/Sems/second') %> 
+      <%- include('partials/Sems/first') %>
+
+      <div> <%- include('./partials/messages') %> </div>
     </div>
 
     <script>
@@ -58,5 +94,7 @@
 
     <script src="/javascripts/userChange.js"></script>
     <script src="/javascripts/linkActive.js"></script>
+
+
   </body>
 </html>

@@ -16,6 +16,9 @@ var FileSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    description:{
+        type : String
+    },
     attachment: [{
         name: String,
         fileId: String,
@@ -28,3 +31,14 @@ var FileSchema = new mongoose.Schema({
 
 
 var File = module.exports = mongoose.model('File', FileSchema, 'files')
+
+module.exports.addFile = function (newFile, callback) {
+    newFile.save(callback)
+}
+
+module.exports.getFilesbyProjectId = function (pId, callback) {
+    let query = {
+      projectId: pId
+    };
+    File.find(query, callback);
+  };

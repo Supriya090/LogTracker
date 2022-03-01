@@ -57,6 +57,16 @@
           </div>
           <div class="form-group options">
             <div>
+              <label for="level">Level</label>
+              <p>:</p>
+              <select name="level" id="level" onchange="valChange()">
+                <option value="bachelors">Bachelors</option>
+                <option value="masters">Masters</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group options" id="faculty-select">
+            <div>
               <label for="faculty">Faculty</label>
               <p>:</p>
               <select
@@ -74,7 +84,7 @@
               </select>
             </div>
           </div>
-          <div class="form-group options">
+          <div class="form-group options" id="sems-select">
             <div>
               <label for="sems">Semester</label>
               <p>:</p>
@@ -90,7 +100,7 @@
               </select>
             </div>
           </div>
-          <div class="form-group options">
+          <div class="form-group options" id="subject-select">
             <div>
               <label for="subject">Subject</label>
               <p>:</p>
@@ -120,7 +130,7 @@
             </div>
             <fieldset id="new_supervisor" class="chosen-list"></fieldset>
           </div>
-          <div class="form-group options">
+          <div class="form-group options" id="bachelors-std">
             <div>
               <label for="student">Students</label>
               <p>:</p>
@@ -132,7 +142,29 @@
               />
               <datalist id="std">
                 <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-                users ){ %> <% if (users.userstatus=="student" && users.email) {
+                users ){ %> <% if (users.userstatus=="student" && users.level=="bachelors" && users.email) {
+                %>
+                <option><%= users.username%>:<%= users.email%></option>
+                <% } %> <%})}%>
+              </datalist>
+              <!-- <input type="text" id="newStud_1" name="std1"/> -->
+              <input class="addStud changeBtn" type="button" value="+" />
+            </div>
+            <fieldset id="new_student" class="chosen-list"></fieldset>
+          </div>
+          <div style="display:none;" class="form-group options" id="masters-std">
+            <div>
+              <label for="student">Students</label>
+              <p>:</p>
+              <input
+                list="std"
+                name="std"
+                id="addStudent"
+                class="team-selection-input"
+              />
+              <datalist id="std">
+                <% if( Array.isArray(users) ) { %> <%users.forEach( function(
+                users ){ %> <% if (users.userstatus=="student" && users.level=="masters" && users.email) {
                 %>
                 <option><%= users.username%>:<%= users.email%></option>
                 <% } %> <%})}%>

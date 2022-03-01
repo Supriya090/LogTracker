@@ -83,6 +83,25 @@
   -moz-appearance: none;
 }
 
+.login-form .login-choice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-form .login-choice .form-group.options {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form .login-choice .form-group.options select {
+  background: url("/assets/dropdown.png") 92% / 8% no-repeat #04a4e4;
+  border-color: #1a2226;
+  color: #1a2226;
+  margin-left: 0px;
+  margin-top: 10px;
+}
+
 .login-form input:focus {
   color: #fff;
   background-color: transparent;

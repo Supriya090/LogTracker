@@ -502,6 +502,20 @@ img.uploaded-images:hover {
     margin-bottom: 10px;
   }
 }
+
+.responsive-flex-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.responsive-flex-box .user-buttons a.btn.btn-primary.logout-btn {
+  margin-right: 10px;
+}
+
+.responsive-flex-box .user-buttons {
+  margin-bottom: 30px;
+}
 /* Student Each Project Ends */
 
 /* Each Project Responsiveness Begins */
@@ -520,11 +534,21 @@ img.uploaded-images:hover {
   .btn.btn-primary.logout-btn.responsive-btn {
     display: block;
   }
+
+  .responsive-flex-box .user-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .responsive-flex-box .user-buttons a {
+    margin-bottom: 10px;
+  }
 }
 /* Each Project Responsiveness Ends */
 
 /* Upcoming Event Section Begins */
-.card.upcoming-event-card h4:nth-of-type(2) {
+.upcoming-event-card h4:nth-of-type(2) {
   margin-top: 20px;
 }
 
@@ -532,27 +556,27 @@ h4.card-subtitle {
   font-size: 18px;
 }
 
-.card .upcoming-events-div {
+.card.upcoming-events-div {
   min-height: 100px;
   margin-bottom: 20px;
 }
 
-.card .upcoming-events-div .upcoming-header {
+.card.upcoming-events-div .upcoming-header {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
 
-.card .upcoming-events-div .upcoming-header:nth-child(1) {
+.card.upcoming-events-div .upcoming-header:nth-child(1) {
   margin-top: 10px;
 }
 
-.card .upcoming-events-div p {
+.card.upcoming-events-div p {
   font-size: 12px;
   margin-bottom: 10px;
 }
 
-.card .upcoming-events-div span {
+.card.upcoming-events-div span {
   font-size: 14px;
 }
 
@@ -607,8 +631,9 @@ h4.card-subtitle {
 }
 
 .btn.btn-primary.logout-btn.events-btn {
-  width: 50%;
+  width: 40%;
   margin-top: 20px;
+  margin-left: 30%;
 }
 
 ::-webkit-calendar-picker-indicator {
@@ -705,7 +730,7 @@ span.badge.overdue {
 }
 
 @media screen and (max-width: 991px) {
-  .card.upcoming-event-card {
+  .upcoming-event-card {
     display: none;
   }
 }

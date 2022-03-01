@@ -16,6 +16,15 @@ faculty.length; i++){%> <%for (var j = 0; j < 8; j++){%>
       document.getElementById("faculty-select").style.display = "none";
       document.getElementById("sems-select").style.display = "none";
       document.getElementById("subject-select").style.display = "none";
+      document.getElementById("bachelors-std").style.display = "none";
+      document.getElementById("masters-std").style.display = "";
+    }
+    else{
+      document.getElementById("faculty-select").style.display = "";
+      document.getElementById("sems-select").style.display = "";
+      document.getElementById("subject-select").style.display = "";
+      document.getElementById("bachelors-std").style.display = "";
+      document.getElementById("masters-std").style.display = "none";
     }
     if (currSem !== "0" && currFaculty !== "null") {
       var selectSubs = document.getElementById("subjects");

@@ -44,8 +44,7 @@ module.exports = function (passport) {
               // res.status(500).send("Database error occured");
             } else {
               // res.render('/admin')
-              error = 'Email Already Registered!'
-              req.flash('message', error)
+              req.flash('message', 'You are successfully added!')
               res.redirect("/");
             }
           });

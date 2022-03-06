@@ -10,8 +10,12 @@ faculty.length; i++){%> <%for (var j = 0; j < 8; j++){%>
       .options[document.getElementById("faculty").selectedIndex].getAttribute(
         "code"
       );
-    if (currSem !== "0" && currFaculty !== "null") {
-      var selectSubs = document.getElementById("subjects");
+    var selectSubs = document.getElementById("subjects");
+    console.log(selectSubs);
+    currLevel = document.getElementById("level").value;
+    if (currLevel === "masters") {
+      selectSubs.value = "Final Thesis";
+    } else if (currSem !== "0" && currFaculty !== "null") {
       var length = selectSubs.options.length;
       for (i = length - 1; i >= 0; i--) {
         selectSubs.options[i] = null;

@@ -1,10 +1,9 @@
-
 <div class="view hide hidden" id="thesis">
     <% var ongoing=0;var compProjects = new Array();projects.forEach(projects => { %>
-        <% if (!projects.isCompleted && projects.semester=="thesis") { %>
+        <% if (!projects.isCompleted && projects.semester=="unselected") { %>
          <% ongoing++; %>
          <% } else { %>
-            <% if (projects.semester == "thesis") { %>
+            <% if (projects.semester == "unselected") { %>
                 <% compProjects.push(projects) %> 
             <% } %> 
         <% } %>
@@ -13,23 +12,17 @@
      <h5>Ongoing Projects</h5>
   <%  if( Array.isArray(projects) ) { %>
   <%projects.forEach( function(projects ){ %>
-  <% if(projects.semester=="thesis" && !projects.isCompleted ) { %>
+  <% if(projects.semester=="unselected" && !projects.isCompleted ) { %>
+    <%console.log(projects.semester)%>
   <div class="card ">
       <div class="project-card">
-          <h4 class="card-title"><%= projects.projectname%></h4>
-          <p class="card-text">SUPERVISED BY: <%= projects.supervisor[0].split(':')[0]%><br />
-              STUDENTS:
-              <% projects.team.forEach(function(team) { %>
-              <% if(team!=null ) { %>
-                  <% team = team.split(':')[0]%>
-              <%= team.split(' ').pop().charAt(0)%>.<%=
-                              team.split(' ')[0]%>,<% }}) %><br />
-
-                              CREATED ON: <%=projects.createdDate.toLocaleString()%>
-            </p>
+          <h4 class="card-title" style="margin-right: 50px;"><%= projects.projectname%></h4>
+          <p class="card-text" style="margin-left: 50px;">SUPERVISED BY: <%= projects.supervisor[0].split(':')[0]%><br />
+            STUDENT: <%= projects.teamname%><br />
+            CREATED ON: <%=projects.createdDate.toLocaleString()%>
+          </p>
             <div class="project-badges">
-                <span class="badge badge-secondary"><%=projects.subject%></span>
-                <span class="badge badge-secondary"><%=projects.faculty%></span>
+                <span class="badge badge-secondary">Thesis Project</span>
                 <%
                     if (projects.finalDefence.approved === true) 
                     {%> <span class="badge badge-success">Final Defence Approved</span> <%}
@@ -69,23 +62,16 @@
        
       <% } %>
     <%compProjects.forEach( function(projects ){ %>
-    <% if(projects.semester=="8" ) { %>
+    <% if(projects.semester=="unselected" ) { %>
     <div class="card ">
         <div class="project-card">
             <h4 class="card-title"><%= projects.projectname%></h4>
             <p class="card-text">SUPERVISED BY: <%= projects.supervisor[0].split(':')[0]%><br />
-                STUDENTS:
-                <% projects.team.forEach(function(team) { %>
-                <% if(team!=null ) { %>
-                    <% team = team.split(':')[0]%>
-                <%= team.split(' ').pop().charAt(0)%>.<%=
-                                team.split(' ')[0]%>,<% }}) %><br />
-  
-                                CREATED ON: <%=projects.createdDate.toLocaleString()%>
+                STUDENT: <%= projects.teamname%><br />
+                CREATED ON: <%=projects.createdDate.toLocaleString()%>
               </p>
               <div class="project-badges">
-                  <span class="badge badge-secondary"><%=projects.subject%></span>
-                  <span class="badge badge-secondary"><%=projects.faculty%></span>
+                <span class="badge badge-secondary">Thesis Project</span>
                   <%if(projects.isCompleted === true){%>
                       <span class="badge badge-success">Completed</span>
                   <%}%>

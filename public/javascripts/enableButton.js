@@ -3,7 +3,7 @@ function enableButton() {
     var buttonTitle = buttonId.getAttribute("title");
     if (
         document.getElementById("new_supervisor").childElementCount > 0 &&
-        document.getElementById("new_student").childElementCount > 0
+        (document.getElementById("new_student").childElementCount > 0 || document.getElementById("new_student_master").childElementCount > 0)
     ) {
         buttonId.disabled = false;
         buttonId.removeAttribute("title");

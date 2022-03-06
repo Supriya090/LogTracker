@@ -11,6 +11,8 @@ faculty.length; i++){%> <%for (var j = 0; j < 8; j++){%>
       .options[document.getElementById("faculty").selectedIndex].getAttribute(
         "code"
       );
+    var selectSubs = document.getElementById("subjects");
+    console.log(selectSubs.value);
     console.log(currLevel);
     if (currLevel === "masters") {
       document.getElementById("faculty-select").style.display = "none";
@@ -18,16 +20,19 @@ faculty.length; i++){%> <%for (var j = 0; j < 8; j++){%>
       document.getElementById("subject-select").style.display = "none";
       document.getElementById("bachelors-std").style.display = "none";
       document.getElementById("masters-std").style.display = "";
-    }
-    else{
+    } else {
       document.getElementById("faculty-select").style.display = "";
       document.getElementById("sems-select").style.display = "";
       document.getElementById("subject-select").style.display = "";
       document.getElementById("bachelors-std").style.display = "";
       document.getElementById("masters-std").style.display = "none";
     }
-    if (currSem !== "0" && currFaculty !== "null") {
-      var selectSubs = document.getElementById("subjects");
+    if (
+      currSem !== "0" &&
+      currFaculty !== "null" &&
+      currLevel === "bachelors"
+    ) {
+      //var selectSubs = document.getElementById("subjects");
       var length = selectSubs.options.length;
       for (i = length - 1; i >= 0; i--) {
         selectSubs.options[i] = null;

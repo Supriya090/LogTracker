@@ -23,9 +23,11 @@ $(document).ready(function (e) {
     if (viewName === "masters") {
       $("#bachBtns").hide();
       $("#bachContent").hide();
+      $("#thesis").show();
     } else {
       $("#bachBtns").show();
       $("#bachContent").show();
+      $("#thesis").hide();
     }
   })
 });

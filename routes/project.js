@@ -20,6 +20,7 @@ router.post("/createteams", function (req, res, next) {
   var username = req.user.username;
   var faculty = req.body.faculty;
   var subject = req.body.subject;
+  var level = req.body.level;
   (supervisor = [req.body.supervisor1, req.body.supervisor2]),
     (team = [
       req.body.std1,
@@ -46,6 +47,7 @@ router.post("/createteams", function (req, res, next) {
   project.semester = semester;
   project.subject = subject;
   project.teamname = teamname;
+  project.level = level;
   Project.createProject(project, function (err, projects) {
     //Save to database
     if (err) {

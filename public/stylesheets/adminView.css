@@ -143,6 +143,10 @@
   margin-top: 0px;
 }
 
+.level {
+  height: 20px;
+}
+
 div.fieldwrapper {
   margin-bottom: 10px;
 }

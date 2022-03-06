@@ -16,4 +16,14 @@ $(document).ready(function (e) {
     console.log(viewName);
     showView(viewName);
   });
+
+  $("[level-launch-view]").click(function (e) {
+    e.preventDefault();
+    var viewName = $(this).attr("level-launch-view");
+    if (viewName === "masters") {
+      $(".bachBtn").hide();
+    } else {
+      $(".bachBtn").show();
+    }
+  })
 });

@@ -142,41 +142,43 @@
               />
               <datalist id="std">
                 <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-                users ){ %> <% if (users.userstatus=="student" && users.level=="bachelors" && users.email) {
-                %>
+                users ){ %> <% if (users.userstatus=="student" &&
+                users.level=="bachelors" && users.email) { %>
                 <option><%= users.username%>:<%= users.email%></option>
                 <% } %> <%})}%>
               </datalist>
               <!-- <input type="text" id="newStud_1" name="std1"/> -->
               <input class="addStud changeBtn" type="button" value="+" />
-              <br>
-              <p><em>Only select Bachelors students.</em></p>
+              <br />
             </div>
             <fieldset id="new_student" class="chosen-list"></fieldset>
           </div>
-          <div style="display:none;" class="form-group options" id="masters-std">
+          <div
+            style="display: none"
+            class="form-group options"
+            id="masters-std"
+          >
             <div>
               <label for="student">Students</label>
               <p>:</p>
               <input
-                list="std"
-                name="std"
-                id="addStudent"
+                list="std1"
+                name="std1"
+                id="addStudentMaster"
                 class="team-selection-input"
               />
-              <datalist id="std">
+              <datalist id="std1">
                 <% if( Array.isArray(users) ) { %> <%users.forEach( function(
-                users ){ %> <% if (users.userstatus=="student" && users.level=="masters" && users.email) {
-                %>
+                users ){ %> <% if (users.userstatus=="student" &&
+                users.level=="masters" && users.email) { %>
                 <option><%= users.username%>:<%= users.email%></option>
                 <% } %> <%})}%>
               </datalist>
               <!-- <input type="text" id="newStud_1" name="std1"/> -->
-              <input class="addStud changeBtn" type="button" value="+" />
-              <br>
-              <p><em>Only select Masters students.</em></p>
+              <input class="addStudMaster changeBtn" type="button" value="+" />
+              <br />
             </div>
-            <fieldset id="new_student" class="chosen-list"></fieldset>
+            <fieldset id="new_student_master" class="chosen-list"></fieldset>
           </div>
           <button
             type="submit"

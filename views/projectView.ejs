@@ -29,30 +29,29 @@
 
       <!-- ADMIN ra teacher lai masters bachelors button dekhauna-->
       <%if (userstatus=="admin" || userstatus=="teacher" ){%>
-        <div class="buttons-div row">
-          <button
-            id="MastersBtn"
-            level-launch-view="masters"
-            class="col semBtn"
-          >Masters</button>
-
-          <button
-            id="BachelorsBtn"
-            level-launch-view="bachelors"
-            class="col semBtn"
-          >Bachelors</button>
-        </div>
+      <div class="buttons-div row">
+        <button
+          id="BachelorsBtn"
+          level-launch-view="bachelors"
+          class="col semBtn"
+        >
+          Bachelors
+        </button>
+        <button id="MastersBtn" level-launch-view="masters" class="col semBtn">
+          Masters
+        </button>
+      </div>
       <%}%>
 
       <!--for generating sem buttons-->
-      <div class="buttons-div row">
+      <div class="buttons-div row" id="bachBtns">
         <%var elements = []%> <% for( let i=8; i>= 1; i-- ) { var c =0;%> <%
         projects.forEach(project=> { %> <% if (project.semester==i.toString()) {
         %><% c=c+1 %> <% } %> <% }) %> <% if (c>0) { %>
         <button
           id="showProjects<%= i %> Btn"
           studentData-launch-view="sem<%= i %> "
-          class="col semBtn"
+          class="col semBtn mult"
         >
           <% elements.push(i)%> Sem <%= i %> <% console.log(elements)%> <%var
           current = Math.max(...elements)%>
@@ -62,30 +61,28 @@
       </div>
 
       <%- include('partials/Sems/thesis') %>
-      <%- include('partials/Sems/eighth') %> 
-      <%- include('partials/Sems/seventh') %> 
-      <%- include('partials/Sems/sixth') %>
-      <%- include('partials/Sems/fifth') %> 
-      <%- include('partials/Sems/fourth') %> 
-      <%- include('partials/Sems/third') %> 
-      <%- include('partials/Sems/second') %> 
-      <%- include('partials/Sems/first') %>
+      <div id="bachContent">
+        <%- include('partials/Sems/eighth') %> <%-
+        include('partials/Sems/seventh') %> <%- include('partials/Sems/sixth')
+        %> <%- include('partials/Sems/fifth') %> <%-
+        include('partials/Sems/fourth') %> <%- include('partials/Sems/third') %>
+        <%- include('partials/Sems/second') %> <%-
+        include('partials/Sems/first') %>
+      </div>
 
-      <div> <%- include('./partials/messages') %> </div>
+      <div><%- include('./partials/messages') %></div>
     </div>
 
     <script>
       $(document).ready(function (e) {
         var currentSem = $("#currentSem").html();
         console.log(currentSem);
-        $(".semBtn:first").addClass("activeBtn");
+        $(".col.semBtn.mult:first").addClass("activeBtn");
         $("#sem" + currentSem).show();
       });
     </script>
 
     <script src="/javascripts/userChange.js"></script>
     <script src="/javascripts/linkActive.js"></script>
-
-
   </body>
 </html>

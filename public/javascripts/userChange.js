@@ -21,9 +21,11 @@ $(document).ready(function (e) {
     e.preventDefault();
     var viewName = $(this).attr("level-launch-view");
     if (viewName === "masters") {
-      $(".bachBtn").hide();
+      $("#bachBtns").hide();
+      $("#bachContent").hide();
     } else {
-      $(".bachBtn").show();
+      $("#bachBtns").show();
+      $("#bachContent").show();
     }
   })
 });

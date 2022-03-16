@@ -42,6 +42,26 @@
         </button>
       </div>
       <%}%>
+      <!-- for master student -->
+      <%if (userstatus=="student" ){%>
+        <div class="buttons-div row">
+        <%if (userlevel=="bachelors" ){%>
+        <button
+          id="BachelorsBtn"
+          level-launch-view="bachelors"
+          class="col semBtn"
+        >
+          Bachelors
+        </button>
+        <%}%>
+        
+      <%if (userlevel=="masters" ){%>
+        <button id="MastersBtn" level-launch-view="masters" class="col semBtn">
+          Masters
+        </button>
+        <%}%>
+      </div>
+      <%}%>
 
       <!--for generating sem buttons-->
       <div class="buttons-div row" id="bachBtns">

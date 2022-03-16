@@ -12,7 +12,6 @@ var { loggedin, ensureAuth } = require("../middleware/ensureLogin");
 /* GET Dashboard. */
 router.get("/dashboard", loggedin, function (req, res, next) {
   user = req.user
-  // console.log(user);
   // userdetail = req.session.passport.user
   // console.log(userdetail);
   if (user.userstatus == "student") {
@@ -28,6 +27,7 @@ router.get("/dashboard", loggedin, function (req, res, next) {
             projects: projects,
             // sem: user.level.split(':')[1],
             userstatus: user.userstatus,
+            userlevel: user.level,
             firstname: user.username.split(" ")[0],
           });
         }

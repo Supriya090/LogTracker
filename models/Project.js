@@ -124,6 +124,7 @@ module.exports.getProjectsbyUser = function (name, callback) {
   let query = {
     team: { $all: [name] },
   };
+  console.log("ok",name,query);
   Project.find(query, callback);
 };
 

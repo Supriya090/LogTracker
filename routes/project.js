@@ -35,7 +35,12 @@ router.post("/createteams", function (req, res, next) {
       msg: "Please fill in all fields",
     });
   }
-
+  console.log("1",req.body.std1);
+  console.log("2",req.body.std2);
+  console.log("3",req.body.std3);
+  console.log("4",req.body.std4);
+  console.log("5",req.body.std5);
+console.log("teamname",team)
   const project = new Project();
   project.projectname = projectname;
   project.description = description;

@@ -21,14 +21,22 @@ router.post("/createteams", function (req, res, next) {
   var faculty = req.body.faculty;
   var subject = req.body.subject;
   var level = req.body.level;
-  (supervisor = [req.body.supervisor1, req.body.supervisor2]),
-    (team = [
-      req.body.std1,
-      req.body.std2,
-      req.body.std3,
-      req.body.std4,
-      req.body.std5,
-    ]);
+  (supervisor = [req.body.supervisor1, req.body.supervisor2])
+
+    if(level == "bachelors"){
+      (team = [
+        req.body.std1,
+        req.body.std2,
+        req.body.std3,
+        req.body.std4,
+        req.body.std5,
+      ]);
+    }
+    else if(level == "masters"){
+      (team = [
+        req.body.stdm
+      ]);
+    }
   // team=["Ranju G.C.","Rahul Shah","Supriya Khadka","Prabin Paudel"]
   if (!projectname) {
     errors.push({

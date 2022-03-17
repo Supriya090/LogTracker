@@ -44,7 +44,7 @@
       <%}%>
       <!-- for master student -->
       <%if (userstatus=="student" ){%>
-        <div class="buttons-div row">
+      <div class="buttons-div row">
         <%if (userlevel=="bachelors" ){%>
         <button
           id="BachelorsBtn"
@@ -53,9 +53,7 @@
         >
           Bachelors
         </button>
-        <%}%>
-        
-      <%if (userlevel=="masters" ){%>
+        <%}%> <%if (userlevel=="masters" ){%>
         <button id="MastersBtn" level-launch-view="masters" class="col semBtn">
           Masters
         </button>
@@ -73,8 +71,8 @@
           studentData-launch-view="sem<%= i %> "
           class="col semBtn mult"
         >
-          <% elements.push(i)%> Sem <%= i %> <% console.log(elements)%> <%var
-          current = Math.max(...elements)%>
+          <% elements.push(i)%> Sem <%= i %> <% console.log(elements.length)%>
+          <%var current = Math.max(...elements)%>
         </button>
         <% } %> <% } %>
         <h1 id="currentSem" style="display: none"><%= current%></h1>
@@ -97,8 +95,13 @@
       $(document).ready(function (e) {
         var currentSem = $("#currentSem").html();
         console.log(currentSem);
-        $(".col.semBtn.mult:first").addClass("activeBtn");
-        $("#sem" + currentSem).show();
+        if (currentSem !== "") {
+          $(".col.semBtn.mult:first").addClass("activeBtn");
+          $("#sem" + currentSem).show();
+        } else {
+          $("#MastersBtn").addClass("activeBtn");
+          $("#thesis").show();
+        }
       });
     </script>
 

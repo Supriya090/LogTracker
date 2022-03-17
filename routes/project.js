@@ -35,12 +35,12 @@ router.post("/createteams", function (req, res, next) {
       msg: "Please fill in all fields",
     });
   }
-  console.log("1",req.body.std1);
-  console.log("2",req.body.std2);
-  console.log("3",req.body.std3);
-  console.log("4",req.body.std4);
-  console.log("5",req.body.std5);
-console.log("teamname",team)
+  console.log("1", req.body.std1);
+  console.log("2", req.body.std2);
+  console.log("3", req.body.std3);
+  console.log("4", req.body.std4);
+  console.log("5", req.body.std5);
+  console.log("teamname", team)
   const project = new Project();
   project.projectname = projectname;
   project.description = description;
@@ -110,7 +110,7 @@ router.post("/editteams/:pId", function (req, res, next) {
   });
 });
 
-router.post("/uploadFiles/:projectId", upload.array("uploadedFiles", 10), (req, res, next)=> {
+router.post("/uploadFiles/:projectId", upload.array("uploadedFiles", 10), (req, res, next) => {
   //console.log(teamname)
   var pId = req.params.projectId
   try {
@@ -140,7 +140,7 @@ router.post("/uploadFiles/:projectId", upload.array("uploadedFiles", 10), (req, 
     file.title = req.body.title
     file.description = req.body.description
     file.attachment = uploadedFile
-  
+
     File.addFile(file, function (err, projects) {
       //Save to database
       if (err) {
@@ -157,7 +157,7 @@ router.post("/uploadFiles/:projectId", upload.array("uploadedFiles", 10), (req, 
     // res.redirect("/student/eachProject");
     // res.render
   }
- 
+
 });
 
 var ID = function () {
@@ -393,13 +393,14 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
               res.status(500).send("Database error occured");
             }
           })
-          var query = {event:"Mid-Term Defense",projectId:project._id},
-          update = { 
-            event: "Mid-Term Defense",
-            dueDate: defense.date,
-            createdBy: "Co-ordinator",
-            description: req.body.description},
-          options = { upsert: true, new: true, setDefaultsOnInsert: true };
+          var query = { event: "Mid-Term Defense", projectId: project._id },
+            update = {
+              event: "Mid-Term Defense",
+              dueDate: defense.date,
+              createdBy: "Co-ordinator",
+              description: req.body.description
+            },
+            options = { upsert: true, new: true, setDefaultsOnInsert: true };
           Event.findOneAndUpdate(query, update, options, function (error, result) {
             console.log(result)
             if (error) console.log(error);
@@ -412,13 +413,14 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
               res.status(500).send("Database error occured");
             }
           })
-          
-          var query = {event:"Final Defense",projectId:project._id},
-            update = { 
+
+          var query = { event: "Final Defense", projectId: project._id },
+            update = {
               event: "Final Defense",
               dueDate: defense.date,
               createdBy: "Co-ordinator",
-              description: req.body.description},
+              description: req.body.description
+            },
             options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
           // Find the document
@@ -438,9 +440,8 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
 router.use("/event/completed/:pId/:id/:title", loggedin, (req, res, next) => {
   Event.Completed(req.params.id, function (err, events) {
     var pId = req.params.pId;
-    if(req.params.title == "Final Defense")
-    {
-      Project.completeProject(pId,function(err){})
+    if (req.params.title == "Final Defense") {
+      Project.completeProject(pId, function (err) { })
     }
     if (err) {
       req.flash("message", "Cannot Complete task : ".concat(err));

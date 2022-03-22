@@ -1,7 +1,20 @@
-<% var allSubs = []%> <% var subsArr = []%> <%for (var i = 0; i <
+<% var allSubs = []%> 
+<% var subsArr = []%>
+<% var masterusers = [] %>
+<% var bachelorusers = [] %>   
+<%for (var i = 0; i <
 faculty.length; i++){%> <%for (var j = 0; j < 8; j++){%>
 <%subsArr.push(faculty[i].courses[j].subjects);%> <%}%>
 <%allSubs.push(subsArr)%> <%subsArr = []%> <%}%>
+<% if( Array.isArray(users) ) { %> 
+  <%users.forEach( function(users ){ %> 
+    <% if (users.userstatus=="student" && users.level=="bachelors" && users.email) { %>
+          <% bachelorusers.push(users.username+":"+users.email) %>
+    <% } %> 
+    <% if (users.userstatus=="student" && users.level=="masters" && users.email) { %>
+          <% masterusers.push(users.username+":"+users.email) %>
+    <% } %>
+  <%})}%>
 <script>
   function valChange() {
     currLevel = document.getElementById("level").value;
@@ -14,18 +27,47 @@ faculty.length; i++){%> <%for (var j = 0; j < 8; j++){%>
     var selectSubs = document.getElementById("subjects");
     console.log(selectSubs.value);
     console.log(currLevel);
+
+    var students = document.getElementById("std");
+
     if (currLevel === "masters") {
       document.getElementById("faculty-select").style.display = "none";
       document.getElementById("sems-select").style.display = "none";
       document.getElementById("subject-select").style.display = "none";
-      document.getElementById("bachelors-std").style.display = "none";
-      document.getElementById("masters-std").style.display = "";
+      // document.getElementById("bachelors-std").style.display = "none";
+      document.getElementById("masters-std").style.display = "none";
+
+      students.innerHTML=""
+
+      var all = "<%=masterusers%>";
+      var all = all.split(",");
+      for (var i = 0; i < all.length; i++) {
+        var option = document.createElement("option");
+        option.value = all[i];
+        if (option.value !== "") {
+          students.appendChild(option);
+        }
+      }
+    
+      
     } else {
       document.getElementById("faculty-select").style.display = "";
       document.getElementById("sems-select").style.display = "";
       document.getElementById("subject-select").style.display = "";
       document.getElementById("bachelors-std").style.display = "";
       document.getElementById("masters-std").style.display = "none";
+      students.innerHTML=""
+
+      var all = "<%=bachelorusers%>";
+      var all = all.split(",");
+      console.log(all)
+      for (var i = 0; i < all.length; i++) {
+        var option = document.createElement("option");
+        option.value = all[i];
+        if (option.value !== "") {
+          students.appendChild(option);
+        }
+      }
     }
     if (
       currSem !== "0" &&

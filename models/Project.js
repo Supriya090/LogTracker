@@ -53,6 +53,10 @@ var ProjectSchema = new mongoose.Schema({
     default: false,
     required: true,
   },
+  level: {
+    type: String,
+    required: true
+  },
   midDefence: {
     requested: {
       type: Boolean,

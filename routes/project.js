@@ -37,6 +37,7 @@ router.post("/createteams", function (req, res, next) {
       req.body.std4,
       req.body.std5,
     ]);
+  
   // team=["Ranju G.C.","Rahul Shah","Supriya Khadka","Prabin Paudel"]
   if (!projectname) {
     errors.push({

@@ -21,13 +21,11 @@ router.post("/createteams", function (req, res, next) {
   var faculty = req.body.faculty;
   var subject = req.body.subject;
   var level = req.body.level;
-  // console.log(level,semester,faculty,subject);
   if(level == "masters"){
     semester = "unselected";
     faculty = "unselected";
     subject = "unselected";
   }
-  console.log(level,semester,faculty,subject);
 
   (supervisor = [req.body.supervisor1, req.body.supervisor2]),
     (team = [
@@ -62,15 +60,15 @@ router.post("/createteams", function (req, res, next) {
   project.subject = subject;
   project.teamname = teamname;
   project.level = level;
-  // Project.createProject(project, function (err, projects) {
-  //   //Save to database
-  //   if (err) {
-  //     console.log(err);
-  //     res.status(500).send("Database error occured");
-  //   } else {
-  //     res.redirect("/dashboard");
-  //   }
-  // });
+  Project.createProject(project, function (err, projects) {
+    //Save to database
+    if (err) {
+      console.log(err);
+      res.status(500).send("Database error occured");
+    } else {
+      res.redirect("/dashboard");
+    }
+  });
 });
 
 router.post("/editteams/:pId", function (req, res, next) {
@@ -401,58 +399,58 @@ router.post("/defenseCall", loggedin, (req, res, next) => {
   Project.find(query, function (err, projects) {
     //Save to database
     console.log(projects)
-    // if (err) {
-    //   console.log(err);
-    //   res.status(500).send("Database error occured");
-    // } else {
-    //   projects.forEach(project => {
-    //     if (defense.term == "mid") {
-    //       Project.callMidDefence(project._id, defense, function (err, projects) {
-    //         //Save to database
-    //         if (err) {
-    //           console.log(err);
-    //           res.status(500).send("Database error occured");
-    //         }
-    //       })
-    //       var query = { event: "Mid-Term Defense", projectId: project._id },
-    //         update = {
-    //           event: "Mid-Term Defense",
-    //           dueDate: defense.date,
-    //           createdBy: "Co-ordinator",
-    //           description: req.body.description
-    //         },
-    //         options = { upsert: true, new: true, setDefaultsOnInsert: true };
-    //       Event.findOneAndUpdate(query, update, options, function (error, result) {
-    //         console.log(result)
-    //         if (error) console.log(error);
-    //       });
-    //     } else if (defense.term == "final") {
-    //       Project.callFinalDefence(project._id, defense, function (err, projects) {
-    //         //Save to database
-    //         if (err) {
-    //           console.log(err);
-    //           res.status(500).send("Database error occured");
-    //         }
-    //       })
+    if (err) {
+      console.log(err);
+      res.status(500).send("Database error occured");
+    } else {
+      projects.forEach(project => {
+        if (defense.term == "mid") {
+          Project.callMidDefence(project._id, defense, function (err, projects) {
+            //Save to database
+            if (err) {
+              console.log(err);
+              res.status(500).send("Database error occured");
+            }
+          })
+          var query = { event: "Mid-Term Defense", projectId: project._id },
+            update = {
+              event: "Mid-Term Defense",
+              dueDate: defense.date,
+              createdBy: "Co-ordinator",
+              description: req.body.description
+            },
+            options = { upsert: true, new: true, setDefaultsOnInsert: true };
+          Event.findOneAndUpdate(query, update, options, function (error, result) {
+            console.log(result)
+            if (error) console.log(error);
+          });
+        } else if (defense.term == "final") {
+          Project.callFinalDefence(project._id, defense, function (err, projects) {
+            //Save to database
+            if (err) {
+              console.log(err);
+              res.status(500).send("Database error occured");
+            }
+          })
 
-    //       var query = { event: "Final Defense", projectId: project._id },
-    //         update = {
-    //           event: "Final Defense",
-    //           dueDate: defense.date,
-    //           createdBy: "Co-ordinator",
-    //           description: req.body.description
-    //         },
-    //         options = { upsert: true, new: true, setDefaultsOnInsert: true };
+          var query = { event: "Final Defense", projectId: project._id },
+            update = {
+              event: "Final Defense",
+              dueDate: defense.date,
+              createdBy: "Co-ordinator",
+              description: req.body.description
+            },
+            options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-    //       // Find the document
-    //       Event.findOneAndUpdate(query, update, options, function (error, result) {
-    //         console.log(result)
-    //         if (error) console.log(error);
-    //       });
-    //     }
-    //   });
-    //   res.redirect("/dashboard")
-    // }
+          // Find the document
+          Event.findOneAndUpdate(query, update, options, function (error, result) {
+            console.log(result)
+            if (error) console.log(error);
+          });
+        }
+      });
+      res.redirect("/dashboard")
+    }
 
   });
 });
